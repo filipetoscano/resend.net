@@ -1,0 +1,10 @@
+/.nuget/
+/.vs/
+/build/
+/dist/
+
+bin/
+obj/
+*.csproj.user
+
+!/bin/
