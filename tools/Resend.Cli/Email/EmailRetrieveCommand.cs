@@ -1,4 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Resend.Net;
+using System.Text.Json;
 
 namespace Resend.Cli.Email;
 
@@ -6,10 +8,36 @@ namespace Resend.Cli.Email;
 [Command( "get" )]
 public class EmailRetrieveCommand
 {
+    private readonly IResend _resend;
+
+
     /// <summary />
-    public int OnExecute()
+    [Argument( 0, Description = "" )]
+    public Guid EmailId { get; set; }
+
+    /// <summary />
+    public EmailRetrieveCommand( IResend resend )
     {
-        Console.WriteLine( "EMAIL GET" );
+        _resend = resend;
+    }
+
+
+    /// <summary />
+    public async Task<int> OnExecuteAsync()
+    {
+        var email = await _resend.EmailRetrieveAsync( this.EmailId );
+
+
+        /*
+         * 
+         */
+        var jso = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+        };
+
+        var json = JsonSerializer.Serialize( email, jso );
+        Console.WriteLine( json );
 
         return 0;
     }

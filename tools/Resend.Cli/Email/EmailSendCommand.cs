@@ -1,4 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Resend.Net;
+using System.Text.Json;
 
 namespace Resend.Cli.Email;
 
@@ -6,10 +8,42 @@ namespace Resend.Cli.Email;
 [Command( "send" )]
 public class EmailSendCommand
 {
+    private readonly IResend _resend;
+
+
     /// <summary />
-    public int OnExecute()
+    [Option( "-i|--input", CommandOptionType.SingleValue, Description = "Input JSON file" )]
+    [FileExists]
+    public string? InputFile { get; set; }
+
+
+    /// <summary />
+    public EmailSendCommand( IResend resend )
     {
-        Console.WriteLine( "SEND EMAIL" );
+        _resend = resend;
+    }
+
+
+    /// <summary />
+    public async Task<int> OnExecuteAsync()
+    {
+        /*
+         * 
+         */
+        var json = File.ReadAllText( this.InputFile ?? "email.json" );
+        EmailMessage message = JsonSerializer.Deserialize<EmailMessage>( json )!;
+
+        Console.WriteLine( "From = {0}", message.From.Email );
+        Console.WriteLine( "  To = {0}", message.To.First() );
+        Console.WriteLine( "Subj = {0}", message.Subject );
+        Console.WriteLine( "Body = {0}", message.HtmlBody );
+
+
+        /*
+         * 
+         */
+        var emailId = await _resend.EmailSendAsync( message );
+        Console.WriteLine( emailId );
 
         return 0;
     }

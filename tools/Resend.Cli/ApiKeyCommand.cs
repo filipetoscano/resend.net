@@ -3,7 +3,7 @@
 namespace Resend.Cli;
 
 /// <summary />
-[Command( "apikey" )]
+[Command( "api-key" )]
 [Subcommand( typeof( ApiKey.ApiKeyCreateCommand ))]
 [Subcommand( typeof( ApiKey.ApiKeyListCommand ))]
 [Subcommand( typeof( ApiKey.ApiKeyRemoveCommand ) )]

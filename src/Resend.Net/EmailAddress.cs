@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Resend.Net;
@@ -12,6 +13,10 @@ public class EmailAddress
 
     /// <summary />
     public string? FriendlyName { get; set; }
+
+
+    /// <summary />
+    public static implicit operator EmailAddress( string email ) => new EmailAddress() { Email = email };
 }
 
 

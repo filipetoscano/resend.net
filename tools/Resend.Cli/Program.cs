@@ -1,4 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
+using Resend.Net;
 
 namespace Resend.Cli;
 
@@ -12,12 +14,59 @@ public class Program
     /// <summary />
     public static int Main( string[] args )
     {
+        /*
+         * 
+         */
+        var app = new CommandLineApplication<Program>();
+
+        var services = new ServiceCollection()
+            .AddOptions()
+            .Configure<ResendClientOptions>( o =>
+            {
+                o.ApiKey = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
+            } )
+            //.AddHttpClient<ResendClient>()
+            .AddHttpClient()
+            .AddTransient<IResend, ResendClient>()
+            .BuildServiceProvider();
+
+
+        /*
+         * 
+         */
         try
         {
-            return CommandLineApplication.Execute<Program>( args );
+            app.Conventions
+                .UseDefaultConventions()
+                .UseConstructorInjection( services );
         }
-        catch
+        catch ( Exception ex )
         {
+            Console.WriteLine( "ftl: unhandled exception during setup" );
+            Console.WriteLine( ex.ToString() );
+
+            return 2;
+        }
+
+
+        /*
+         * 
+         */
+        try
+        {
+            return app.Execute( args );
+        }
+        catch ( UnrecognizedCommandParsingException ex )
+        {
+            Console.WriteLine( "err: " + ex.Message );
+
+            return 2;
+        }
+        catch ( Exception ex )
+        {
+            Console.WriteLine( "ftl: unhandled exception during execution" );
+            Console.WriteLine( ex.ToString() );
+
             return 2;
         }
     }

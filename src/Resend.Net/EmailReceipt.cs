@@ -24,16 +24,22 @@ public class EmailReceipt
     /// <summary>
     /// Cc/carbon-copy recipient email address.
     /// </summary>
+    [JsonPropertyName( "cc" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? Cc { get; set; }
 
     /// <summary>
     /// Bcc/blind carbon copy recipient email address.
     /// </summary>
+    [JsonPropertyName( "bcc" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? Bcc { get; set; }
 
     /// <summary>
     /// Reply-to email address.
     /// </summary>
+    [JsonPropertyName( "reply_to" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? ReplyTo { get; set; }
 
     /// <summary>
@@ -47,12 +53,14 @@ public class EmailReceipt
     /// The plain text version of the message.
     /// </summary>
     [JsonPropertyName( "text" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? TextBody { get; set; }
 
     /// <summary>
     /// The HTML version of the message.
     /// </summary>
     [JsonPropertyName( "html" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? HtmlBody { get; set; }
 
 
