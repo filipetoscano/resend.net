@@ -5,11 +5,13 @@ using System.Net.Http.Json;
 
 namespace Resend.Net;
 
+/// <summary />
 public class ResendClient : IResend
 {
     private readonly HttpClient _http;
 
 
+    /// <summary />
     public ResendClient( IOptions<ResendClientOptions> options, HttpClient httpClient )
     {
         var opt = options.Value;

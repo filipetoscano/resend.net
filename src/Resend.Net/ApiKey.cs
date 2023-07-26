@@ -2,15 +2,18 @@
 
 namespace Resend.Net;
 
-
 /// <summary />
 public class ApiKeyData
 {
-    /// <summary />
+    /// <summary>
+    /// API key identifier.
+    /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Secret token / API key.
+    /// </summary>
     [JsonPropertyName( "token" )]
     public string Token { get; set; } = default!;
 }
@@ -19,15 +22,21 @@ public class ApiKeyData
 /// <summary />
 public class ApiKey
 {
-    /// <summary />
+    /// <summary>
+    /// API key identifier.
+    /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Display-name of the API key.
+    /// </summary>
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Moment in which the API key was created.
+    /// </summary>
     [JsonPropertyName( "created_at" )]
     public DateTime MomentCreated { get; set; }
 }

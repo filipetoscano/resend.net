@@ -5,27 +5,37 @@ namespace Resend.Net;
 /// <summary />
 public class Domain
 {
-    /// <summary />
+    /// <summary>
+    /// Domain identifier.
+    /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Domain name.
+    /// </summary>
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 
     /// <summary />
     [JsonPropertyName( "status" )]
-    public DomainStatus Status { get; set; }
+    public ValidationStatus Status { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Moment when the domain was created.
+    /// </summary>
     [JsonPropertyName( "created_at" )]
     public DateTime MomentCreated { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Region from which the emails for this domain are delivered.
+    /// </summary>
     [JsonPropertyName( "region" )]
     public DeliveryRegion Region { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// DNS validation records.
+    /// </summary>
     [JsonPropertyName( "records" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<DomainRecord>? Record { get; set; }
@@ -48,7 +58,9 @@ public class DomainRecord
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? Value { get; set; }
 
-    /// <summary />
+    /// <summary>
+    /// Type of DNS record to be added.
+    /// </summary>
     [JsonPropertyName( "type" )]
     public string RecordType { get; set; } = default!;
 
@@ -63,19 +75,26 @@ public class DomainRecord
 
     /// <summary />
     [JsonPropertyName( "status" )]
-    public DomainStatus Status { get; set; }
+    public ValidationStatus Status { get; set; }
 }
 
 
 /// <summary />
-[JsonConverter( typeof( JsonStringEnumValueConverter<DomainStatus> ) )]
-public enum DomainStatus
+[JsonConverter( typeof( JsonStringEnumValueConverter<ValidationStatus> ) )]
+public enum ValidationStatus
 {
-    /// <summary />
+    /// <summary>
+    /// Validation has not started.
+    /// </summary>
     [JsonStringValue( "not_started" )]
     NotStarted,
 
-    /// <summary />
+    /// <summary>
+    /// Validation has been started and is currently executing.
+    /// </summary>
+    /// <remarks>
+    /// May take up to 72h to conclude.
+    /// </remarks>
     [JsonStringValue( "pending" )]
     Pending,
 }
