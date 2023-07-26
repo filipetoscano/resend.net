@@ -3,7 +3,7 @@
 namespace Resend.Cli;
 
 /// <summary />
-[Command( "domain" )]
+[Command( "domain", Description = "Email (sender) domain management" )]
 [Subcommand( typeof( Domain.DomainAddCommand ))]
 [Subcommand( typeof( Domain.DomainDeleteCommand ))]
 [Subcommand( typeof( Domain.DomainListCommand ) )]

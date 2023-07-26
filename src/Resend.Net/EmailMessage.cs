@@ -27,18 +27,21 @@ public class EmailMessage
     /// Cc/carbon-copy recipient email address.
     /// </summary>
     [JsonPropertyName( "cc" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? Cc { get; set; }
 
     /// <summary>
     /// Bcc/blind carbon copy recipient email address.
     /// </summary>
     [JsonPropertyName( "bcc" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? Bcc { get; set; }
 
     /// <summary>
     /// Reply-to email address.
     /// </summary>
     [JsonPropertyName( "reply_to" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<string>? ReplyTo { get; set; }
 
 
@@ -46,12 +49,14 @@ public class EmailMessage
     /// The plain text version of the message.
     /// </summary>
     [JsonPropertyName( "text" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? TextBody { get; set; }
 
     /// <summary>
     /// The HTML version of the message.
     /// </summary>
     [JsonPropertyName( "html" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? HtmlBody { get; set; }
 
 
@@ -59,17 +64,20 @@ public class EmailMessage
     /// Custom headers to add to the email.
     /// </summary>
     [JsonPropertyName( "headers" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public Dictionary<string, string>? Headers { get; set; }
 
     /// <summary>
     /// Filename and content of attachments (max 40mb per email).
     /// </summary>
     [JsonPropertyName( "attachments" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<EmailAttachment>? Attachments { get; set; }
 
     /// <summary>
     /// Email tags.
     /// </summary>
     [JsonPropertyName( "tags" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<EmailTag>? Tags { get; set; }
 }

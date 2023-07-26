@@ -1,4 +1,7 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Resend.Net;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace Resend.Cli.Domain;
 
@@ -6,10 +9,38 @@ namespace Resend.Cli.Domain;
 [Command( "get" )]
 public class DomainRetrieveCommand
 {
+    private readonly IResend _resend;
+
+
     /// <summary />
-    public int OnExecute()
+    [Argument( 0, Description = "Domain identifier" )]
+    [Required]
+    public Guid DomainId { get; set; }
+
+
+    /// <summary />
+    public DomainRetrieveCommand( IResend resend )
     {
-        Console.WriteLine( "DOMAIN GET" );
+        _resend = resend;
+    }
+
+
+    /// <summary />
+    public async Task<int> OnExecuteAsync()
+    {
+        var domain = await _resend.DomainRetrieveAsync( this.DomainId );
+
+
+        /*
+         * 
+         */
+        var jso = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+        };
+
+        var json = JsonSerializer.Serialize( domain, jso );
+        Console.WriteLine( json );
 
         return 0;
     }

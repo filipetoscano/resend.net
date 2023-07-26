@@ -2,23 +2,23 @@
 using Resend.Net;
 using System.ComponentModel.DataAnnotations;
 
-namespace Resend.Cli.Domain;
+namespace Resend.Cli.ApiKey;
 
 /// <summary />
 [Command( "delete" )]
-public class DomainDeleteCommand
+public class ApiKeyDeleteCommand
 {
     private readonly IResend _resend;
 
 
     /// <summary />
-    [Argument( 0, Description = "Domain identifier" )]
+    [Argument( 0, Description = "API key identifier" )]
     [Required]
-    public Guid DomainId { get; set; }
+    public Guid KeyId { get; set; }
 
 
     /// <summary />
-    public DomainDeleteCommand( IResend resend )
+    public ApiKeyDeleteCommand( IResend resend )
     {
         _resend = resend;
     }
@@ -27,7 +27,7 @@ public class DomainDeleteCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.DomainDeleteAsync( this.DomainId );
+        await _resend.ApiKeyDelete( this.KeyId );
 
         return 0;
     }

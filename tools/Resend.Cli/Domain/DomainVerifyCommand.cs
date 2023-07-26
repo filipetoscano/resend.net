@@ -1,4 +1,6 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Resend.Net;
+using System.ComponentModel.DataAnnotations;
 
 namespace Resend.Cli.Domain;
 
@@ -6,10 +8,26 @@ namespace Resend.Cli.Domain;
 [Command( "verify" )]
 public class DomainVerifyCommand
 {
+    private readonly IResend _resend;
+
+
     /// <summary />
-    public int OnExecute()
+    [Argument( 0, Description = "Domain identifier" )]
+    [Required]
+    public Guid DomainId { get; set; }
+
+
+    /// <summary />
+    public DomainVerifyCommand( IResend resend )
     {
-        Console.WriteLine( "DOMAIN VERIFY" );
+        _resend = resend;
+    }
+
+
+    /// <summary />
+    public async Task<int> OnExecuteAsync()
+    {
+        await _resend.DomainVerifyAsync( this.DomainId );
 
         return 0;
     }

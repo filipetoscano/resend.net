@@ -2,7 +2,6 @@
 using Resend.Net.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Threading;
 
 namespace Resend.Net;
 
@@ -56,44 +55,106 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc />
-    public Task<Domain> DomainAddAsync( string domainName, DeliveryRegion? region )
+    public async Task<Domain> DomainAddAsync( string domainName, DeliveryRegion? region, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var req = new DomainAddRequest()
+        {
+            Name = domainName,
+            Region = region,
+        };
+
+        var path = $"/domains";
+        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<Domain>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return obj;
     }
 
 
     /// <inheritdoc />
-    public Task<Domain> DomainRetrieveAsync( string domainId )
+    public async Task<Domain> DomainRetrieveAsync( Guid domainId, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var path = $"/domains/{domainId}";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<Domain>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return obj;
     }
 
 
     /// <inheritdoc />
-    public Task DomainVerifyAsync( string domainId )
+    public async Task DomainVerifyAsync( Guid domainId, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var path = $"/domains/{domainId}/verify";
+        var content = new StringContent( "" );
+
+        var resp = await _http.PostAsync( path, content, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
     }
 
 
     /// <inheritdoc />
-    public Task<List<Domain>> DomainListAsync()
+    public async Task<List<Domain>> DomainListAsync( CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var path = $"/domains";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<ListOf<Domain>>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return obj.Data;
     }
 
 
     /// <inheritdoc />
-    public Task DomainDeleteAsync( string domainId )
+    public async Task DomainDeleteAsync( Guid domainId, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var path = $"/domains/{domainId}";
+
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
     }
 
 
     /// <inheritdoc />
-    public Task<ApiKey> ApiKeyCreateAsync( string keyName, Permission? permission, string? domainId )
+    public async Task<ApiKeyData> ApiKeyCreateAsync( string keyName, Permission? permission, Guid? domainId, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var req = new ApiKeyCreateRequest()
+        {
+            Name = keyName,
+            Permission = permission,
+            DomainId = domainId,
+        };
+
+        var path = $"/api-keys";
+        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<ApiKeyData>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return obj;
     }
 
 
@@ -105,18 +166,22 @@ public class ResendClient : IResend
 
         resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<ApiKeyList>( cancellationToken: cancellationToken );
+        var obj = await resp.Content.ReadFromJsonAsync<ListOf<ApiKey>>( cancellationToken: cancellationToken );
 
         if ( obj == null )
             throw new InvalidOperationException( "Received null response" );
 
-        return obj.data;
+        return obj.Data;
     }
 
 
     /// <inheritdoc />
-    public Task ApiKeyRemove( string apiKeyId )
+    public async Task ApiKeyDelete( Guid apiKeyId, CancellationToken cancellationToken = default )
     {
-        throw new NotImplementedException();
+        var path = $"/api-keys/{apiKeyId}";
+
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
     }
 }

@@ -6,6 +6,13 @@ namespace Resend.Net;
 /// <summary />
 public class ApiKeyData
 {
+    /// <summary />
+    [JsonPropertyName( "id" )]
+    public Guid Id { get; set; }
+
+    /// <summary />
+    [JsonPropertyName( "token" )]
+    public string Token { get; set; } = default!;
 }
 
 

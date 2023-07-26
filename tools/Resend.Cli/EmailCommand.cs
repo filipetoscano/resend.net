@@ -3,7 +3,7 @@
 namespace Resend.Cli;
 
 /// <summary />
-[Command( "email" )]
+[Command( "email", Description = "Send emails" )]
 [Subcommand( typeof( Email.EmailRetrieveCommand ) )]
 [Subcommand( typeof( Email.EmailSendCommand ) )]
 public class EmailCommand

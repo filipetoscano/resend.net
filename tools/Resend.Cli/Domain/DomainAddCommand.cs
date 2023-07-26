@@ -1,4 +1,7 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using Resend.Net;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 namespace Resend.Cli.Domain;
 
@@ -6,10 +9,42 @@ namespace Resend.Cli.Domain;
 [Command( "add" )]
 public class DomainAddCommand
 {
+    private readonly IResend _resend;
+
+
     /// <summary />
-    public int OnExecute()
+    [Argument( 0, Description = "Domain name" )]
+    [Required]
+    public string DomainName { get; set; } = default!;
+
+    /// <summary />
+    [Option( "-r|--region", CommandOptionType.SingleValue, Description = "Delivery region" )]
+    public DeliveryRegion? Region { get; set; }
+
+
+    /// <summary />
+    public DomainAddCommand( IResend resend )
     {
-        Console.WriteLine( "DOMAIN ADD" );
+        _resend = resend;
+    }
+
+
+    /// <summary />
+    public async Task<int> OnExecuteAsync()
+    {
+        var domain = await _resend.DomainAddAsync( this.DomainName, this.Region );
+
+
+        /*
+         * 
+         */
+        var jso = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+        };
+
+        var json = JsonSerializer.Serialize( domain, jso );
+        Console.WriteLine( json );
 
         return 0;
     }

@@ -70,6 +70,6 @@ public class EmailReceipt
 
     /// <summary />
     [JsonPropertyName( "last_event" )]
-    [JsonConverter( typeof( JsonStringEnumConverter ) )]
+    [JsonConverter( typeof( JsonStringEnumValueConverter<EmailStatus> ) )]
     public EmailStatus? LastEvent { get; set; }
 }

@@ -5,10 +5,12 @@ using Resend.Net;
 namespace Resend.Cli;
 
 /// <summary />
-[Command( "resend" )]
+[Command( "resend", Description = "Command-line for Resend.net" )]
 [Subcommand( typeof( ApiKeyCommand ) )]
 [Subcommand( typeof( DomainCommand ) )]
 [Subcommand( typeof( EmailCommand ) )]
+[HelpOption]
+[VersionOption( "1.0.0" )]
 public class Program
 {
     /// <summary />

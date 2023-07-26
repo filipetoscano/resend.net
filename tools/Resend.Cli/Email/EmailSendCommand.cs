@@ -14,7 +14,7 @@ public class EmailSendCommand
     /// <summary />
     [Option( "-i|--input", CommandOptionType.SingleValue, Description = "Input JSON file" )]
     [FileExists]
-    public string? InputFile { get; set; }
+    public string InputFile { get; set; } = "email.json";
 
 
     /// <summary />
@@ -30,7 +30,7 @@ public class EmailSendCommand
         /*
          * 
          */
-        var json = File.ReadAllText( this.InputFile ?? "email.json" );
+        var json = File.ReadAllText( this.InputFile );
         EmailMessage message = JsonSerializer.Deserialize<EmailMessage>( json )!;
 
         Console.WriteLine( "From = {0}", message.From.Email );
