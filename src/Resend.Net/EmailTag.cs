@@ -1,4 +1,6 @@
-﻿namespace Resend.Net;
+﻿using System.Text.Json.Serialization;
+
+namespace Resend.Net;
 
 /// <summary />
 public class EmailTag
@@ -10,6 +12,7 @@ public class EmailTag
     /// It can only contain ASCII letters (a–z, A–Z), numbers (0–9), underscores (_), or dashes (-).
     /// It can contain no more than 256 characters.
     /// </remarks>
+    [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 
     /// <summary>
@@ -19,5 +22,6 @@ public class EmailTag
     /// It can only contain ASCII letters (a–z, A–Z), numbers (0–9), underscores (_), or dashes (-).
     /// It can contain no more than 256 characters.
     /// </remarks>
+    [JsonPropertyName( "value" )]
     public string Value { get; set; } = default!;
 }

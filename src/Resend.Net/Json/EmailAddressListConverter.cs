@@ -3,7 +3,6 @@ using System.Text.Json.Serialization;
 
 namespace Resend.Net;
 
-
 /// <summary />
 public class EmailAddressListConverter : JsonConverter<List<string>?>
 {

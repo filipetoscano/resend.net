@@ -1,21 +1,22 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Resend.Net;
 
 /// <summary>
 /// Permission when creating an API key.
 /// </summary>
+[JsonConverter( typeof( JsonStringEnumValueConverter<Permission> ) )]
 public enum Permission
 {
     /// <summary>
     /// Can create, delete, get, and update any resource.
     /// </summary>
-    [EnumMember( Value = "full_access" )]
+    [JsonStringValue( "full_access" )]
     FullAccess,
 
     /// <summary>
     /// Can only send emails.
     /// </summary>
-    [EnumMember( Value = "sending_access" )]
+    [JsonStringValue( "sending_access" )]
     SendingAccess,
 }

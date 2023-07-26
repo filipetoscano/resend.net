@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Resend.Net;
@@ -40,10 +39,7 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
 
         if ( addr.EndsWith( ">" ) == true )
         {
-            var ix = addr.IndexOf( "<" );
-
-            friendlyName = "";
-            email = "";
+            throw new NotImplementedException();
         }
         else
         {
