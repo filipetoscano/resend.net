@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Filipe Toscano</Authors>
+    <Product>.NET client for Resend</Product>
+    <Copyright>Copyright © Filipe Toscano</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/filipetoscano/resend.net/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/filipetoscano/resend.net.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+</Project>

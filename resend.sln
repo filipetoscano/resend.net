@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{DA723758-803A-4642-B5D7-9D87E16FE81A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -21,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Net.Tests", "tests\R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Cli", "tools\Resend.Cli\Resend.Cli.csproj", "{1DEA0AE5-D091-4163-868C-03521C72F937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.FluentEmail", "src\Resend.FluentEmail\Resend.FluentEmail.csproj", "{17C4EBD2-C56D-434A-98D7-C15B2611470B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.FluentEmail", "src\Resend.FluentEmail\Resend.FluentEmail.csproj", "{17C4EBD2-C56D-434A-98D7-C15B2611470B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

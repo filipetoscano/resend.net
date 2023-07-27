@@ -4,14 +4,6 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <!-- Versioning -->
-
-    <!-- Meta -->
-    <Title>.NET client for Resend.net</Title>
-    <PackageProjectUrl>https://github.com/filipetoscano/resend.net/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/filipetoscano/resend.net/</RepositoryUrl>
-    <Authors>Filipe Toscano</Authors>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
