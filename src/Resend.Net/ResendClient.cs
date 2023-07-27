@@ -2,6 +2,7 @@
 using Resend.Net.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Reflection;
 
 namespace Resend.Net;
 
@@ -14,10 +15,23 @@ public class ResendClient : IResend
     /// <summary />
     public ResendClient( IOptions<ResendClientOptions> options, HttpClient httpClient )
     {
+        /*
+         * Authentication
+         */
         var opt = options.Value;
 
         httpClient.BaseAddress = new Uri( opt.ApiUrl );
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", opt.ApiToken );
+
+
+        /*
+         * Identification
+         */
+        var productValue = new ProductInfoHeaderValue( "resend-sdk", Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0" );
+        var dotnetValue = new ProductInfoHeaderValue( "dotnet", Environment.Version.ToString() );
+
+        httpClient.DefaultRequestHeaders.UserAgent.Add( productValue );
+        httpClient.DefaultRequestHeaders.UserAgent.Add( dotnetValue );
 
         _http = httpClient;
     }
