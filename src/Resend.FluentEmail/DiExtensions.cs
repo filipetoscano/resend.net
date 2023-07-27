@@ -6,12 +6,15 @@ using Resend.Net;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary />
-public static class FluentEmailSendGridBuilderExtensions
+public static class DiExtensions
 {
     /// <summary />
     public static FluentEmailServicesBuilder AddResend( this FluentEmailServicesBuilder builder )
     {
-        var sd1 = ServiceDescriptor.Singleton<IResend>( ( sp ) =>
+        // TODO: HttpClient
+        // TODO: Action over ResendClientOptions
+
+        var sd1 = ServiceDescriptor.Transient<IResend>( ( sp ) =>
         {
             var opt = sp.GetRequiredService<IOptions<ResendClientOptions>>();
             var http = sp.GetRequiredService<HttpClient>();
