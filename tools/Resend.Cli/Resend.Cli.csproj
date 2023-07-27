@@ -6,15 +6,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
-    <!-- Tool -->
-    <PackAsTool>True</PackAsTool>
-    <ToolCommandName>resend</ToolCommandName>
-
     <!-- Meta -->
     <Title>.NET client for Resend.net</Title>
     <PackageProjectUrl>https://github.com/filipetoscano/resend.net/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/filipetoscano/resend.net/</RepositoryUrl>
     <Authors>Filipe Toscano</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <!-- Tool -->
+    <PackAsTool>True</PackAsTool>
+    <ToolCommandName>resend</ToolCommandName>
   </PropertyGroup>
 
   <ItemGroup>
