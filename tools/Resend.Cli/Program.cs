@@ -25,7 +25,7 @@ public class Program
             .AddOptions()
             .Configure<ResendClientOptions>( o =>
             {
-                o.ApiKey = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
+                o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
             } )
             //.AddHttpClient<ResendClient>()
             .AddHttpClient()

@@ -17,7 +17,7 @@ public class ResendClient : IResend
         var opt = options.Value;
 
         httpClient.BaseAddress = new Uri( opt.ApiUrl );
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", opt.ApiKey );
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue( "Bearer", opt.ApiToken );
 
         _http = httpClient;
     }
