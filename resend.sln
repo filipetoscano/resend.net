@@ -9,19 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{DA7237
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{F0144B42-C06A-4397-A6E4-E75F1A1FC0E6}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{926E6B15-2004-46CC-B704-7FDB0E755705}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5D754FB9-1914-41EC-B468-6946D96C3D81}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{CAC9B80A-B362-4135-AC30-8013D0DB6124}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.Net", "src\Resend.Net\Resend.Net.csproj", "{710A5E35-326A-48CB-9AF4-792C0474D640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Net", "src\Resend.Net\Resend.Net.csproj", "{710A5E35-326A-48CB-9AF4-792C0474D640}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.Net.Tests", "tests\Resend.Net.Tests\Resend.Net.Tests.csproj", "{3F0D2DF8-137A-4F14-9C93-E3196D08011B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Net.Tests", "tests\Resend.Net.Tests\Resend.Net.Tests.csproj", "{3F0D2DF8-137A-4F14-9C93-E3196D08011B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.Cli", "tools\Resend.Cli\Resend.Cli.csproj", "{1DEA0AE5-D091-4163-868C-03521C72F937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Cli", "tools\Resend.Cli\Resend.Cli.csproj", "{1DEA0AE5-D091-4163-868C-03521C72F937}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.FluentEmail", "src\Resend.FluentEmail\Resend.FluentEmail.csproj", "{17C4EBD2-C56D-434A-98D7-C15B2611470B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +41,10 @@ Global
 		{1DEA0AE5-D091-4163-868C-03521C72F937}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DEA0AE5-D091-4163-868C-03521C72F937}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DEA0AE5-D091-4163-868C-03521C72F937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +53,7 @@ Global
 		{710A5E35-326A-48CB-9AF4-792C0474D640} = {926E6B15-2004-46CC-B704-7FDB0E755705}
 		{3F0D2DF8-137A-4F14-9C93-E3196D08011B} = {5D754FB9-1914-41EC-B468-6946D96C3D81}
 		{1DEA0AE5-D091-4163-868C-03521C72F937} = {CAC9B80A-B362-4135-AC30-8013D0DB6124}
+		{17C4EBD2-C56D-434A-98D7-C15B2611470B} = {926E6B15-2004-46CC-B704-7FDB0E755705}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15EEB6F3-A067-45F5-987C-824BD8FDEAF9}
