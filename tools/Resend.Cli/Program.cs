@@ -9,6 +9,7 @@ namespace Resend.Cli;
 [Subcommand( typeof( ApiKeyCommand ) )]
 [Subcommand( typeof( DomainCommand ) )]
 [Subcommand( typeof( EmailCommand ) )]
+[Subcommand( typeof( WebhookCommand ) )]
 [HelpOption]
 [VersionOption( "1.0.0" )]
 public class Program
