@@ -1,11 +1,16 @@
 ﻿resend.net
 ==========================================================================
 
+[![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
+[![NuGet](http://img.shields.io/nuget/vpre/resend.net.svg?label=NuGet)](https://www.nuget.org/packages/Resend.Net/)
+
 .NET client for [resend](https://resend.com), an email API, written in C#.
 
 
-Installation
+Installing via NuGet
 --------------------------------------------------------------------------
+
+Package is published in the [NuGet](https://www.nuget.org/packages/Resend.Net/) gallery.
 
 From the command-line:
 
@@ -23,18 +28,18 @@ PM> Install-Package Resend.Net
 Getting started
 --------------------------------------------------------------------------
 
-Configure the dependency injection container:
+In the startup of your application, configure the DI container as follows:
 
 ```
 using Resend.Net;
 
-builder.Services
-    .AddHttpClient()
-    .Configure<ResendClientOptions>( o =>
-    {
-        o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
-    } )
-    .AddTransient<IResend, ResendClient>()
+builder.Services.AddOptions();
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>( o =>
+{
+    o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
+} );
+builder.Services.AddTransient<IResend, ResendClient>()
 ```
 
 
@@ -66,6 +71,37 @@ public class FeatureImplementation
     }
 }
 ```
+
+
+`resend` command-line tool
+--------------------------------------------------------------------------
+
+In addition to the .NET library, this repository also releases a cross platform
+command line interface program to invoke the API. This program is available as
+a .NET tool.
+
+```
+0.1.0
+
+Command-line tool for Resend API
+
+Usage: resend [command] [options]
+
+Options:
+  --version     Show version information.
+  -?|-h|--help  Show help information.
+
+Commands:
+  api-key       API key management
+  domain        Email (sender) domain management
+  email         Send emails
+  webhook       Webhook management
+
+Run 'resend [command] -?|-h|--help' for more information about a command.
+```
+
+Each command has sub-commands: you can enumerate the sub-commands with
+the `--help` flag, eg `resend email --help`.
 
 
 Roadmap

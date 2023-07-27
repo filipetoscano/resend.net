@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <Authors>Filipe Toscano</Authors>
-    <Product>.NET client for Resend</Product>
+    <Product>.NET client for Resend mail API</Product>
     <Copyright>Copyright © Filipe Toscano</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -14,6 +14,13 @@
     <RepositoryUrl>https://github.com/filipetoscano/resend.net.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <DebugType>portable</DebugType>
+
+    <!-- Packaging properties -->
+    <IsPackable>false</IsPackable>
+    <PackageDescription>.NET client for Resend mail API</PackageDescription>
+    <PackageIconUrl>https://media.githubusercontent.com/media/filipetoscano/resend.net/master/docs/img/icon.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageTags>email;resend</PackageTags>
   </PropertyGroup>
 
 </Project>
