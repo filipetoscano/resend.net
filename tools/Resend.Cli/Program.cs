@@ -1,17 +1,18 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
 using Resend.Net;
+using System.Reflection;
 
 namespace Resend.Cli;
 
 /// <summary />
-[Command( "resend", Description = "Command-line for Resend.net" )]
+[Command( "resend", Description = "Command-line tool for Resend API" )]
 [Subcommand( typeof( ApiKeyCommand ) )]
 [Subcommand( typeof( DomainCommand ) )]
 [Subcommand( typeof( EmailCommand ) )]
 [Subcommand( typeof( WebhookCommand ) )]
 [HelpOption]
-[VersionOption( "1.0.0" )]
+[VersionOptionFromMember( MemberName = nameof( GetVersion ))]
 public class Program
 {
     /// <summary />
@@ -22,16 +23,16 @@ public class Program
          */
         var app = new CommandLineApplication<Program>();
 
-        var services = new ServiceCollection()
-            .AddOptions()
-            .Configure<ResendClientOptions>( o =>
-            {
-                o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
-            } )
-            //.AddHttpClient<ResendClient>()
-            .AddHttpClient()
-            .AddTransient<IResend, ResendClient>()
-            .BuildServiceProvider();
+        var svc = new ServiceCollection();
+        svc.AddOptions();
+        svc.Configure<ResendClientOptions>( o =>
+        {
+            o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
+        } );
+        svc.AddHttpClient<ResendClient>();
+        svc.AddTransient<IResend, ResendClient>();
+
+        var sp = svc.BuildServiceProvider();
 
 
         /*
@@ -41,7 +42,7 @@ public class Program
         {
             app.Conventions
                 .UseDefaultConventions()
-                .UseConstructorInjection( services );
+                .UseConstructorInjection( sp );
         }
         catch ( Exception ex )
         {
@@ -72,6 +73,13 @@ public class Program
 
             return 2;
         }
+    }
+
+
+    /// <summary />
+    private static string GetVersion()
+    { 
+        return typeof( Program ).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
     }
 
 
