@@ -15,7 +15,7 @@ public class EmailMessage
     /// Recipient email address (list).
     /// </summary>
     [JsonPropertyName( "to" )]
-    public List<string> To { get; set; } = new List<string>();
+    public EmailAddressList To { get; set; } = new EmailAddressList();
 
     /// <summary>
     /// Email subject.
@@ -28,21 +28,21 @@ public class EmailMessage
     /// </summary>
     [JsonPropertyName( "cc" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? Cc { get; set; }
+    public EmailAddressList? Cc { get; set; }
 
     /// <summary>
     /// Bcc/blind carbon copy recipient email address.
     /// </summary>
     [JsonPropertyName( "bcc" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? Bcc { get; set; }
+    public EmailAddressList? Bcc { get; set; }
 
     /// <summary>
     /// Reply-to email address.
     /// </summary>
     [JsonPropertyName( "reply_to" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? ReplyTo { get; set; }
+    public EmailAddressList? ReplyTo { get; set; }
 
 
     /// <summary>

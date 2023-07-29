@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Resend.Net.Tests;
+namespace Resend.Tests;
 
 /// <summary />
 public class JsonStringEnumValueTests

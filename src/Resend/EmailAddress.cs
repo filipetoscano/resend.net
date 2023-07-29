@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.RegularExpressions;
 
 namespace Resend;
 
@@ -22,6 +23,8 @@ public class EmailAddress
 /// <summary />
 public class EmailAddressConverter : JsonConverter<EmailAddress>
 {
+    private static readonly Regex _fn = new Regex( "^(?<friendlyName>.*) <(?<email>.*)>$" );
+
     /// <inheritdoc />
     public override EmailAddress? Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options )
     {
@@ -37,9 +40,12 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
         string email;
         string? friendlyName = null;
 
-        if ( addr.EndsWith( ">" ) == true )
+        var m = _fn.Match( addr );
+
+        if ( m.Success == true )
         {
-            throw new NotImplementedException();
+            email = m.Groups[ "email" ].Value;
+            friendlyName = m.Groups[ "friendlyName" ].Value;
         }
         else
         {
