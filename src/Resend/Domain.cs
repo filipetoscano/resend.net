@@ -34,11 +34,15 @@ public class Domain
     public DeliveryRegion Region { get; set; }
 
     /// <summary>
-    /// DNS validation records.
+    /// DNS records used for domain validation.
     /// </summary>
+    /// <remarks>
+    /// When the domain is programatically created through API, these DNS records
+    /// need to be added so that Resend can validate ownership of the domain.
+    /// </remarks>
     [JsonPropertyName( "records" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<DomainRecord>? Record { get; set; }
+    public List<DomainRecord>? Records { get; set; }
 }
 
 

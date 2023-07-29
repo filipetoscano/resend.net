@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace Resend.Cli.Domain;
 
 /// <summary />
-[Command( "add" )]
+[Command( "add", Description = "Create an email sender domain" )]
 public class DomainAddCommand
 {
     private readonly IResend _resend;

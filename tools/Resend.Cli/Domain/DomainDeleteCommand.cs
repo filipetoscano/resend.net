@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Domain;
 
 /// <summary />
-[Command( "delete" )]
+[Command( "delete", Description = "Deletes an email sender domain" )]
 public class DomainDeleteCommand
 {
     private readonly IResend _resend;

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Domain;
 
 /// <summary />
-[Command( "verify" )]
+[Command( "verify", Description = "Inititates domain verification, where Resend will inspect DNS records" )]
 public class DomainVerifyCommand
 {
     private readonly IResend _resend;
