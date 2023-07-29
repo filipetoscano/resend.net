@@ -1,4 +1,4 @@
-﻿resend.net
+﻿resend
 ==========================================================================
 
 [![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
@@ -114,3 +114,4 @@ Roadmap
 * Implement Github CI/CD (for libraries and cli tool)
 * Converter from `System.Net.Mail.MailMessage` to Resend equiv
 * Target multiple frameworks (.NET Standard, .NET 6) -- rather than .NET 7
+* Attachments when sending emails
