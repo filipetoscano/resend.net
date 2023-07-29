@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5D754FB9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{CAC9B80A-B362-4135-AC30-8013D0DB6124}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend", "src\Resend.Net\Resend.csproj", "{710A5E35-326A-48CB-9AF4-792C0474D640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend", "src\Resend\Resend.csproj", "{710A5E35-326A-48CB-9AF4-792C0474D640}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Tests", "tests\Resend.Net.Tests\Resend.Tests.csproj", "{3F0D2DF8-137A-4F14-9C93-E3196D08011B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Tests", "tests\Resend.Tests\Resend.Tests.csproj", "{3F0D2DF8-137A-4F14-9C93-E3196D08011B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Cli", "tools\Resend.Cli\Resend.Cli.csproj", "{1DEA0AE5-D091-4163-868C-03521C72F937}"
 EndProject

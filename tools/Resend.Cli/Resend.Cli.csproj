@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Resend.Net\Resend.csproj" />
+    <ProjectReference Include="..\..\src\Resend\Resend.csproj" />
   </ItemGroup>
 
 </Project>

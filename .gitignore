@@ -8,3 +8,7 @@ obj/
 *.csproj.user
 
 !/bin/
+
+
+tools/Resend.Cli/env.cmd
+tools/Resend.Cli/*.json
