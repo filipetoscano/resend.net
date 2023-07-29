@@ -2,7 +2,9 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Email to be sent.
+/// </summary>
 public class EmailMessage
 {
     /// <summary>

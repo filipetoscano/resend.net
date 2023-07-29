@@ -2,7 +2,10 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Tags which are added to an email, as additional metadata stored
+/// in Resend.
+/// </summary>
 public class EmailTag
 {
     /// <summary>

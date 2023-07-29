@@ -2,10 +2,14 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Receipt of a sent email.
+/// </summary>
 public class EmailReceipt
 {
-    /// <summary />
+    /// <summary>
+    /// Email identifier.
+    /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
 
@@ -19,28 +23,28 @@ public class EmailReceipt
     /// Recipient email address.
     /// </summary>
     [JsonPropertyName( "to" )]
-    public List<string> To { get; set; } = default!;
+    public EmailAddressList To { get; set; } = default!;
 
     /// <summary>
     /// Cc/carbon-copy recipient email address.
     /// </summary>
     [JsonPropertyName( "cc" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? Cc { get; set; }
+    public EmailAddressList? Cc { get; set; }
 
     /// <summary>
     /// Bcc/blind carbon copy recipient email address.
     /// </summary>
     [JsonPropertyName( "bcc" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? Bcc { get; set; }
+    public EmailAddressList? Bcc { get; set; }
 
     /// <summary>
     /// Reply-to email address.
     /// </summary>
     [JsonPropertyName( "reply_to" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public List<string>? ReplyTo { get; set; }
+    public EmailAddressList? ReplyTo { get; set; }
 
     /// <summary>
     /// Email subject.
@@ -70,6 +74,5 @@ public class EmailReceipt
 
     /// <summary />
     [JsonPropertyName( "last_event" )]
-    [JsonConverter( typeof( JsonStringEnumValueConverter<EmailStatus> ) )]
     public EmailStatus? LastEvent { get; set; }
 }

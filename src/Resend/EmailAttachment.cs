@@ -2,14 +2,20 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Email attachment.
+/// </summary>
 public class EmailAttachment
 {
-    /// <summary />
+    /// <summary>
+    /// Name of the attached file.
+    /// </summary>
     [JsonPropertyName( "filename" )]
     public string Filename { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Content of the attached file.
+    /// </summary>
     [JsonPropertyName( "content" )]
     public byte[] Content { get; set; } = default!;
 }

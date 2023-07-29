@@ -2,7 +2,9 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// List of email addresses.
+/// </summary>
 [JsonConverter( typeof( EmailAddressListConverter ) )]
 public class EmailAddressList : List<string>
 {
