@@ -1,4 +1,4 @@
-﻿namespace Resend.Net;
+﻿namespace Resend;
 
 /// <summary />
 public class ResendClientOptions

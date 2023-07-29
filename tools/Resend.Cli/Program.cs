@@ -1,6 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.DependencyInjection;
-using Resend.Net;
 using System.Reflection;
 
 namespace Resend.Cli;

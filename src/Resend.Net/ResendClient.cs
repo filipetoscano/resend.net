@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
-using Resend.Net.Payloads;
+using Resend.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
 
-namespace Resend.Net;
+namespace Resend;
 
 /// <summary />
 public class ResendClient : IResend

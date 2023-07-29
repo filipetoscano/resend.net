@@ -1,4 +1,4 @@
-﻿namespace Resend.Net;
+﻿namespace Resend;
 
 /// <summary>
 /// Resend client.

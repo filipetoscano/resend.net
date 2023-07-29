@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Resend.Net;
+namespace Resend;
 
 /// <summary>
 /// Permission when creating an API key.

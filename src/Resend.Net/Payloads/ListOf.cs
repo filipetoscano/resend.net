@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Resend.Net.Payloads;
+namespace Resend.Payloads;
 
 /// <summary />
 internal class ListOf<T>

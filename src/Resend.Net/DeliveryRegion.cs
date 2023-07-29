@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Resend.Net;
+namespace Resend;
 
 /// <summary>
 /// Region/data center from which emails are sent from.

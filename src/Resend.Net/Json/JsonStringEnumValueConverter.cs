@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Resend.Net;
+namespace Resend;
 
 /// <summary />
 public class JsonStringEnumValueConverter<T> : JsonConverter<T>

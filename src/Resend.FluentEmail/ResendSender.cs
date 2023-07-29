@@ -1,6 +1,5 @@
 ﻿using FluentEmail.Core;
 using FluentEmail.Core.Models;
-using Resend.Net;
 
 namespace Resend.FluentEmail;
 

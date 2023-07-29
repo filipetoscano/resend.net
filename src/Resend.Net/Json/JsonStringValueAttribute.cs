@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Resend.Net;
+namespace Resend;
 
 /// <summary>
 /// Specifies the enum string value that is present in the JSON when serializing and deserializing.

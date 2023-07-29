@@ -2,7 +2,7 @@
 ==========================================================================
 
 [![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
-[![NuGet](http://img.shields.io/nuget/vpre/resend.net.svg?label=NuGet)](https://www.nuget.org/packages/Resend.Net/)
+[![NuGet](http://img.shields.io/nuget/vpre/resend.svg?label=NuGet)](https://www.nuget.org/packages/Resend/)
 
 .NET client for [resend](https://resend.com), an email API, written in C#.
 
@@ -10,18 +10,18 @@
 Installing via NuGet
 --------------------------------------------------------------------------
 
-Package is published in the [NuGet](https://www.nuget.org/packages/Resend.Net/) gallery.
+Package is published in the [NuGet](https://www.nuget.org/packages/Resend/) gallery.
 
 From the command-line:
 
 ```
-> dotnet add package Resend.Net
+> dotnet add package Resend
 ```
 
 From within Visual Studio using Package Manager Console:
 
 ```
-PM> Install-Package Resend.Net
+PM> Install-Package Resend
 ```
 
 
@@ -31,7 +31,7 @@ Getting started
 In the startup of your application, configure the DI container as follows:
 
 ```
-using Resend.Net;
+using Resend;
 
 builder.Services.AddOptions();
 builder.Services.AddHttpClient<ResendClient>();
@@ -46,7 +46,7 @@ builder.Services.AddTransient<IResend, ResendClient>()
 Send an email using the injected `IResend` instance:
 
 ```
-using Resend.Net;
+using Resend;
 
 public class FeatureImplementation
 {

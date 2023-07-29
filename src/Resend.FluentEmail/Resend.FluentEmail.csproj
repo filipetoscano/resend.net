@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Resend.Net\Resend.Net.csproj" />
+    <ProjectReference Include="..\Resend.Net\Resend.csproj" />
   </ItemGroup>
 
 </Project>

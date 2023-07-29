@@ -1,5 +1,4 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using Resend.Net;
 using System.Text.Json;
 
 namespace Resend.Cli.Email;
