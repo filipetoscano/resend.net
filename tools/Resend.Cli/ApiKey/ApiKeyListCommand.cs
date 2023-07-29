@@ -3,7 +3,7 @@
 namespace Resend.Cli.ApiKey;
 
 /// <summary />
-[Command( "list" )]
+[Command( "list", Description = "Lists valid API keys" )]
 public class ApiKeyListCommand
 {
     private readonly IResend _resend;

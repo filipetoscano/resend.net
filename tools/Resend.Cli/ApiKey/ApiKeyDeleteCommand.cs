@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.ApiKey;
 
 /// <summary />
-[Command( "delete" )]
+[Command( "delete", Description = "Delete an API key" )]
 public class ApiKeyDeleteCommand
 {
     private readonly IResend _resend;

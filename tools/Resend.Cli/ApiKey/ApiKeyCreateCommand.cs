@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.ApiKey;
 
 /// <summary />
-[Command( "create" )]
+[Command( "create", Description = "Create an API key" )]
 public class ApiKeyCreateCommand
 {
     private readonly IResend _resend;

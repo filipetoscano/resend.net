@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace Resend.Cli.Email;
 
 /// <summary />
-[Command( "get" )]
+[Command( "get", Description = "Retrieves an email which was previously sent" )]
 public class EmailRetrieveCommand
 {
     private readonly IResend _resend;

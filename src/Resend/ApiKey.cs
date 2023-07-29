@@ -2,7 +2,9 @@
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Response when API key is created.
+/// </summary>
 public class ApiKeyData
 {
     /// <summary>
@@ -19,7 +21,9 @@ public class ApiKeyData
 }
 
 
-/// <summary />
+/// <summary>
+/// Properties of API keys defined in the account.
+/// </summary>
 public class ApiKey
 {
     /// <summary>
@@ -29,7 +33,7 @@ public class ApiKey
     public Guid Id { get; set; }
 
     /// <summary>
-    /// Display-name of the API key.
+    /// Display name of the API key.
     /// </summary>
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
