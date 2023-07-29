@@ -7,7 +7,7 @@ namespace Resend;
 /// <summary />
 public class EmailAddressConverter : JsonConverter<EmailAddress>
 {
-    private static readonly Regex _fn = new Regex( "^(?<friendlyName>.*) <(?<email>.*)>$" );
+    private static readonly Regex _fn = new Regex( "^(?<displayName>.*) <(?<email>.*)>$" );
 
     /// <inheritdoc />
     public override EmailAddress? Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options )
@@ -22,14 +22,14 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
          * 
          */
         string email;
-        string? friendlyName = null;
+        string? displayName = null;
 
         var m = _fn.Match( addr );
 
         if ( m.Success == true )
         {
             email = m.Groups[ "email" ].Value;
-            friendlyName = m.Groups[ "friendlyName" ].Value;
+            displayName = m.Groups[ "displayName" ].Value;
         }
         else
         {
@@ -43,7 +43,7 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
         return new EmailAddress()
         {
             Email = email,
-            FriendlyName = friendlyName,
+            DisplayName = displayName,
         };
     }
 
@@ -53,10 +53,10 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
     {
         string addr;
 
-        if ( value.FriendlyName == null )
+        if ( value.DisplayName == null )
             addr = value.Email;
         else
-            addr = $"{value.FriendlyName} <{value.Email}>";
+            addr = $"{value.DisplayName} <{value.Email}>";
 
         writer.WriteStringValue( addr );
     }

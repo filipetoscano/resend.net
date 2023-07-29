@@ -14,9 +14,9 @@ public class EmailAddress
     public string Email { get; set; } = default!;
 
     /// <summary>
-    /// Friendly name.
+    /// Display name.
     /// </summary>
-    public string? FriendlyName { get; set; }
+    public string? DisplayName { get; set; }
 
 
     /// <summary />

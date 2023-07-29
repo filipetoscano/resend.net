@@ -18,7 +18,7 @@ public class EmailAddressConverterTests
         var tgt = JsonSerializer.Deserialize<EmailAddress>( json );
 
         Assert.NotNull( tgt );
-        Assert.Null( tgt.FriendlyName );
+        Assert.Null( tgt.DisplayName );
         Assert.NotNull( tgt.Email );
         Assert.Equal( src.Email, tgt.Email );
     }
@@ -30,16 +30,16 @@ public class EmailAddressConverterTests
     {
         var src = new EmailAddress();
         src.Email = "dev@example.com";
-        src.FriendlyName = "Very Friendly";
+        src.DisplayName = "Very Friendly";
 
         var json = JsonSerializer.Serialize( src );
         var tgt = JsonSerializer.Deserialize<EmailAddress>( json );
 
         Assert.NotNull( tgt );
         Assert.NotNull( tgt.Email );
-        Assert.NotNull( tgt.FriendlyName );
+        Assert.NotNull( tgt.DisplayName );
         Assert.Equal( src.Email, tgt.Email );
-        Assert.Equal( src.FriendlyName, tgt.FriendlyName );
+        Assert.Equal( src.DisplayName, tgt.DisplayName );
     }
 
 
@@ -49,15 +49,15 @@ public class EmailAddressConverterTests
     {
         var src = new EmailAddress();
         src.Email = "dev@example.com";
-        src.FriendlyName = "☠️";
+        src.DisplayName = "☠️";
 
         var json = JsonSerializer.Serialize( src );
         var tgt = JsonSerializer.Deserialize<EmailAddress>( json );
 
         Assert.NotNull( tgt );
         Assert.NotNull( tgt.Email );
-        Assert.NotNull( tgt.FriendlyName );
+        Assert.NotNull( tgt.DisplayName );
         Assert.Equal( src.Email, tgt.Email );
-        Assert.Equal( src.FriendlyName, tgt.FriendlyName );
+        Assert.Equal( src.DisplayName, tgt.DisplayName );
     }
 }

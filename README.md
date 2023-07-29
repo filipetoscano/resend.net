@@ -112,6 +112,4 @@ Roadmap
 * Return ApiResponse<T> (rather than T), for folks that prefer responses rather than exceptions
 * Complete the API / object XML documentation
 * Implement Github CI/CD (for libraries and cli tool)
-* Converter from `System.Net.Mail.MailMessage` to Resend equiv
 * Target multiple frameworks (.NET Standard, .NET 6) -- rather than .NET 7
-* Attachments when sending emails

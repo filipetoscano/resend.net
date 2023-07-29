@@ -6,13 +6,23 @@ using System.Reflection;
 
 namespace Resend;
 
-/// <summary />
+/// <summary>
+/// Resend client implementation.
+/// </summary>
 public class ResendClient : IResend
 {
     private readonly HttpClient _http;
 
 
-    /// <summary />
+    /// <summary>
+    /// Initializes a new instance of ResendClient client.
+    /// </summary>
+    /// <param name="options">
+    /// Configuration options.
+    /// </param>
+    /// <param name="httpClient">
+    /// HTTP client instance.
+    /// </param>
     public ResendClient( IOptions<ResendClientOptions> options, HttpClient httpClient )
     {
         /*

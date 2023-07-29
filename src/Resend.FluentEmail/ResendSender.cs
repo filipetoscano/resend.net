@@ -58,13 +58,13 @@ public class ResendSender : IResendSender
         message.To.AddRange( email.Data.ToAddresses.Select( x => x.EmailAddress ) );
 
         if ( email.Data.CcAddresses.Count > 0 )
-            message.Cc = email.Data.CcAddresses.Select( x => x.EmailAddress ).ToList();
+            message.Cc = EmailAddressList.From( email.Data.CcAddresses.Select( x => x.EmailAddress ) );
 
         if ( email.Data.BccAddresses.Count > 0 )
-            message.Bcc = email.Data.BccAddresses.Select( x => x.EmailAddress ).ToList();
+            message.Bcc = EmailAddressList.From( email.Data.BccAddresses.Select( x => x.EmailAddress ) );
 
         if ( email.Data.ReplyToAddresses.Count > 0 )
-            message.ReplyTo = email.Data.ReplyToAddresses.Select( x => x.EmailAddress ).ToList();
+            message.ReplyTo = EmailAddressList.From( email.Data.ReplyToAddresses.Select( x => x.EmailAddress ) );
 
 
         /*

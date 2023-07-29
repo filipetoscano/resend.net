@@ -22,4 +22,14 @@ public class EmailAddressList : List<string>
 
         return list;
     }
+
+
+    /// <summary />
+    public static EmailAddressList From( IEnumerable<string> emails )
+    {
+        var list = new EmailAddressList();
+        list.AddRange( emails );
+
+        return list;
+    }
 }
