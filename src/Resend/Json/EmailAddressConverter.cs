@@ -12,10 +12,10 @@ public class EmailAddressConverter : JsonConverter<EmailAddress>
     /// <inheritdoc />
     public override EmailAddress? Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options )
     {
-        var addr = reader.GetString();
+        if ( reader.TokenType != JsonTokenType.String )
+            throw new JsonException( $"EA001: Expected String, instead found '{reader.TokenType}'" );
 
-        if ( addr == null )
-            return null;
+        var addr = reader.GetString()!;
 
 
         /*

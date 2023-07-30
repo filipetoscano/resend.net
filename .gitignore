@@ -1,3 +1,4 @@
+# Generic
 /.nuget/
 /.vs/
 /build/
@@ -9,6 +10,11 @@ obj/
 
 !/bin/
 
-
+# Specific
 tools/Resend.Cli/env.cmd
 tools/Resend.Cli/*.json
+
+tests/Resend.Tests/TestReport/
+tests/Resend.Tests/TestResults/
+
+# eof

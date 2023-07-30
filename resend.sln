@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "global", "global", "{DA723758-803A-4642-B5D7-9D87E16FE81A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 		Directory.Build.props = Directory.Build.props
 		README.md = README.md
 	EndProjectSection

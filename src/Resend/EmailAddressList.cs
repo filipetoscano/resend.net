@@ -32,4 +32,14 @@ public class EmailAddressList : List<string>
 
         return list;
     }
+
+
+    /// <summary />
+    public static EmailAddressList From( params string[] emails )
+    {
+        var list = new EmailAddressList();
+        list.AddRange( emails );
+
+        return list;
+    }
 }

@@ -44,7 +44,7 @@ public class JsonStringEnumValueConverter<T> : JsonConverter<T>
     public override T Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options )
     {
         if ( reader.TokenType != JsonTokenType.String )
-            throw new InvalidOperationException( $"Expected String, instead {reader.TokenType}" );
+            throw new JsonException( $"SE001: Expected String, instead {reader.TokenType}" );
 
         var json = reader.GetString()!;
 
@@ -53,7 +53,7 @@ public class JsonStringEnumValueConverter<T> : JsonConverter<T>
          * 
          */
         if ( _rev.TryGetValue( json, out var rev ) == false )
-            throw new InvalidOperationException( $"Invalid value: '{json}'" );
+            throw new JsonException( $"SE002: Invalid value: '{json}'" );
 
         return rev;
     }

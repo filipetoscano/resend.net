@@ -60,4 +60,20 @@ public class EmailAddressConverterTests
         Assert.Equal( src.Email, tgt.Email );
         Assert.Equal( src.DisplayName, tgt.DisplayName );
     }
+
+
+    /// <summary />
+    [Fact]
+    public void FromNumber()
+    {
+        var json = "1";
+
+        Action act = () => JsonSerializer.Deserialize<EmailAddress>( json );
+
+        var ex = Assert.Throws<JsonException>( act );
+        Assert.NotNull( ex.Path );
+        Assert.NotNull( ex.LineNumber );
+        Assert.NotNull( ex.BytePositionInLine );
+        Assert.StartsWith( "EA001:", ex.Message );
+    }
 }

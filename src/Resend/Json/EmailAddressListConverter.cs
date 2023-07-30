@@ -24,7 +24,7 @@ public class EmailAddressListConverter : JsonConverter<EmailAddressList>
         }
 
         if ( reader.TokenType != JsonTokenType.StartArray )
-            throw new InvalidOperationException( $"Expected String | StartArray, instead got '{reader.TokenType}'." );
+            throw new JsonException( $"EL001: Expected String | StartArray, instead got '{reader.TokenType}'." );
 
 
         /*
@@ -36,13 +36,13 @@ public class EmailAddressListConverter : JsonConverter<EmailAddressList>
                 return list;
 
             if ( reader.TokenType != JsonTokenType.String )
-                throw new InvalidOperationException( $"Expected String, instead got '{reader.TokenType}'." );
+                throw new JsonException( $"EL002: Expected String, instead got '{reader.TokenType}'." );
 
             var s = reader.GetString()!;
             list.Add( s );
         }
 
-        throw new InvalidOperationException( $"No more content, expected EndArray as terminator" );
+        throw new JsonException( $"EL003: No more content, expected EndArray as terminator" );
     }
 
 

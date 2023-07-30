@@ -50,4 +50,36 @@ public class EmailAddressListConverterTests
         Assert.Equal( src[ 0 ], tgt[ 0 ] );
         Assert.Equal( src[ 1 ], tgt[ 1 ] );
     }
+
+
+    /// <summary />
+    [Fact]
+    public void FromNumber()
+    {
+        var json = "1";
+
+        Action act = () => JsonSerializer.Deserialize<EmailAddressList>( json );
+
+        var ex = Assert.Throws<JsonException>( act );
+        Assert.NotNull( ex.Path );
+        Assert.NotNull( ex.LineNumber );
+        Assert.NotNull( ex.BytePositionInLine );
+        Assert.StartsWith( "EL001:", ex.Message );
+    }
+
+
+    /// <summary />
+    [Fact]
+    public void WithNumber()
+    {
+        var json = "[1,2]";
+
+        Action act = () => JsonSerializer.Deserialize<EmailAddressList>( json );
+
+        var ex = Assert.Throws<JsonException>( act );
+        Assert.NotNull( ex.Path );
+        Assert.NotNull( ex.LineNumber );
+        Assert.NotNull( ex.BytePositionInLine );
+        Assert.StartsWith( "EL002:", ex.Message );
+    }
 }

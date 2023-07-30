@@ -77,4 +77,36 @@ public class JsonStringEnumValueTests
         var tgt = JsonSerializer.Deserialize<OtherEnum>( json );
         Assert.Equal( OtherEnum.V1, tgt );
     }
+
+
+    /// <summary />
+    [Fact]
+    public void FromNumber()
+    {
+        var json = "1";
+
+        Action act = () => JsonSerializer.Deserialize<TestEnum>( json );
+
+        var ex = Assert.Throws<JsonException>( act );
+        Assert.NotNull( ex.Path );
+        Assert.NotNull( ex.LineNumber );
+        Assert.NotNull( ex.BytePositionInLine );
+        Assert.StartsWith( "SE001:", ex.Message );
+    }
+
+
+    /// <summary />
+    [Fact]
+    public void FromInvalid()
+    {
+        var json = "\"xpto\"";
+
+        Action act = () => JsonSerializer.Deserialize<TestEnum>( json );
+
+        var ex = Assert.Throws<JsonException>( act );
+        Assert.NotNull( ex.Path );
+        Assert.NotNull( ex.LineNumber );
+        Assert.NotNull( ex.BytePositionInLine );
+        Assert.StartsWith( "SE002:", ex.Message );
+    }
 }
