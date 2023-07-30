@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Cli", "tools\Resend.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.FluentEmail", "src\Resend.FluentEmail\Resend.FluentEmail.csproj", "{17C4EBD2-C56D-434A-98D7-C15B2611470B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.ApiServer", "tools\Resend.ApiServer\Resend.ApiServer.csproj", "{E9A59820-1707-4B05-B209-6B7F162BB676}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17C4EBD2-C56D-434A-98D7-C15B2611470B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9A59820-1707-4B05-B209-6B7F162BB676}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9A59820-1707-4B05-B209-6B7F162BB676}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9A59820-1707-4B05-B209-6B7F162BB676}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9A59820-1707-4B05-B209-6B7F162BB676}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,6 +62,7 @@ Global
 		{3F0D2DF8-137A-4F14-9C93-E3196D08011B} = {5D754FB9-1914-41EC-B468-6946D96C3D81}
 		{1DEA0AE5-D091-4163-868C-03521C72F937} = {CAC9B80A-B362-4135-AC30-8013D0DB6124}
 		{17C4EBD2-C56D-434A-98D7-C15B2611470B} = {926E6B15-2004-46CC-B704-7FDB0E755705}
+		{E9A59820-1707-4B05-B209-6B7F162BB676} = {CAC9B80A-B362-4135-AC30-8013D0DB6124}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15EEB6F3-A067-45F5-987C-824BD8FDEAF9}

@@ -1,0 +1,122 @@
+using Microsoft.AspNetCore.Mvc;
+using Resend.Payloads;
+
+namespace Resend.ApiServer.Controllers;
+
+/// <summary />
+[ApiController]
+public class DomainController : ControllerBase
+{
+    private readonly ILogger<DomainController> _logger;
+
+
+    /// <summary />
+    public DomainController( ILogger<DomainController> logger )
+    {
+        _logger = logger;
+    }
+
+
+    /// <summary />
+    [HttpPost]
+    [Route( "domains" )]
+    public Domain DomainAdd( [FromBody] DomainAddRequest request )
+    {
+        return new Domain()
+        {
+            Id = Guid.NewGuid(),
+            Name = "example.com",
+            Region = DeliveryRegion.UsEast1,
+            Status = ValidationStatus.NotStarted,
+            MomentCreated = DateTime.UtcNow,
+            Records = new List<DomainRecord>()
+            {
+                new DomainRecord()
+                {
+                    Record = "SPF",
+                    RecordType = "TXT",
+                    Name = "bounces",
+                    TimeToLive = "Auto",
+                    Status = ValidationStatus.NotStarted,
+                    Value = "feedback-smtp.us-east-1.amazonses.com",
+                },
+            },
+        };
+    }
+
+
+    /// <summary />
+    [HttpGet]
+    [Route( "domains/{id}" )]
+    public Domain DomainRetrieve( [FromRoute] Guid id )
+    {
+        return new Domain()
+        {
+            Id = id,
+            Name = "example.com",
+            Region = DeliveryRegion.UsEast1,
+            Status = ValidationStatus.NotStarted,
+            MomentCreated = DateTime.UtcNow,
+            Records = new List<DomainRecord>()
+            {
+                new DomainRecord()
+                {
+                    Record = "SPF",
+                    RecordType = "TXT",
+                    Name = "bounces",
+                    TimeToLive = "Auto",
+                    Status = ValidationStatus.NotStarted,
+                    Value = "feedback-smtp.us-east-1.amazonses.com",
+                },
+            },
+        };
+    }
+
+
+    /// <summary />
+    [HttpPost]
+    [Route( "domains/{id}/verify" )]
+    public ActionResult DomainVerify( [FromRoute] Guid id )
+    {
+        return Ok();
+    }
+
+
+    /// <summary />
+    [HttpGet]
+    [Route( "domains" )]
+    public ListOf<Domain> DomainList()
+    {
+        return new ListOf<Domain>()
+        {
+            Data = new List<Domain>()
+            {
+                new Domain()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "example.com",
+                    Region = DeliveryRegion.UsEast1,
+                    Status = ValidationStatus.NotStarted,
+                    MomentCreated = DateTime.UtcNow,
+                },
+                new Domain()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "amazing.com",
+                    Region = DeliveryRegion.EuWest1,
+                    Status = ValidationStatus.Pending,
+                    MomentCreated = DateTime.UtcNow,
+                }
+            },
+        };
+    }
+
+
+    /// <summary />
+    [HttpDelete]
+    [Route( "domains/{id}" )]
+    public ActionResult DomainDelete( [FromRoute] Guid id )
+    {
+        return Ok();
+    }
+}
