@@ -70,8 +70,8 @@ public class DomainRetrieveCommand
                 var table = new Table();
                 table.Border = TableBorder.SimpleHeavy;
                 table.AddColumn( "Record" );
-                table.AddColumn( "Name" );
                 table.AddColumn( "Type" );
+                table.AddColumn( "Name" );
                 table.AddColumn( "TTL" );
                 table.AddColumn( "Status" );
                 table.AddColumn( "Value" );
@@ -80,8 +80,8 @@ public class DomainRetrieveCommand
                 {
                     table.AddRow(
                         new Markup( d.Record ),
-                        new Markup( d.Name ),
                         new Markup( d.RecordType ),
+                        new Markup( d.Name ),
                         new Markup( d.TimeToLive ),
                         new Markup( d.Status.ToString() ),
                         new Markup( d.Value ?? "" )
