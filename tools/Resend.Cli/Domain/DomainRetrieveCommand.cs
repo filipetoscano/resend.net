@@ -32,9 +32,13 @@ public class DomainRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var domain = await _resend.DomainRetrieveAsync( this.DomainId );
+        var res = await _resend.DomainRetrieveAsync( this.DomainId );
+        var domain = res.Content;
 
 
+        /*
+         * 
+         */
         if ( this.InJson == true )
         {
             var jso = new JsonSerializerOptions() { WriteIndented = true };

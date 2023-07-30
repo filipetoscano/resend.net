@@ -31,7 +31,8 @@ public class DomainAddCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var domain = await _resend.DomainAddAsync( this.DomainName, this.Region );
+        var res = await _resend.DomainAddAsync( this.DomainName, this.Region );
+        var domain = res.Content;
 
 
         /*

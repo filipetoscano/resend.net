@@ -24,7 +24,8 @@ public class EmailRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var email = await _resend.EmailRetrieveAsync( this.EmailId );
+        var res = await _resend.EmailRetrieveAsync( this.EmailId );
+        var email = res.Content;
 
 
         /*

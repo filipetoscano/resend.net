@@ -18,7 +18,7 @@ public interface IResend
     /// Email identifier.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/emails/send-email"/>
-    Task<Guid> EmailSendAsync( EmailMessage email, CancellationToken cancellationToken = default );
+    Task<ResendResponse<Guid>> EmailSendAsync( EmailMessage email, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -34,7 +34,7 @@ public interface IResend
     /// Email receipt.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/emails/retrieve-email"/>
-    Task<EmailReceipt> EmailRetrieveAsync( Guid emailId, CancellationToken cancellationToken = default );
+    Task<ResendResponse<EmailReceipt>> EmailRetrieveAsync( Guid emailId, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -47,7 +47,7 @@ public interface IResend
     /// Domain.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/domains/list-domains"/>
-    Task<List<Domain>> DomainListAsync( CancellationToken cancellationToken = default );
+    Task<ResendResponse<List<Domain>>> DomainListAsync( CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -66,7 +66,7 @@ public interface IResend
     /// Domain.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/domains/create-domain"/>
-    Task<Domain> DomainAddAsync( string domainName, DeliveryRegion? region, CancellationToken cancellationToken = default );
+    Task<ResendResponse<Domain>> DomainAddAsync( string domainName, DeliveryRegion? region, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -82,7 +82,7 @@ public interface IResend
     /// Domain.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/domains/get-domain"/>
-    Task<Domain> DomainRetrieveAsync( Guid domainId, CancellationToken cancellationToken = default );
+    Task<ResendResponse<Domain>> DomainRetrieveAsync( Guid domainId, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -98,7 +98,7 @@ public interface IResend
     /// Task.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/domains/verify-domain"/>
-    Task DomainVerifyAsync( Guid domainId, CancellationToken cancellationToken = default );
+    Task<ResendResponse> DomainVerifyAsync( Guid domainId, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -114,7 +114,7 @@ public interface IResend
     /// Task.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/domains/delete-domain"/>
-    Task DomainDeleteAsync( Guid domainId, CancellationToken cancellationToken = default );
+    Task<ResendResponse> DomainDeleteAsync( Guid domainId, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -125,7 +125,7 @@ public interface IResend
     /// </param>
     /// <returns>List of API keys</returns>
     /// <see href="https://resend.com/docs/api-reference/api-keys/list-api-keys"/>
-    Task<List<ApiKey>> ApiKeyListAsync( CancellationToken cancellationToken = default );
+    Task<ResendResponse<List<ApiKey>>> ApiKeyListAsync( CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -148,7 +148,7 @@ public interface IResend
     /// API key data. The token is only available during creation!
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/api-keys/create-api-key"/>
-    Task<ApiKeyData> ApiKeyCreateAsync( string keyName, Permission? permission, Guid? domainId, CancellationToken cancellationToken = default );
+    Task<ResendResponse<ApiKeyData>> ApiKeyCreateAsync( string keyName, Permission? permission, Guid? domainId, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -164,5 +164,5 @@ public interface IResend
     /// Task.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/api-keys/delete-api-key" />
-    Task ApiKeyDelete( Guid apiKeyId, CancellationToken cancellationToken = default );
+    Task<ResendResponse> ApiKeyDelete( Guid apiKeyId, CancellationToken cancellationToken = default );
 }

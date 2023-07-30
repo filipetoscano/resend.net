@@ -35,7 +35,8 @@ public class ApiKeyCreateCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var apiKey = await _resend.ApiKeyCreateAsync( this.KeyName, this.Permission, this.DomainId );
+        var res = await _resend.ApiKeyCreateAsync( this.KeyName, this.Permission, this.DomainId );
+        var apiKey = res.Content;
 
 
         /*

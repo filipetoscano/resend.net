@@ -26,7 +26,8 @@ public class DomainListCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var domains = await _resend.DomainListAsync();
+        var res = await _resend.DomainListAsync();
+        var domains = res.Content;
 
         if ( this.InJson == true )
         {

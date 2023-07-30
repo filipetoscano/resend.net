@@ -91,8 +91,9 @@ public class EmailSendCommand
         /*
          * 
          */
-        var emailId = await _resend.EmailSendAsync( message );
-        Console.WriteLine( emailId );
+        var res = await _resend.EmailSendAsync( message );
+
+        Console.WriteLine( res.Content );
 
         return 0;
     }
