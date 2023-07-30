@@ -3,7 +3,7 @@
 namespace Resend.Payloads;
 
 /// <summary />
-internal class ListOf<T>
+public class ListOf<T>
 {
     /// <summary />
     [JsonPropertyName( "data" )]

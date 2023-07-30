@@ -148,7 +148,7 @@ public interface IResend
     /// API key data. The token is only available during creation!
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/api-keys/create-api-key"/>
-    Task<ResendResponse<ApiKeyData>> ApiKeyCreateAsync( string keyName, Permission? permission, Guid? domainId, CancellationToken cancellationToken = default );
+    Task<ResendResponse<ApiKeyData>> ApiKeyCreateAsync( string keyName, Permission? permission = null, Guid? domainId = null, CancellationToken cancellationToken = default );
 
 
     /// <summary>

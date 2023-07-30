@@ -3,7 +3,7 @@
 namespace Resend.Payloads;
 
 /// <summary />
-internal class ApiKeyCreateRequest
+public class ApiKeyCreateRequest
 {
     /// <summary />
     [JsonPropertyName( "name" )]

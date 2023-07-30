@@ -3,8 +3,6 @@ using Resend.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
-using System.Threading;
 
 namespace Resend;
 
@@ -13,6 +11,7 @@ namespace Resend;
 /// </summary>
 public class ResendClient : IResend
 {
+    private readonly bool _throw;
     private readonly HttpClient _http;
 
 
@@ -37,6 +36,13 @@ public class ResendClient : IResend
 
 
         /*
+         * Ask for JSON responses. Not necessar atm, since Resend always/only
+         * answers in JSON -- but good for future proofing.
+         */
+        httpClient.DefaultRequestHeaders.Accept.Add( new MediaTypeWithQualityHeaderValue( "application/json" ) );
+
+
+        /*
          * Identification
          */
         var productValue = new ProductInfoHeaderValue( "resend-sdk", Assembly.GetExecutingAssembly().GetName().Version?.ToString() ?? "0.0.0" );
@@ -46,6 +52,7 @@ public class ResendClient : IResend
         httpClient.DefaultRequestHeaders.UserAgent.Add( dotnetValue );
 
         _http = httpClient;
+        _throw = options.Value.ThrowExceptions;
     }
 
 
@@ -167,7 +174,7 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc />
-    public async Task<ResendResponse<ApiKeyData>> ApiKeyCreateAsync( string keyName, Permission? permission, Guid? domainId, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<ApiKeyData>> ApiKeyCreateAsync( string keyName, Permission? permission = null, Guid? domainId = null, CancellationToken cancellationToken = default )
     {
         var req = new ApiKeyCreateRequest()
         {
@@ -207,23 +214,96 @@ public class ResendClient : IResend
 
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
+        return Handle( resp );
+    }
+
+
+    /// <summary />
+    private ResendResponse Handle( HttpResponseMessage resp )
+    {
+        /*
+         * 
+         */
+        if ( resp.IsSuccessStatusCode == false )
+        {
+            if ( _throw == true )
+                resp.EnsureSuccessStatusCode();
+
+            return new ResendResponse( resp.StatusCode );
+        }
 
         return new ResendResponse();
     }
 
 
+    /// <summary />
     private async Task<ResendResponse<T2>> Handle<T1, T2>( HttpResponseMessage resp,
-        Func<T1, T2> func,
+        Func<T1, T2> map,
         CancellationToken cancellationToken )
     {
-        resp.EnsureSuccessStatusCode();
+        /*
+         * 
+         */
+        if ( resp.IsSuccessStatusCode == false )
+        {
+            if ( _throw == true )
+                resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<T1>( cancellationToken: cancellationToken );
+            return new ResendResponse<T2>( resp.StatusCode );
+        }
 
+
+        /*
+         * 
+         */
+        T1? obj;
+
+        try
+        {
+            obj = await resp.Content.ReadFromJsonAsync<T1>( cancellationToken: cancellationToken );
+        }
+        catch ( Exception ex )
+        {
+            if ( _throw == true )
+                throw;
+
+            return new ResendResponse<T2>( ex, $"RC001: Failed to deserialize response" );
+        }
+
+
+        /*
+         * 
+         */
         if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
+        {
+            if ( _throw )
+                throw new InvalidOperationException( "RC002: Received null response" );
 
-        return new ResendResponse<T2>( func( obj ) );
+            return new ResendResponse<T2>( "RC002: Received null response" );
+        }
+
+
+        /*
+         * 
+         */
+        T2 res;
+
+        try
+        {
+            res = map( obj );
+        }
+        catch ( Exception ex )
+        {
+            if ( _throw )
+                throw;
+
+            return new ResendResponse<T2>( ex, $"RC003: Mapping from {typeof( T1 )} to {typeof( T2 )} failed" );
+        }
+
+
+        /*
+         * 
+         */
+        return new ResendResponse<T2>( res );
     }
 }

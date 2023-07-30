@@ -3,7 +3,7 @@
 namespace Resend.Payloads;
 
 /// <summary />
-internal class DomainAddRequest
+public class DomainAddRequest
 {
     /// <summary />
     [JsonPropertyName( "name" )]

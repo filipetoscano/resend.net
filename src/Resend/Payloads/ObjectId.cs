@@ -3,7 +3,7 @@
 namespace Resend.Payloads;
 
 /// <summary />
-internal class ObjectId
+public class ObjectId
 {
     /// <summary />
     [JsonPropertyName( "id" )]
