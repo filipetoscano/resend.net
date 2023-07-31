@@ -2,10 +2,15 @@
 
 namespace Resend.Payloads;
 
-/// <summary />
+/// <summary>
+/// Resend response, when the method only returns the (newly created)
+/// object identifier.
+/// </summary>
 public class ObjectId
 {
-    /// <summary />
+    /// <summary>
+    /// Object identifier.
+    /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
 }

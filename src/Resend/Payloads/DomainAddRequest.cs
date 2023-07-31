@@ -2,7 +2,9 @@
 
 namespace Resend.Payloads;
 
-/// <summary />
+/// <summary>
+/// Request object to create an email sender domain.
+/// </summary>
 public class DomainAddRequest
 {
     /// <summary />

@@ -2,7 +2,9 @@
 
 namespace Resend.Payloads;
 
-/// <summary />
+/// <summary>
+/// Resend response, when the method returns an array of a class.
+/// </summary>
 public class ListOf<T>
 {
     /// <summary />
