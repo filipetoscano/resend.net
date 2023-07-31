@@ -1,4 +1,5 @@
 ﻿using FluentEmail.Core;
+using FluentEmail.Core.Interfaces;
 using FluentEmail.Core.Models;
 
 namespace Resend.FluentEmail;
@@ -6,7 +7,7 @@ namespace Resend.FluentEmail;
 /// <summary>
 /// FluendEmail implementation for Resend.
 /// </summary>
-public class ResendSender : IResendSender
+public class ResendSender : ISender
 {
     private readonly IResend _resend;
 
