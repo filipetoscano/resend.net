@@ -25,7 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Cli", "tools\Resend.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.FluentEmail", "src\Resend.FluentEmail\Resend.FluentEmail.csproj", "{17C4EBD2-C56D-434A-98D7-C15B2611470B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resend.ApiServer", "tools\Resend.ApiServer\Resend.ApiServer.csproj", "{E9A59820-1707-4B05-B209-6B7F162BB676}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.ApiServer", "tools\Resend.ApiServer\Resend.ApiServer.csproj", "{E9A59820-1707-4B05-B209-6B7F162BB676}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cicd", "cicd", "{C05A73FD-2F58-4F30-916F-7D21004D510D}"
+	ProjectSection(SolutionItems) = preProject
+		cicd\ci.sh = cicd\ci.sh
+		cicd\release.sh = cicd\release.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

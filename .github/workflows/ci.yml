@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET SDK 7.0
+        uses: actions/setup-dotnet@v2.0.0
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Cache
+        uses: actions/cache@v3.0.0
+        with:
+          path: 
+            .nuget
+          key: nuget
+
+      - name: Run ci.sh
+        run: ./cicd/ci.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
