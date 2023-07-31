@@ -1,8 +1,10 @@
 # Generic
 /.nuget/
 /.vs/
+/artifacts/
 /build/
 /dist/
+/tmp/
 
 bin/
 obj/
