@@ -1,14 +1,31 @@
-﻿using System.Net.Mail;
+﻿using Resend;
 
-namespace Resend;
+namespace System.Net.Mail;
 
 /// <summary />
 public static class MailMessageExtension
 {
-    public static EmailMessage AsEmailMessage( this MailMessage message )
+    /// <summary>
+    /// Creates an instance of <see cref="EmailMessage" /> for Resend API, based
+    /// on an instance of the default/standard .NET <see cref="MailMessage" />.
+    /// </summary>
+    /// <param name="message">
+    /// Mail message.
+    /// </param>
+    /// <returns>
+    /// Email message for Resend.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Exception is thrown whenever mandatory fields are not specified, such as
+    /// sender or recipient email addresses.
+    /// </exception>
+    public static EmailMessage ToEmailMessage( this MailMessage message )
     {
         if ( message.From == null )
             throw new ArgumentOutOfRangeException( nameof( message ), "From is not set" );
+
+        if ( message.To.Count == 0 )
+            throw new ArgumentOutOfRangeException( nameof( message ), "No To email addresss are set" );
 
 
         /*
@@ -83,7 +100,7 @@ public static class MailMessageExtension
 
                 email.Attachments.Add( new EmailAttachment()
                 {
-                    Filename = att.Name ?? "file",
+                    Filename = att.Name ?? "file.oct",
                     Content = ms.ToArray(),
                 } );
             }
