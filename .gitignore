@@ -4,6 +4,7 @@
 /artifacts/
 /build/
 /dist/
+/nupkg/
 /tmp/
 
 bin/
