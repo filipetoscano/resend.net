@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <AssemblyName>resend-cli</AssemblyName>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -11,6 +12,16 @@
     <!-- Tool -->
     <PackAsTool>True</PackAsTool>
     <ToolCommandName>resend</ToolCommandName>
+
+    <!-- Targets -->
+    <RuntimeIdentifiers>win-x64;osx-x64;linux-x64</RuntimeIdentifiers>
+
+    <!-- Executable -->
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <PublishSingleFile>true</PublishSingleFile>
+    <!--<PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>-->
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
