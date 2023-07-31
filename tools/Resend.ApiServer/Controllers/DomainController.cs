@@ -22,6 +22,8 @@ public class DomainController : ControllerBase
     [Route( "domains" )]
     public Domain DomainAdd( [FromBody] DomainAddRequest request )
     {
+        _logger.LogDebug( "DomainAdd" );
+
         return new Domain()
         {
             Id = Guid.NewGuid(),
@@ -50,6 +52,8 @@ public class DomainController : ControllerBase
     [Route( "domains/{id}" )]
     public Domain DomainRetrieve( [FromRoute] Guid id )
     {
+        _logger.LogDebug( "DomainRetrieve" );
+
         return new Domain()
         {
             Id = id,
@@ -78,6 +82,8 @@ public class DomainController : ControllerBase
     [Route( "domains/{id}/verify" )]
     public ActionResult DomainVerify( [FromRoute] Guid id )
     {
+        _logger.LogDebug( "DomainVerify" );
+
         return Ok();
     }
 
@@ -87,6 +93,8 @@ public class DomainController : ControllerBase
     [Route( "domains" )]
     public ListOf<Domain> DomainList()
     {
+        _logger.LogDebug( "DomainList" );
+
         return new ListOf<Domain>()
         {
             Data = new List<Domain>()
@@ -117,6 +125,8 @@ public class DomainController : ControllerBase
     [Route( "domains/{id}" )]
     public ActionResult DomainDelete( [FromRoute] Guid id )
     {
+        _logger.LogDebug( "DomainDelete" );
+
         return Ok();
     }
 }

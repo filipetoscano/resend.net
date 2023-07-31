@@ -22,6 +22,8 @@ public class ApiKeyController : ControllerBase
     [Route( "api-keys" )]
     public ApiKeyData ApiKeyCreate( [FromBody] ApiKeyCreateRequest message )
     {
+        _logger.LogDebug( "ApiKeyCreate" );
+
         return new ApiKeyData()
         {
             Id = Guid.NewGuid(),
@@ -35,6 +37,8 @@ public class ApiKeyController : ControllerBase
     [Route( "api-keys" )]
     public ListOf<ApiKey> ApiKeyList()
     {
+        _logger.LogDebug( "ApiKeyList" );
+
         var list = new List<ApiKey>();
 
         list.Add( new ApiKey()

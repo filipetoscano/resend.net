@@ -36,6 +36,8 @@ public class EmailController : ControllerBase
     [Route( "emails/{id}" )]
     public EmailReceipt EmailRetrieve( [FromRoute] Guid id )
     {
+        _logger.LogDebug( "EmailRetrieve" );
+
         return new EmailReceipt()
         {
             Id = id,

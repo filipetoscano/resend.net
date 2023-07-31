@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Resend.Payloads;
 
 namespace Resend.ApiServer.Controllers;
 
@@ -13,5 +14,29 @@ public class WebhookController : ControllerBase
     public WebhookController( ILogger<WebhookController> logger )
     {
         _logger = logger;
+    }
+
+
+    /// <summary />
+    [HttpGet]
+    [Route( "webhooks" )]
+    public ListOf<Webhook> WebhookList()
+    {
+        _logger.LogDebug( "WebhookList" );
+
+        return new ListOf<Webhook>()
+        {
+            Data = new List<Webhook>()
+            {
+                new Webhook()
+                {
+                    Id = Guid.NewGuid(),
+                },
+                new Webhook()
+                {
+                    Id = Guid.NewGuid(),
+                }
+            },
+        };
     }
 }
