@@ -218,6 +218,16 @@ public class ResendClient : IResend
     }
 
 
+    /// <inheritdoc />
+    public async Task<ResendResponse<List<Webhook>>> WebhookListAsync( CancellationToken cancellationToken = default )
+    {
+        var path = $"/webhooks";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        return await Handle<ListOf<Webhook>, List<Webhook>>( resp, ( x ) => x.Data, cancellationToken );
+    }
+
+
     /// <summary />
     private ResendResponse Handle( HttpResponseMessage resp )
     {
