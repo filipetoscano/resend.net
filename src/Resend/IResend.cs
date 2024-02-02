@@ -165,4 +165,62 @@ public interface IResend
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/api-keys/delete-api-key" />
     Task<ResendResponse> ApiKeyDelete( Guid apiKeyId, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Create a list of contacts.
+    /// </summary>
+    /// <param name="name">
+    /// The name of the audience you want to create..
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Task.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/audiences/create-audience" />
+    Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Retrieve a single audience.
+    /// </summary>
+    /// /// <param name="audienceId">
+    /// The audience identifier.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// List of Audience.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/audiences/get-audience" />
+    Task<ResendResponse<Audience>> AudienceRetrieveAsync( Guid audienceId, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Remove an existing audience.
+    /// </summary>
+    /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Task.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/audiences/delete-audience" />
+    Task<ResendResponse> AudienceDeleteAsync( Guid audienceId, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Retrieve a list of audiences.
+    /// </summary>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// A list of Audience.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/audiences/list-audiences" />
+    Task<ResendResponse<List<Audience>>> AudienceListAsync( CancellationToken cancellationToken = default );
+
 }

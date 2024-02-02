@@ -3,6 +3,7 @@ using Resend.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
+using System.Security;
 
 namespace Resend;
 
@@ -226,6 +227,62 @@ public class ResendClient : IResend
 
         return await Handle<ListOf<Webhook>, List<Webhook>>( resp, ( x ) => x.Data, cancellationToken );
     }
+    
+    /// <inheritdoc/>
+    public async Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default )
+    {
+        var req = new AudienceCreateRequest()
+        {
+            Name = name
+        };
+
+        var path = $"/audiences";
+        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<AudienceData>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return new ResendResponse<AudienceData>( obj );
+    }
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse<Audience>> AudienceRetrieveAsync( Guid audienceId, CancellationToken cancellationToken = default )
+    {
+        var path = $"/audiences/{audienceId}";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<Audience>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return new ResendResponse<Audience>( obj );
+    }
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> AudienceDeleteAsync( Guid audienceId, CancellationToken cancellationToken = default )
+    {
+        var path = $"/audiences/{audienceId}";
+
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        return Handle( resp );
+    }
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse<List<Audience>>> AudienceListAsync( CancellationToken cancellationToken = default )
+    {
+        var path = $"/audiences";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        return await Handle<ListOf<Audience>, List<Audience>>( resp, ( x ) => x.Data, cancellationToken );
+    }
 
 
     /// <summary />
@@ -315,5 +372,5 @@ public class ResendClient : IResend
          * 
          */
         return new ResendResponse<T2>( res );
-    }
+    }    
 }
