@@ -10,6 +10,7 @@ namespace Resend.Cli;
 [Subcommand( typeof( DomainCommand ) )]
 [Subcommand( typeof( EmailCommand ) )]
 [Subcommand( typeof( WebhookCommand ) )]
+[Subcommand( typeof( AudienceCommand ) )]
 [HelpOption]
 [VersionOptionFromMember( MemberName = nameof( GetVersion ))]
 public class Program
