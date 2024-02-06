@@ -140,4 +140,40 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.NotNull( resp );
     }
+    
+    /// <summary/>
+    [Fact]
+    public async Task AudienceCreate()
+    {
+        var resp = await _resend.AudienceCreateAsync( "audience-test" );
+
+        Assert.NotNull( resp );
+    }
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceRetrieve()
+    {
+        var resp = await _resend.AudienceRetrieveAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceList()
+    {
+        var resp = await _resend.AudienceListAsync();
+
+        Assert.NotNull( resp );
+    }
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceDelete()
+    {
+        var resp = await _resend.AudienceDeleteAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
 }
