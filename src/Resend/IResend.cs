@@ -223,4 +223,118 @@ public interface IResend
     /// <see href="https://resend.com/docs/api-reference/audiences/list-audiences" />
     Task<ResendResponse<List<Audience>>> AudienceListAsync( CancellationToken cancellationToken = default );
 
+    /// <summary>
+    /// Create a contact inside an audience.
+    /// </summary>
+    /// /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="email">
+    /// The email address of the contact.
+    /// </param>
+    /// <param name="firstName">
+    /// The first name of the contact.
+    /// </param>
+    /// <param name="lastName">
+    /// The last name of the contact.
+    /// </param>
+    /// <param name="unsubscribed">
+    /// The subscription status.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancelation token.
+    /// </param>
+    /// <returns>
+    /// Contact Id. 
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/contacts/create-contact" />
+    Task<ResendResponse<ContactData>> ContactCreateAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Retrieve a single contact from an audience.
+    /// </summary>
+    /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="contactId">
+    /// The Contact ID.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancelation token.
+    /// </param>
+    /// <returns>
+    /// A Contact.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/contacts/get-contact" />
+    Task<ResendResponse<Contact>> ContactRetrieveAsync( Guid audienceId, Guid contactId, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Update an existing contact.
+    /// </summary>
+    /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="contactId">
+    /// The Contact ID.
+    /// </param>
+    /// <param name="email">
+    /// The email address of the contact. 
+    /// </param>
+    /// <param name="firstName">
+    /// The first name of the contact.
+    /// </param>
+    /// <param name="lastName">
+    /// The last name of the contact.
+    /// </param>
+    /// <param name="unsubscribed">
+    /// The subscription status.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancelation token.
+    /// </param>
+    /// <returns>
+    /// Contact Id. 
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/contacts/update-contact" />
+    Task<ResendResponse<ContactData>> ContactUpdateAsync( Guid audienceId, Guid contactId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <summary>
+    /// Update an existing contact.
+    /// </summary>
+    /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="contactId">
+    /// The Contact ID.
+    /// </param>
+    /// <param name="email">
+    /// The email address of the contact. 
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancelation token.
+    /// </param>
+    /// <returns>
+    /// Task
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/contacts/delete-contact" />
+    Task<ResendResponse> ContactDeleteAsync( Guid audienceId, Guid? contactId = default, string? email = default, CancellationToken cancellationToken = default );
+
+    /// <summary>
+    /// Show all contacts from an audience.
+    /// </summary>
+    /// <param name="audienceId">
+    /// The Audience ID.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancelation token.
+    /// </param>
+    /// <returns>
+    /// List of contacts. 
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/contacts/list-contacts" />
+    Task<ResendResponse<List<Contact>>> ContactListAsync( Guid audienceId, CancellationToken cancellationToken = default );
+
 }
