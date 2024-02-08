@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Contact;
 
 /// <summary />
-[Command( "delete", Description = "Deletes a contact" )]
+[Command( "delete", Description = "Delete a contact" )]
 public class ContactDeleteCommand
 {
     private readonly IResend _resend;

@@ -54,13 +54,16 @@ public class ContactListCommand
 
             foreach ( var c in contacts )
             {
+                #pragma warning disable CS8604 // Possible null reference argument.
                 table.AddRow(
-                    new Markup( c.Id.ToString() ),
-                    new Markup( c.Email ),
-                    new Markup( c.FirstName! ),
-                    new Markup( c.LastName! ),
-                    new Markup( c.Created.ToShortDateString()),
-                    new Markup( c.Unsubscribed.ToString()!));
+                   new Markup( c.Id.ToString() ),
+                   new Markup( c.Email ),
+                   new Markup( c.FirstName != null ? c.FirstName : "" ),
+                   new Markup( c.LastName != null ? c.LastName : "" ),
+                   new Markup( c.Created.ToShortDateString() ),
+                   new Markup( text: c.Unsubscribed == null ? "" : c.Unsubscribed.ToString() )
+                   );
+                #pragma warning restore CS8604 // Possible null reference argument.
             }
 
             AnsiConsole.Write( table );

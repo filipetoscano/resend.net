@@ -18,7 +18,7 @@ public class ContactRetrieveCommand
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 0, Description = "The Contact identifier" )]
+    [Argument( 1, Description = "The Contact identifier" )]
     [Required]
     public Guid ContactId { get; set; }
 
