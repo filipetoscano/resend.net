@@ -62,14 +62,16 @@ public class ContactRetrieveCommand
             record.AddColumn( "Created" );
             record.AddColumn( "Unsubscribed" );
 
+            #pragma warning disable CS8604 // Possible null reference argument.
             record.AddRow(
-                new Markup( contact.Id.ToString() ),
-                new Markup( contact.Email ),
-                new Markup( contact.FirstName! ),
-                new Markup( contact.LastName! ),
-                new Markup( contact.Created.ToShortTimeString()),
-                new Markup( contact.Unsubscribed!.ToString()!)
-                );
+               new Markup( contact.Id.ToString() ),
+               new Markup( contact.Email ),
+               new Markup( contact.FirstName != null ? contact.FirstName : "" ),
+               new Markup( contact.LastName != null ? contact.LastName : "" ),
+               new Markup( contact.Created.ToShortDateString() ),
+               new Markup( text: contact.Unsubscribed == null ? "" : contact.Unsubscribed.ToString() )
+               );
+            #pragma warning restore CS8604 // Possible null reference argument.
 
             AnsiConsole.Write( record );
         }
