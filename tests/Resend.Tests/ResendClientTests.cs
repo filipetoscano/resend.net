@@ -140,4 +140,93 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.NotNull( resp );
     }
+
+    
+    /// <summary/>
+    [Fact]
+    public async Task AudienceCreate()
+    {
+        var resp = await _resend.AudienceCreateAsync( "audience-test" );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceRetrieve()
+    {
+        var resp = await _resend.AudienceRetrieveAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceList()
+    {
+        var resp = await _resend.AudienceListAsync();
+
+        Assert.NotNull( resp );
+    }
+
+    /// <summary/>
+    [Fact]
+    public async Task AudienceDelete()
+    {
+        var resp = await _resend.AudienceDeleteAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task ContactCreate()
+    {
+        var resp = await _resend.ContactCreateAsync( Guid.NewGuid(), "email@test.com", "Bob", "Test", true );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task ContactRetrieve()
+    {
+        var resp = await _resend.ContactRetrieveAsync( Guid.NewGuid(), Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task ContactUpdate()
+    {
+        var resp = await _resend.ContactUpdateAsync( Guid.NewGuid(), Guid.NewGuid(), "test@email.com", "Carl", "Test", true );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task ContactList()
+    {
+        var resp = await _resend.ContactListAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task ContactDelete()
+    {
+        var resp = await _resend.ContactDeleteAsync( Guid.NewGuid(), Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
 }
