@@ -6,9 +6,11 @@ namespace Resend;
 [JsonConverter( typeof( JsonStringEnumValueConverter<WebhookStatus> ) )]
 public enum WebhookStatus
 {
+    /// <summary />
     [JsonStringValue( "enabled" )]
     Enabled,
 
+    /// <summary />
     [JsonStringValue( "disabled" )]
     Disabled,
 }
