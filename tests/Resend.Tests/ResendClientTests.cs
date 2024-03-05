@@ -21,7 +21,7 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
         var opt = Options.Create( new ResendClientOptions()
         {
             ApiUrl = http.BaseAddress!.ToString(),
-        } ) ;
+        } );
 
         _resend = new ResendClient( opt, http );
     }
@@ -141,7 +141,7 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
         Assert.NotNull( resp );
     }
 
-    
+
     /// <summary/>
     [Fact]
     public async Task AudienceCreate()
@@ -170,6 +170,7 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.NotNull( resp );
     }
+
 
     /// <summary/>
     [Fact]
