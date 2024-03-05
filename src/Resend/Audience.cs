@@ -20,6 +20,7 @@ public class AudienceData
     public string Name { get; set; } = default!;
 }
 
+
 /// <summary>
 /// Properties of Audience.
 /// </summary>
@@ -41,5 +42,5 @@ public class Audience
     /// Moment in which the Audience was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
-    public DateTime Created { get; set; }
+    public DateTime MomentCreated { get; set; }
 }

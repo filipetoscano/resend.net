@@ -57,7 +57,7 @@ public class AudienceRetrieveCommand
             record.AddRow(
                 new Markup( audience.Id.ToString() ),
                 new Markup( audience.Name ),
-                new Markup( audience.Created.ToShortDateString() )
+                new Markup( audience.MomentCreated.ToShortDateString() )
                 );
 
             AnsiConsole.Write( record );

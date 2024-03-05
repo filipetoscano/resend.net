@@ -10,12 +10,12 @@ public class ContactUpdateCommand
     private readonly IResend _resend;
 
     /// <summary />
-    [Argument( 0, Description = "The Audience Id." )]
+    [Argument( 0, Description = "Audience identifier" )]
     [Required]
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 1, Description = "The Contact identifier" )]
+    [Argument( 1, Description = "Contact identifier" )]
     public Guid ContactId { get; set; }
 
     /// <summary />

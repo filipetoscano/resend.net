@@ -44,8 +44,8 @@ public class ContactController : ControllerBase
             Email = "email@test.com",
             FirstName = "Bob",
             LastName = "Test",
-            Created = DateTime.UtcNow.AddDays( -1 ),
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow.AddDays( -1 ),
+            IsUnsubscribed = true
         };
     }
 
@@ -90,8 +90,8 @@ public class ContactController : ControllerBase
             Email = "test@mail.com",
             FirstName = "Bob",
             LastName = "Test",
-            Created = DateTime.UtcNow,
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow,
+            IsUnsubscribed = true,
         } );
 
         list.Add( new Contact()
@@ -100,8 +100,8 @@ public class ContactController : ControllerBase
             Email = "test2@mail.com",
             FirstName = "Carl",
             LastName = "Test",
-            Created = DateTime.UtcNow,
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow,
+            IsUnsubscribed = false,
         } );
 
         return new ListOf<Contact>()

@@ -13,12 +13,12 @@ public class ContactRetrieveCommand
 
 
     /// <summary />
-    [Argument( 0, Description = "The Audience identifier" )]
+    [Argument( 0, Description = "Audience identifier" )]
     [Required]
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 1, Description = "The Contact identifier" )]
+    [Argument( 1, Description = "Contact identifier" )]
     [Required]
     public Guid ContactId { get; set; }
 
@@ -60,22 +60,30 @@ public class ContactRetrieveCommand
             record.AddColumn( "First Name" );
             record.AddColumn( "Last Name" );
             record.AddColumn( "Created" );
-            record.AddColumn( "Unsubscribed" );
+            record.AddColumn( "Is Unsubscribed" );
 
-            #pragma warning disable CS8604 // Possible null reference argument.
             record.AddRow(
                new Markup( contact.Id.ToString() ),
                new Markup( contact.Email ),
                new Markup( contact.FirstName != null ? contact.FirstName : "" ),
                new Markup( contact.LastName != null ? contact.LastName : "" ),
-               new Markup( contact.Created.ToShortDateString() ),
-               new Markup( text: contact.Unsubscribed == null ? "" : contact.Unsubscribed.ToString() )
+               new Markup( contact.MomentCreated.ToShortDateString() ),
+               new Markup( IsUnsubscribed( contact.IsUnsubscribed ) )
                );
-            #pragma warning restore CS8604 // Possible null reference argument.
 
             AnsiConsole.Write( record );
         }
 
         return 0;
+    }
+
+
+    /// <summary />
+    private static string IsUnsubscribed( bool? isUnsubscribed )
+    {
+        if ( isUnsubscribed == null )
+            return "";
+
+        return isUnsubscribed == true ? "True" : "False";
     }
 }

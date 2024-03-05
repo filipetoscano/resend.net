@@ -2,6 +2,9 @@
 
 namespace Resend.Payloads;
 
+/// <summary>
+/// Request object to create an Audience.
+/// </summary>
 public class AudienceCreateRequest
 {
     /// <summary>
@@ -10,4 +13,3 @@ public class AudienceCreateRequest
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 }
-

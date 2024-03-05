@@ -32,5 +32,5 @@ public class ContactCreateRequest
     /// </summary>
     [JsonPropertyName( "unsubscribed" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public bool? Unsubscribed { get; set; }
+    public bool? IsUnsubscribed { get; set; }
 }

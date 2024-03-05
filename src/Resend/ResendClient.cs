@@ -227,7 +227,8 @@ public class ResendClient : IResend
 
         return await Handle<ListOf<Webhook>, List<Webhook>>( resp, ( x ) => x.Data, cancellationToken );
     }
-    
+
+
     /// <inheritdoc/>
     public async Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default )
     {
@@ -249,6 +250,7 @@ public class ResendClient : IResend
         return new ResendResponse<AudienceData>( obj );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse<Audience>> AudienceRetrieveAsync( Guid audienceId, CancellationToken cancellationToken = default )
     {
@@ -265,6 +267,7 @@ public class ResendClient : IResend
         return new ResendResponse<Audience>( obj );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse> AudienceDeleteAsync( Guid audienceId, CancellationToken cancellationToken = default )
     {
@@ -275,6 +278,7 @@ public class ResendClient : IResend
         return Handle( resp );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse<List<Audience>>> AudienceListAsync( CancellationToken cancellationToken = default )
     {
@@ -284,6 +288,7 @@ public class ResendClient : IResend
         return await Handle<ListOf<Audience>, List<Audience>>( resp, ( x ) => x.Data, cancellationToken );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse<ContactData>> ContactCreateAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
     {
@@ -292,7 +297,7 @@ public class ResendClient : IResend
             Email = email,
             FirstName = firstName,
             LastName = lastName,
-            Unsubscribed = unsubscribed
+            IsUnsubscribed = unsubscribed
         };
 
         var path = $"/audiences/{audienceId}/contacts";
@@ -307,6 +312,7 @@ public class ResendClient : IResend
 
         return new ResendResponse<ContactData>( obj );
     }
+
 
     /// <inheritdoc/>
     public async Task<ResendResponse<Contact>> ContactRetrieveAsync( Guid audienceId, Guid contactId, CancellationToken cancellationToken = default )
@@ -325,14 +331,14 @@ public class ResendClient : IResend
     }
 
     /// <inheritdoc/>
-    public async Task<ResendResponse<ContactData>> ContactUpdateAsync( Guid audienceId, Guid contactId, string email , string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<ContactData>> ContactUpdateAsync( Guid audienceId, Guid contactId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
     {
         var req = new ContactCreateRequest()
         {
             Email = email,
             FirstName = firstName,
             LastName = lastName,
-            Unsubscribed = unsubscribed
+            IsUnsubscribed = unsubscribed
         };
 
         var path = $"/audiences/{audienceId}/contacts/{contactId}";
@@ -348,25 +354,26 @@ public class ResendClient : IResend
         return new ResendResponse<ContactData>( obj );
     }
 
+
     /// <inheritdoc/>
-    public async Task<ResendResponse> ContactDeleteAsync( Guid audienceId, Guid? contactId = default, string? email = default, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse> ContactDeleteAsync( Guid audienceId, Guid contactId, CancellationToken cancellationToken = default )
     {
-        string path = string.Empty; 
-
-        if ( contactId != Guid.Empty )
-        {
-            path = $"/audiences/{audienceId}/contacts/{contactId}";
-        }
-
-        if ( !string.IsNullOrEmpty(email) )
-        {
-            path = $"/audiences/{audienceId}/contacts/{email}";
-        }
-
+        var path = $"/audiences/{audienceId}/contacts/{contactId}";
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
         return Handle( resp );
     }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> ContactDeleteByEmailAsync( Guid audienceId, string email, CancellationToken cancellationToken = default )
+    {
+        var path = $"/audiences/{audienceId}/contacts/{email}";
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        return Handle( resp );
+    }
+
 
     /// <inheritdoc/>
     public async Task<ResendResponse<List<Contact>>> ContactListAsync( Guid audienceId, CancellationToken cancellationToken = default )
@@ -465,5 +472,5 @@ public class ResendClient : IResend
          * 
          */
         return new ResendResponse<T2>( res );
-    }    
+    }
 }

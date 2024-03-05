@@ -12,7 +12,7 @@ public class ContactListCommand
     private readonly IResend _resend;
 
     /// <summary />
-    [Argument( 0, Description = "The Audience identifier" )]
+    [Argument( 0, Description = "Audience identifier" )]
     [Required]
     public Guid AudienceId { get; set; }
 
@@ -50,25 +50,33 @@ public class ContactListCommand
             table.AddColumn( "First Name" );
             table.AddColumn( "Last Name" );
             table.AddColumn( "Created" );
-            table.AddColumn( "Unsubscription" );
+            table.AddColumn( "Is Unsubscribed" );
 
             foreach ( var c in contacts )
             {
-                #pragma warning disable CS8604 // Possible null reference argument.
                 table.AddRow(
                    new Markup( c.Id.ToString() ),
                    new Markup( c.Email ),
                    new Markup( c.FirstName != null ? c.FirstName : "" ),
                    new Markup( c.LastName != null ? c.LastName : "" ),
-                   new Markup( c.Created.ToShortDateString() ),
-                   new Markup( text: c.Unsubscribed == null ? "" : c.Unsubscribed.ToString() )
-                   );
-                #pragma warning restore CS8604 // Possible null reference argument.
+                   new Markup( c.MomentCreated.ToShortDateString() ),
+                   new Markup( IsUnsubscribed( c.IsUnsubscribed ) )
+                );
             }
 
             AnsiConsole.Write( table );
         }
 
         return 0;
+    }
+
+
+    /// <summary />
+    private static string IsUnsubscribed( bool? isUnsubscribed )
+    {
+        if ( isUnsubscribed == null )
+            return "";
+
+        return isUnsubscribed == true ? "True" : "False";
     }
 }
