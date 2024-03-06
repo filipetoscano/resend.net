@@ -20,9 +20,9 @@ public class AudienceController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "audiences" )]
-    public AudienceData AudienceCreate( [FromBody] AudienceCreateRequest message )
+    public AudienceData AudienceAdd( [FromBody] AudienceAddRequest message )
     {
-        _logger.LogDebug( "AudienceCreate" );
+        _logger.LogDebug( "AudienceAdd" );
 
         return new AudienceData()
         {

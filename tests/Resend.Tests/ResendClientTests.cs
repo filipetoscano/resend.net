@@ -146,7 +146,7 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task AudienceCreate()
     {
-        var resp = await _resend.AudienceCreateAsync( "audience-test" );
+        var resp = await _resend.AudienceAddAsync( "audience-test" );
 
         Assert.NotNull( resp );
     }
@@ -186,7 +186,7 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task ContactCreate()
     {
-        var resp = await _resend.ContactCreateAsync( Guid.NewGuid(), "email@test.com", "Bob", "Test", true );
+        var resp = await _resend.ContactAddAsync( Guid.NewGuid(), "email@test.com", "Bob", "Test", true );
 
         Assert.NotNull( resp );
     }

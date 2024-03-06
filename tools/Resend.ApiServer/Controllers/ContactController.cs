@@ -20,9 +20,9 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "audiences/{audienceId}/contacts" )]
-    public ContactData ContactCreate( [FromRoute] Guid audienceId, [FromBody] ContactCreateRequest message )
+    public ContactData ContactAdd( [FromRoute] Guid audienceId, [FromBody] ContactAddRequest message )
     {
-        _logger.LogDebug( "ContactCreate" );
+        _logger.LogDebug( "ContactAdd" );
 
         return new ContactData()
         {
@@ -53,7 +53,7 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPatch]
     [Route( "audiences/{audienceId}/contacts/{contactId}" )]
-    public ContactData ContactUpdate( [FromRoute] Guid audienceId, Guid contactId, [FromBody] ContactCreateRequest message )
+    public ContactData ContactUpdate( [FromRoute] Guid audienceId, Guid contactId, [FromBody] ContactAddRequest message )
     {
         _logger.LogDebug( "ContactUpdate" );
 

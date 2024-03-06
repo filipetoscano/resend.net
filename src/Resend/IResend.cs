@@ -180,7 +180,7 @@ public interface IResend
     /// Task.
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/audiences/create-audience" />
-    Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default );
+    Task<ResendResponse<AudienceData>> AudienceAddAsync( string name, CancellationToken cancellationToken = default );
 
 
     /// <summary>
@@ -253,7 +253,7 @@ public interface IResend
     /// Contact Id. 
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/contacts/create-contact" />
-    Task<ResendResponse<ContactData>> ContactCreateAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default );
+    Task<ResendResponse<ContactData>> ContactAddAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default );
 
 
     /// <summary>

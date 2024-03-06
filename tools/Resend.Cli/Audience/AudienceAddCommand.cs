@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Audience;
 
 /// <summary />
-[Command( "create", Description = "Create an Audience" )]
-public class AudienceCreateCommand
+[Command( "add", Description = "Create an Audience" )]
+public class AudienceAddCommand
 {
     private readonly IResend _resend;
 
@@ -17,7 +17,7 @@ public class AudienceCreateCommand
 
 
     /// <summary />
-    public AudienceCreateCommand( IResend resend )
+    public AudienceAddCommand( IResend resend )
     {
         _resend = resend;
     }
@@ -26,7 +26,7 @@ public class AudienceCreateCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.AudienceCreateAsync( this.Name );
+        var res = await _resend.AudienceAddAsync( this.Name );
         var audience = res.Content;
 
 

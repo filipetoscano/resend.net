@@ -230,9 +230,9 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc/>
-    public async Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<AudienceData>> AudienceAddAsync( string name, CancellationToken cancellationToken = default )
     {
-        var req = new AudienceCreateRequest()
+        var req = new AudienceAddRequest()
         {
             Name = name
         };
@@ -290,9 +290,9 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc/>
-    public async Task<ResendResponse<ContactData>> ContactCreateAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<ContactData>> ContactAddAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
     {
-        var req = new ContactCreateRequest()
+        var req = new ContactAddRequest()
         {
             Email = email,
             FirstName = firstName,
@@ -333,7 +333,7 @@ public class ResendClient : IResend
     /// <inheritdoc/>
     public async Task<ResendResponse<ContactData>> ContactUpdateAsync( Guid audienceId, Guid contactId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
     {
-        var req = new ContactCreateRequest()
+        var req = new ContactAddRequest()
         {
             Email = email,
             FirstName = firstName,

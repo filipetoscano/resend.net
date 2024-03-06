@@ -4,7 +4,7 @@ namespace Resend.Cli;
 
 /// <summary />
 [Command( "contact", Description = "Contact management" )]
-[Subcommand( typeof( Contact.ContactCreateCommand ))]
+[Subcommand( typeof( Contact.ContactAddCommand ))]
 [Subcommand( typeof( Contact.ContactRetrieveCommand ))]
 [Subcommand( typeof( Contact.ContactUpdateCommand ) )]
 [Subcommand( typeof( Contact.ContactDeleteCommand ) )]

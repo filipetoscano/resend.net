@@ -4,7 +4,7 @@ namespace Resend.Cli;
 
 /// <summary />
 [Command( "audience", Description = "Audience management" )]
-[Subcommand( typeof( Audience.AudienceCreateCommand ))]
+[Subcommand( typeof( Audience.AudienceAddCommand ) )]
 [Subcommand( typeof( Audience.AudienceRetrieveCommand ))]
 [Subcommand( typeof( Audience.AudienceDeleteCommand ) )]
 [Subcommand( typeof( Audience.AudienceListCommand ) )]

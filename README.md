@@ -7,6 +7,18 @@
 .NET client for [resend](https://resend.com), an email API, written in C#.
 
 
+Functionality
+--------------------------------------------------------------------------
+
+The `ResendClient` support the following objects (and methods):
+
+* Email (Send, Retrieve)
+* Domain (List, Add, Retrieve, Verify, Delete)
+* API key (List, Create, Delete)
+* Audience (List, Add, Retrieve, Delete)
+* Contact (List, Add, Retrieve, Delete)
+
+
 Installing via NuGet
 --------------------------------------------------------------------------
 
@@ -81,8 +93,6 @@ command line interface program to invoke the API. This program is available as
 a .NET tool.
 
 ```
-0.1.0
-
 Command-line tool for Resend API
 
 Usage: resend [command] [options]
@@ -92,7 +102,9 @@ Options:
   -?|-h|--help  Show help information.
 
 Commands:
-  api-key       API key management
+  apikey        API key management
+  audience      Audience management
+  contact       Contact management
   domain        Email (sender) domain management
   email         Send emails
   webhook       Webhook management

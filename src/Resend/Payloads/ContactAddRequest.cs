@@ -5,7 +5,7 @@ namespace Resend.Payloads;
 /// <summary>
 /// Request object to create a Contact.
 /// </summary>
-public class ContactCreateRequest
+public class ContactAddRequest
 {
     /// <summary>
     /// The email address of the contact.

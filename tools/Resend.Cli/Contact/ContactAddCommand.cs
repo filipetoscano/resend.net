@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Contact;
 
 /// <summary />
-[Command( "create", Description = "Create a contact" )]
-public class ContactCreateCommand
+[Command( "add", Description = "Create a contact" )]
+public class ContactAddCommand
 {
     private readonly IResend _resend;
 
@@ -34,7 +34,7 @@ public class ContactCreateCommand
 
 
     /// <summary />
-    public ContactCreateCommand( IResend resend )
+    public ContactAddCommand( IResend resend )
     {
         _resend = resend;
     }
@@ -43,7 +43,7 @@ public class ContactCreateCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.ContactCreateAsync( this.AudienceId, this.Email, this.FirstName, this.LastName, this.Unsubscription );
+        var res = await _resend.ContactAddAsync( this.AudienceId, this.Email, this.FirstName, this.LastName, this.Unsubscription );
         var contact = res.Content;
 
 
