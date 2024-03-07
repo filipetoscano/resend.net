@@ -40,7 +40,7 @@ public interface IResend
     /// <summary>
     /// Send a batch of emails.
     /// </summary>
-    /// <param name="email">
+    /// <param name="emails">
     /// List of emails.
     /// </param>
     /// <param name="cancellationToken">
