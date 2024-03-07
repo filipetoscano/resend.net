@@ -9,6 +9,12 @@ namespace Resend.Payloads;
 public class ObjectId
 {
     /// <summary>
+    /// Object type.
+    /// </summary>
+    [JsonPropertyName( "object" )]
+    public string Object { get; set; } = default!;
+
+    /// <summary>
     /// Object identifier.
     /// </summary>
     [JsonPropertyName( "id" )]

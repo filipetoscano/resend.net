@@ -86,6 +86,25 @@ public interface IResend
 
 
     /// <summary>
+    /// Update an existing domain.
+    /// </summary>
+    /// <param name="domainId">
+    /// Domain identifier.
+    /// </param>
+    /// <param name="data">
+    /// Updated domain information.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// Domain.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/domains/update-domain"/>
+    Task<ResendResponse> DomainUpdateAsync( Guid domainId, DomainUpdateData data, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
     /// Verify an existing domain.
     /// </summary>
     /// <param name="domainId">
@@ -171,7 +190,7 @@ public interface IResend
     /// Create a list of contacts.
     /// </summary>
     /// <param name="name">
-    /// The name of the audience you want to create..
+    /// The name of the audience you want to create.
     /// </param>
     /// <param name="cancellationToken">
     /// Cancellation token.

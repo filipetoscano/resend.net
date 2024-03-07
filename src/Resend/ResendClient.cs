@@ -131,6 +131,18 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc />
+    public async Task<ResendResponse> DomainUpdateAsync( Guid domainId, DomainUpdateData data, CancellationToken cancellationToken = default )
+    {
+        var path = $"/domains/{domainId}";
+        var resp = await _http.PatchAsJsonAsync( path, data, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        return new ResendResponse();
+    }
+
+
+    /// <inheritdoc />
     public async Task<ResendResponse> DomainVerifyAsync( Guid domainId, CancellationToken cancellationToken = default )
     {
         var path = $"/domains/{domainId}/verify";

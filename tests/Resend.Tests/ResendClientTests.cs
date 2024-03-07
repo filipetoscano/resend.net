@@ -5,7 +5,7 @@ using Resend.ApiServer;
 namespace Resend.Tests;
 
 /// <summary />
-public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
+public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
     private readonly IResend _resend;
@@ -87,6 +87,20 @@ public class ResendClientTests : IClassFixture<WebApplicationFactory<Program>>
     public async Task DomainDelete()
     {
         var resp = await _resend.DomainDeleteAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary />
+    [Fact]
+    public async Task DomainUpdate()
+    {
+        var resp = await _resend.DomainUpdateAsync( Guid.NewGuid(), new DomainUpdateData()
+        {
+            TrackClicks = true,
+            TrackOpen = true,
+        } );
 
         Assert.NotNull( resp );
     }
