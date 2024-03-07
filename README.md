@@ -12,7 +12,7 @@ Functionality
 
 The `ResendClient` support the following objects (and methods):
 
-* Email (Send, Retrieve)
+* Email (Send, Batch, Retrieve)
 * Domain (List, Add, Retrieve, Update, Verify, Delete)
 * API key (List, Create, Delete)
 * Audience (List, Add, Retrieve, Delete)

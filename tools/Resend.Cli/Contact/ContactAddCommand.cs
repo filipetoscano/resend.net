@@ -16,21 +16,21 @@ public class ContactAddCommand
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 1, Description = "The email address of the contact." )]
+    [Option( "-e|--email", CommandOptionType.SingleValue, Description = "Email" )]
     [Required]
-    public string Email { get; set; } = string.Empty;
+    public string Email { get; set; } = default!;
 
     /// <summary />
-    [Argument( 2, Description = "The first name of contact." )]
-    public string? FirstName { get; set; } = default!;
+    [Option( "-f|--first", CommandOptionType.SingleValue, Description = "First name" )]
+    public string? FirstName { get; set; }
 
     /// <summary />
-    [Argument( 3, Description = "The last name of contact." )]
-    public string? LastName { get; set; } = default!;
+    [Option( "-l|--last", CommandOptionType.SingleValue, Description = "Last name" )]
+    public string? LastName { get; set; }
 
     /// <summary />
-    [Argument( 4, Description = "The subscription status." )]
-    public bool? Unsubscription { get; set; } = default!;
+    [Option( "-u|--unsubscribed", CommandOptionType.SingleValue, Description = "Unsubscribed" )]
+    public bool? IsUnsubscribed { get; set; }
 
 
     /// <summary />
@@ -43,14 +43,22 @@ public class ContactAddCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.ContactAddAsync( this.AudienceId, this.Email, this.FirstName, this.LastName, this.Unsubscription );
-        var contact = res.Content;
+        var data = new ContactData()
+        {
+            Email = this.Email,
+            FirstName = this.FirstName,
+            LastName = this.LastName,
+            IsUnsubscribed = this.IsUnsubscribed,
+        };
+
+        var res = await _resend.ContactAddAsync( this.AudienceId, data );
+        var id = res.Content;
 
 
         /*
          * 
          */
-        Console.WriteLine( contact.Id );
+        Console.WriteLine( id );
 
         return 0;
     }

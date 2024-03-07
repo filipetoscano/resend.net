@@ -38,6 +38,22 @@ public interface IResend
 
 
     /// <summary>
+    /// Send a batch of emails.
+    /// </summary>
+    /// <param name="email">
+    /// List of emails.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <returns>
+    /// List of email identifiers.
+    /// </returns>
+    /// <see href="https://resend.com/docs/api-reference/emails/send-batch-emails"/>
+    Task<ResendResponse<List<Guid>>> EmailBatchAsync( IEnumerable<EmailMessage> emails, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
     /// Retrieve a list of domains for the authenticated user.
     /// </summary>
     /// <param name="cancellationToken">

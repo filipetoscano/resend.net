@@ -91,6 +91,24 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc />
+    public async Task<ResendResponse<List<Guid>>> EmailBatchAsync( IEnumerable<EmailMessage> emails, CancellationToken cancellationToken = default )
+    {
+        var path = $"/emails/batch";
+        var resp = await _http.PostAsJsonAsync( path, emails, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<List<ObjectId>>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        var value = obj.Select( x => x.Id ).ToList();
+        return new ResendResponse<List<Guid>>( value );
+    }
+
+
+    /// <inheritdoc />
     public async Task<ResendResponse<Domain>> DomainAddAsync( string domainName, DeliveryRegion? region, CancellationToken cancellationToken = default )
     {
         var req = new DomainAddRequest()

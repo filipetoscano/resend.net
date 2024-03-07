@@ -65,6 +65,26 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
 
     /// <summary />
     [Fact]
+    public async Task EmailBatch()
+    {
+        var email = new EmailMessage();
+        email.Subject = "Unit testing";
+        email.From = "from@example.com";
+        email.To = "to@example.com";
+        email.HtmlBody = "From unit test!";
+
+        var list = new List<EmailMessage>() { email };
+
+        var resp = await _resend.EmailBatchAsync( list );
+
+        Assert.NotNull( resp );
+        Assert.True( resp.Success );
+        Assert.Single( resp.Content );
+    }
+
+
+    /// <summary />
+    [Fact]
     public async Task DomainList()
     {
         var resp = await _resend.DomainListAsync();

@@ -27,14 +27,13 @@ public class AudienceAddCommand
     public async Task<int> OnExecuteAsync()
     {
         var res = await _resend.AudienceAddAsync( this.Name );
-        var audience = res.Content;
+        var id = res.Content;
 
 
         /*
          * 
          */
-        Console.WriteLine( audience.Id );
-        Console.WriteLine( audience.Name );
+        Console.WriteLine( id );
 
         return 0;
     }
