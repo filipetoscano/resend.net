@@ -20,13 +20,14 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "audiences/{audienceId}/contacts" )]
-    public ContactData ContactAdd( [FromRoute] Guid audienceId, [FromBody] ContactAddRequest message )
+    public ObjectId ContactAdd( [FromRoute] Guid audienceId, [FromBody] ContactData message )
     {
         _logger.LogDebug( "ContactAdd" );
 
-        return new ContactData()
+        return new ObjectId()
         {
-            Id = Guid.NewGuid()
+            Object = "contact",
+            Id = Guid.NewGuid(),
         };
     }
 
@@ -45,7 +46,7 @@ public class ContactController : ControllerBase
             FirstName = "Bob",
             LastName = "Test",
             MomentCreated = DateTime.UtcNow.AddDays( -1 ),
-            IsUnsubscribed = true
+            IsUnsubscribed = true,
         };
     }
 
@@ -53,13 +54,14 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPatch]
     [Route( "audiences/{audienceId}/contacts/{contactId}" )]
-    public ContactData ContactUpdate( [FromRoute] Guid audienceId, Guid contactId, [FromBody] ContactAddRequest message )
+    public ObjectId ContactUpdate( [FromRoute] Guid audienceId, [FromRoute] Guid contactId, [FromBody] ContactData message )
     {
         _logger.LogDebug( "ContactUpdate" );
 
-        return new ContactData()
+        return new ObjectId()
         {
-            Id = Guid.NewGuid()
+            Object = "contact",
+            Id = Guid.NewGuid(),
         };
     }
 

@@ -2,24 +2,6 @@
 
 namespace Resend;
 
-/// <summary>
-/// Response when Audience is created.
-/// </summary>
-public class AudienceData
-{
-    /// <summary>
-    /// API key identifier.
-    /// </summary>
-    [JsonPropertyName( "id" )]
-    public Guid Id { get; set; }
-
-    /// <summary>
-    /// Name.
-    /// </summary>
-    [JsonPropertyName( "name" )]
-    public string Name { get; set; } = default!;
-}
-
 
 /// <summary>
 /// Properties of Audience.

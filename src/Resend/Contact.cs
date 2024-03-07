@@ -2,18 +2,6 @@
 
 namespace Resend;
 
-/// <summary>
-/// Response when Contact is created.
-/// </summary>
-public class ContactData
-{
-    /// <summary>
-    /// Contact identifier.
-    /// </summary>
-    [JsonPropertyName( "id" )]
-    public Guid Id { get; set; }
-}
-
 
 /// <summary>
 /// Properties of Contact.

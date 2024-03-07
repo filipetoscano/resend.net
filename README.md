@@ -16,7 +16,7 @@ The `ResendClient` support the following objects (and methods):
 * Domain (List, Add, Retrieve, Update, Verify, Delete)
 * API key (List, Create, Delete)
 * Audience (List, Add, Retrieve, Delete)
-* Contact (List, Add, Retrieve, Delete)
+* Contact (List, Add, Retrieve, Update, Delete)
 
 
 Installing via NuGet

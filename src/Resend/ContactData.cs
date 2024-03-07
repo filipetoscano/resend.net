@@ -1,34 +1,37 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Resend.Payloads;
+namespace Resend;
 
 /// <summary>
-/// Request object to create a Contact.
+/// Contact data, for creation and update.
 /// </summary>
-public class ContactAddRequest
+public class ContactData
 {
     /// <summary>
-    /// The email address of the contact.
+    /// Email address of the contact.
     /// </summary>
+    /// <remarks>
+    /// Required during Contact/Create, optional during Contact/Update.
+    /// </remarks>
     [JsonPropertyName( "email" )]
-    public string Email { get; set; } = default!;
+    public string? Email { get; set; }
 
     /// <summary>
-    /// The first name of the contact.
+    /// First name of the contact.
     /// </summary>
     [JsonPropertyName( "first_name" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? FirstName { get; set; }
 
     /// <summary>
-    /// The last name of the contact.
+    /// Last name of the contact.
     /// </summary>
     [JsonPropertyName( "last_name" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? LastName { get; set; }
 
     /// <summary>
-    /// The last name of the contact.
+    /// Whether the contact is unsubscribed.
     /// </summary>
     [JsonPropertyName( "unsubscribed" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]

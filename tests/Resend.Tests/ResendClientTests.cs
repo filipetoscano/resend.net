@@ -41,6 +41,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
 
         Assert.NotNull( resp );
         Assert.True( resp.Success );
+        Assert.NotEqual( Guid.Empty, resp.Content );
     }
 
 
@@ -79,6 +80,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         var resp = await _resend.DomainAddAsync( "example.com", DeliveryRegion.UsEast1 );
 
         Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content.Id );
     }
 
 
@@ -123,6 +125,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         var resp = await _resend.DomainRetrieveAsync( Guid.NewGuid() );
 
         Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content.Id );
     }
 
 
@@ -143,6 +146,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         var resp = await _resend.ApiKeyCreateAsync( "resend-me", Permission.FullAccess );
 
         Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content.Id );
     }
 
 
@@ -163,6 +167,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         var resp = await _resend.AudienceAddAsync( "audience-test" );
 
         Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content );
     }
 
 
@@ -200,9 +205,18 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
     [Fact]
     public async Task ContactCreate()
     {
-        var resp = await _resend.ContactAddAsync( Guid.NewGuid(), "email@test.com", "Bob", "Test", true );
+        var req = new ContactData()
+        {
+            Email = "test@example.com",
+            FirstName = "Bob",
+            LastName = "Test",
+            IsUnsubscribed = true,
+        };
+
+        var resp = await _resend.ContactAddAsync( Guid.NewGuid(), req );
 
         Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content );
     }
 
 
@@ -220,7 +234,15 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
     [Fact]
     public async Task ContactUpdate()
     {
-        var resp = await _resend.ContactUpdateAsync( Guid.NewGuid(), Guid.NewGuid(), "test@email.com", "Carl", "Test", true );
+        var req = new ContactData()
+        {
+            Email = "test@email.com",
+            FirstName = "Carl",
+            LastName = "Test",
+            IsUnsubscribed = true,
+        };
+
+        var resp = await _resend.ContactUpdateAsync( Guid.NewGuid(), Guid.NewGuid(), req );
 
         Assert.NotNull( resp );
     }
