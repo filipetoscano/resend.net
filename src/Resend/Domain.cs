@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Resend.Json;
+using System.Text.Json.Serialization;
 
 namespace Resend;
 
@@ -25,6 +26,7 @@ public class Domain
     /// Moment when the domain was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentCreated { get; set; }
 
     /// <summary>
