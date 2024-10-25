@@ -20,13 +20,14 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "audiences/{audienceId}/contacts" )]
-    public ContactData ContactCreate( [FromRoute] Guid audienceId, [FromBody] ContactCreateRequest message )
+    public ObjectId ContactAdd( [FromRoute] Guid audienceId, [FromBody] ContactData message )
     {
-        _logger.LogDebug( "ContactCreate" );
+        _logger.LogDebug( "ContactAdd" );
 
-        return new ContactData()
+        return new ObjectId()
         {
-            Id = Guid.NewGuid()
+            Object = "contact",
+            Id = Guid.NewGuid(),
         };
     }
 
@@ -44,8 +45,8 @@ public class ContactController : ControllerBase
             Email = "email@test.com",
             FirstName = "Bob",
             LastName = "Test",
-            Created = DateTime.UtcNow.AddDays( -1 ),
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow.AddDays( -1 ),
+            IsUnsubscribed = true,
         };
     }
 
@@ -53,13 +54,14 @@ public class ContactController : ControllerBase
     /// <summary />
     [HttpPatch]
     [Route( "audiences/{audienceId}/contacts/{contactId}" )]
-    public ContactData ContactUpdate( [FromRoute] Guid audienceId, Guid contactId, [FromBody] ContactCreateRequest message )
+    public ObjectId ContactUpdate( [FromRoute] Guid audienceId, [FromRoute] Guid contactId, [FromBody] ContactData message )
     {
         _logger.LogDebug( "ContactUpdate" );
 
-        return new ContactData()
+        return new ObjectId()
         {
-            Id = Guid.NewGuid()
+            Object = "contact",
+            Id = Guid.NewGuid(),
         };
     }
 
@@ -90,8 +92,8 @@ public class ContactController : ControllerBase
             Email = "test@mail.com",
             FirstName = "Bob",
             LastName = "Test",
-            Created = DateTime.UtcNow,
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow,
+            IsUnsubscribed = true,
         } );
 
         list.Add( new Contact()
@@ -100,8 +102,8 @@ public class ContactController : ControllerBase
             Email = "test2@mail.com",
             FirstName = "Carl",
             LastName = "Test",
-            Created = DateTime.UtcNow,
-            Unsubscribed = true
+            MomentCreated = DateTime.UtcNow,
+            IsUnsubscribed = false,
         } );
 
         return new ListOf<Contact>()

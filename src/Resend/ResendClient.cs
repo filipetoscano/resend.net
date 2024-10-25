@@ -91,6 +91,24 @@ public class ResendClient : IResend
 
 
     /// <inheritdoc />
+    public async Task<ResendResponse<List<Guid>>> EmailBatchAsync( IEnumerable<EmailMessage> emails, CancellationToken cancellationToken = default )
+    {
+        var path = $"/emails/batch";
+        var resp = await _http.PostAsJsonAsync( path, emails, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<List<ObjectId>>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        var value = obj.Select( x => x.Id ).ToList();
+        return new ResendResponse<List<Guid>>( value );
+    }
+
+
+    /// <inheritdoc />
     public async Task<ResendResponse<Domain>> DomainAddAsync( string domainName, DeliveryRegion? region, CancellationToken cancellationToken = default )
     {
         var req = new DomainAddRequest()
@@ -127,6 +145,18 @@ public class ResendClient : IResend
             throw new InvalidOperationException( "Received null response" );
 
         return new ResendResponse<Domain>( obj );
+    }
+
+
+    /// <inheritdoc />
+    public async Task<ResendResponse> DomainUpdateAsync( Guid domainId, DomainUpdateData data, CancellationToken cancellationToken = default )
+    {
+        var path = $"/domains/{domainId}";
+        var resp = await _http.PatchAsJsonAsync( path, data, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        return new ResendResponse();
     }
 
 
@@ -227,11 +257,12 @@ public class ResendClient : IResend
 
         return await Handle<ListOf<Webhook>, List<Webhook>>( resp, ( x ) => x.Data, cancellationToken );
     }
-    
+
+
     /// <inheritdoc/>
-    public async Task<ResendResponse<AudienceData>> AudienceCreateAsync( string name, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<Guid>> AudienceAddAsync( string name, CancellationToken cancellationToken = default )
     {
-        var req = new AudienceCreateRequest()
+        var req = new AudienceAddRequest()
         {
             Name = name
         };
@@ -241,13 +272,14 @@ public class ResendClient : IResend
 
         resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<AudienceData>( cancellationToken: cancellationToken );
+        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
 
         if ( obj == null )
             throw new InvalidOperationException( "Received null response" );
 
-        return new ResendResponse<AudienceData>( obj );
+        return new ResendResponse<Guid>( obj.Id );
     }
+
 
     /// <inheritdoc/>
     public async Task<ResendResponse<Audience>> AudienceRetrieveAsync( Guid audienceId, CancellationToken cancellationToken = default )
@@ -265,6 +297,7 @@ public class ResendClient : IResend
         return new ResendResponse<Audience>( obj );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse> AudienceDeleteAsync( Guid audienceId, CancellationToken cancellationToken = default )
     {
@@ -275,6 +308,7 @@ public class ResendClient : IResend
         return Handle( resp );
     }
 
+
     /// <inheritdoc/>
     public async Task<ResendResponse<List<Audience>>> AudienceListAsync( CancellationToken cancellationToken = default )
     {
@@ -284,29 +318,26 @@ public class ResendClient : IResend
         return await Handle<ListOf<Audience>, List<Audience>>( resp, ( x ) => x.Data, cancellationToken );
     }
 
+
     /// <inheritdoc/>
-    public async Task<ResendResponse<ContactData>> ContactCreateAsync( Guid audienceId, string email, string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse<Guid>> ContactAddAsync( Guid audienceId, ContactData data, CancellationToken cancellationToken = default )
     {
-        var req = new ContactCreateRequest()
-        {
-            Email = email,
-            FirstName = firstName,
-            LastName = lastName,
-            Unsubscribed = unsubscribed
-        };
+        if ( data.Email == null )
+            throw new ArgumentException( "Email must be non-null when creating contact", nameof( data ) + ".Email" );
 
         var path = $"/audiences/{audienceId}/contacts";
-        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+        var resp = await _http.PostAsJsonAsync( path, data, cancellationToken );
 
         resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<ContactData>( cancellationToken: cancellationToken );
+        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
 
         if ( obj == null )
             throw new InvalidOperationException( "Received null response" );
 
-        return new ResendResponse<ContactData>( obj );
+        return new ResendResponse<Guid>( obj.Id );
     }
+
 
     /// <inheritdoc/>
     public async Task<ResendResponse<Contact>> ContactRetrieveAsync( Guid audienceId, Guid contactId, CancellationToken cancellationToken = default )
@@ -324,49 +355,38 @@ public class ResendClient : IResend
         return new ResendResponse<Contact>( obj );
     }
 
-    /// <inheritdoc/>
-    public async Task<ResendResponse<ContactData>> ContactUpdateAsync( Guid audienceId, Guid contactId, string email , string? firstName = default, string? lastName = default, bool? unsubscribed = default, CancellationToken cancellationToken = default )
-    {
-        var req = new ContactCreateRequest()
-        {
-            Email = email,
-            FirstName = firstName,
-            LastName = lastName,
-            Unsubscribed = unsubscribed
-        };
 
+    /// <inheritdoc/>
+    public async Task<ResendResponse> ContactUpdateAsync( Guid audienceId, Guid contactId, ContactData data, CancellationToken cancellationToken = default )
+    {
         var path = $"/audiences/{audienceId}/contacts/{contactId}";
-        var resp = await _http.PatchAsJsonAsync( path, req, cancellationToken );
+        var resp = await _http.PatchAsJsonAsync( path, data, cancellationToken );
 
         resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<ContactData>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<ContactData>( obj );
+        return new ResendResponse();
     }
 
+
     /// <inheritdoc/>
-    public async Task<ResendResponse> ContactDeleteAsync( Guid audienceId, Guid? contactId = default, string? email = default, CancellationToken cancellationToken = default )
+    public async Task<ResendResponse> ContactDeleteAsync( Guid audienceId, Guid contactId, CancellationToken cancellationToken = default )
     {
-        string path = string.Empty; 
-
-        if ( contactId != Guid.Empty )
-        {
-            path = $"/audiences/{audienceId}/contacts/{contactId}";
-        }
-
-        if ( !string.IsNullOrEmpty(email) )
-        {
-            path = $"/audiences/{audienceId}/contacts/{email}";
-        }
-
+        var path = $"/audiences/{audienceId}/contacts/{contactId}";
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
         return Handle( resp );
     }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> ContactDeleteByEmailAsync( Guid audienceId, string email, CancellationToken cancellationToken = default )
+    {
+        var path = $"/audiences/{audienceId}/contacts/{email}";
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        return Handle( resp );
+    }
+
 
     /// <inheritdoc/>
     public async Task<ResendResponse<List<Contact>>> ContactListAsync( Guid audienceId, CancellationToken cancellationToken = default )
@@ -465,5 +485,5 @@ public class ResendClient : IResend
          * 
          */
         return new ResendResponse<T2>( res );
-    }    
+    }
 }

@@ -4,23 +4,21 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Contact;
 
 /// <summary />
-[Command( "patch", Description = "Update a contact" )]
-public class ContactUpdateCommand
+[Command( "add", Description = "Create a contact" )]
+public class ContactAddCommand
 {
     private readonly IResend _resend;
 
+
     /// <summary />
-    [Argument( 0, Description = "Audience identifier" )]
+    [Argument( 0, Description = "The Audience Id." )]
     [Required]
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 1, Description = "Contact identifier" )]
-    public Guid ContactId { get; set; }
-
-    /// <summary />
     [Option( "-e|--email", CommandOptionType.SingleValue, Description = "Email" )]
-    public string? Email { get; set; } = default!;
+    [Required]
+    public string Email { get; set; } = default!;
 
     /// <summary />
     [Option( "-f|--first", CommandOptionType.SingleValue, Description = "First name" )]
@@ -36,7 +34,7 @@ public class ContactUpdateCommand
 
 
     /// <summary />
-    public ContactUpdateCommand( IResend resend )
+    public ContactAddCommand( IResend resend )
     {
         _resend = resend;
     }
@@ -53,7 +51,14 @@ public class ContactUpdateCommand
             IsUnsubscribed = this.IsUnsubscribed,
         };
 
-        await _resend.ContactUpdateAsync( this.AudienceId, this.ContactId, data );
+        var res = await _resend.ContactAddAsync( this.AudienceId, data );
+        var id = res.Content;
+
+
+        /*
+         * 
+         */
+        Console.WriteLine( id );
 
         return 0;
     }

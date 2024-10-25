@@ -2,17 +2,6 @@
 
 namespace Resend;
 
-/// <summary>
-/// Response when Contact is created.
-/// </summary>
-public class ContactData
-{
-    /// <summary>
-    /// Contact identifier.
-    /// </summary>
-    [JsonPropertyName( "id" )]
-    public Guid Id { get; set; }
-}
 
 /// <summary>
 /// Properties of Contact.
@@ -20,7 +9,7 @@ public class ContactData
 public class Contact
 {
     /// <summary>
-    /// The Contact ID.
+    /// Contact identifier.
     /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
@@ -49,13 +38,12 @@ public class Contact
     /// The created date.
     /// </summary>
     [JsonPropertyName( "created_at" )]
-    public DateTime Created { get; set; }
+    public DateTime MomentCreated { get; set; }
 
     /// <summary>
     /// The subscription status.
     /// </summary>
     [JsonPropertyName( "unsubscribed" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public bool? Unsubscribed { get; set; }
-
+    public bool? IsUnsubscribed { get; set; }
 }

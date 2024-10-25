@@ -26,6 +26,7 @@ public class EmailController : ControllerBase
 
         return new ObjectId()
         {
+            Object = "email",
             Id = Guid.NewGuid(),
         };
     }
@@ -46,5 +47,20 @@ public class EmailController : ControllerBase
             To = "to@example.com",
             HtmlBody = "This is HTML!",
         };
+    }
+
+
+    /// <summary />
+    [HttpPost]
+    [Route( "emails/batch" )]
+    public IEnumerable<ObjectId> EmailBatch( [FromBody] List<EmailMessage> messages )
+    {
+        _logger.LogDebug( "EmailBatch" );
+
+        return messages.Select( x => new ObjectId()
+        {
+            Object = "email",
+            Id = Guid.NewGuid(),
+        } );
     }
 }

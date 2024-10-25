@@ -49,7 +49,7 @@ public class AudienceListCommand
                 table.AddRow(
                     new Markup( a.Id.ToString() ),
                     new Markup( a.Name ),
-                    new Markup( a.Created.ToShortDateString() )
+                    new Markup( a.MomentCreated.ToShortDateString() )
                     );
             }
 

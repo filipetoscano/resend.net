@@ -78,13 +78,32 @@ public class DomainController : ControllerBase
 
 
     /// <summary />
+    [HttpPatch]
+    [Route( "domains/{id}" )]
+    public ActionResult<ObjectId> DomainUpdate( [FromRoute] Guid id, [FromBody] DomainUpdateData data )
+    {
+        _logger.LogDebug( "DomainUpdate" );
+
+        return Ok( new ObjectId()
+        {
+            Object = "domain",
+            Id = id,
+        } );
+    }
+
+
+    /// <summary />
     [HttpPost]
     [Route( "domains/{id}/verify" )]
-    public ActionResult DomainVerify( [FromRoute] Guid id )
+    public ActionResult<ObjectId> DomainVerify( [FromRoute] Guid id )
     {
         _logger.LogDebug( "DomainVerify" );
 
-        return Ok();
+        return Ok( new ObjectId()
+        {
+            Object = "domain",
+            Id = id,
+        } );
     }
 
 

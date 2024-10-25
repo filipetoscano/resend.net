@@ -11,17 +11,13 @@ public class ContactDeleteCommand
 
 
     /// <summary />
-    [Argument( 0, Description = "The Audience identifier" )]
+    [Argument( 0, Description = "Audience identifier" )]
     [Required]
     public Guid AudienceId { get; set; }
 
     /// <summary />
-    [Argument( 1, Description = "The Contact identifier" )]    
+    [Argument( 1, Description = "Contact identifier" )]
     public Guid ContactId { get; set; }
-
-    /// <summary />
-    [Argument( 2, Description = "The email address" )]
-    public string Email { get; set; } = string.Empty;
 
 
     /// <summary />
@@ -34,7 +30,7 @@ public class ContactDeleteCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.ContactDeleteAsync( this.AudienceId, this.ContactId, this.Email );
+        await _resend.ContactDeleteAsync( this.AudienceId, this.ContactId );
 
         return 0;
     }

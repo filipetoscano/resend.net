@@ -20,14 +20,14 @@ public class AudienceController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "audiences" )]
-    public AudienceData AudienceCreate( [FromBody] AudienceCreateRequest message )
+    public ObjectId AudienceAdd( [FromBody] AudienceAddRequest message )
     {
-        _logger.LogDebug( "AudienceCreate" );
+        _logger.LogDebug( "AudienceAdd" );
 
-        return new AudienceData()
+        return new ObjectId()
         {
+            Object = "audience",
             Id = Guid.NewGuid(),
-            Name = message.Name
         };
     }
 
@@ -42,7 +42,7 @@ public class AudienceController : ControllerBase
         {
             Id = id,
             Name = "Audience Test",
-            Created = DateTime.UtcNow.AddDays(-1)
+            MomentCreated = DateTime.UtcNow.AddDays( -1 ),
         };
     }
 
@@ -60,14 +60,14 @@ public class AudienceController : ControllerBase
         {
             Id = Guid.NewGuid(),
             Name = "My Audience 1",
-            Created = DateTime.UtcNow,
+            MomentCreated = DateTime.UtcNow,
         } );
 
         list.Add( new Audience()
         {
             Id = Guid.NewGuid(),
             Name = "My Audience 2",
-            Created = DateTime.UtcNow,
+            MomentCreated = DateTime.UtcNow,
         } );
 
         return new ListOf<Audience>()
