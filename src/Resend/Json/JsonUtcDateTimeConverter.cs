@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Resend.Json;
+namespace Resend;
 
 /// <summary>
 /// Specifies the DateTime UTC value that is present in the JSON when serializing and deserializing.
@@ -11,15 +11,36 @@ public class JsonUtcDateTimeConverter : JsonConverter<DateTime>
     /// <inheritdoc/>
     public override DateTime Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options )
     {
-        var date = DateTime.Parse( reader.GetString() );
+        /*
+         * The API examples have the following values:
+         * 2023-04-08T00:11:13.110779+00:00
+         * 2023-04-26T20:21:26.347412+00:00
+         */
+
+        if ( reader.TokenType != JsonTokenType.String )
+            throw new JsonException( $"Expected String when converting DateTime, found {reader.TokenType}" );
+
+        var str = reader.GetString()!;
+        DateTime date;
+
+        try
+        {
+            // TODO: Consider exact parsing?
+
+            date = DateTime.Parse( str );
+        }
+        catch ( FormatException ex )
+        {
+            throw new JsonException( $"Value '{str}' is not valid", ex );
+        }
+
         return DateTime.SpecifyKind( date, DateTimeKind.Utc );
     }
 
-    
+
     /// <inheritdoc/>
     public override void Write( Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options )
     {
         writer.WriteStringValue( value.ToUniversalTime().ToString( "yyyy-MM-ddTHH:mm:ssZ" ) );
     }
 }
-

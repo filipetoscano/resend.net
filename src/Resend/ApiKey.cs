@@ -1,5 +1,4 @@
-﻿using Resend.Json;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Resend;
 
