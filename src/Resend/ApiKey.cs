@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using Resend.Json;
+using System.Text.Json.Serialization;
 
 namespace Resend;
 
@@ -42,5 +43,6 @@ public class ApiKey
     /// Moment in which the API key was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentCreated { get; set; }
 }
