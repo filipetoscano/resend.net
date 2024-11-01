@@ -6,7 +6,7 @@ namespace Resend.Payloads;
 public class EmailRescheduleRequest
 {
     /// <summary />
-    [JsonPropertyName( "scheduledAt" )]
+    [JsonPropertyName( "scheduled_at" )]
     [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentSchedule { get; set; }
 }

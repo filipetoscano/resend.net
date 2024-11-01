@@ -11,7 +11,7 @@ public class EmailRetrieveCommand
 
 
     /// <summary />
-    [Argument( 0, Description = "" )]
+    [Argument( 0, Description = "Email identifier" )]
     public Guid EmailId { get; set; }
 
     /// <summary />

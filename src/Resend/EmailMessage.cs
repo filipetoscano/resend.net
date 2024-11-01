@@ -88,6 +88,7 @@ public class EmailMessage
     /// </summary>
     [JsonPropertyName( "scheduled_at" )]
     [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public DateTime? MomentSchedule { get; set; }
 
     /// <summary>
@@ -95,5 +96,6 @@ public class EmailMessage
     /// </summary>
     [JsonPropertyName( "created_at" )]
     [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
-    public DateTime MomentCreated { get; set; }
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
+    public DateTime? MomentCreated { get; set; }
 }
