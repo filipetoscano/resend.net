@@ -82,4 +82,18 @@ public class EmailMessage
     [JsonPropertyName( "tags" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public List<EmailTag>? Tags { get; set; }
+
+    /// <summary>
+    /// Moment for which the email is scheduled for/at.
+    /// </summary>
+    [JsonPropertyName( "scheduled_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
+    public DateTime? MomentSchedule { get; set; }
+
+    /// <summary>
+    /// Moment in which the email was created.
+    /// </summary>
+    [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
+    public DateTime MomentCreated { get; set; }
 }

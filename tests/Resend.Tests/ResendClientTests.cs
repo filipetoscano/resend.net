@@ -85,6 +85,33 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
 
     /// <summary />
     [Fact]
+    public async Task EmailReschedule()
+    {
+        var emailId = Guid.NewGuid();
+        var rescheduleFor = DateTime.UtcNow.AddDays( 1 );
+
+        var resp = await _resend.EmailRescheduleAsync( emailId, rescheduleFor );
+
+        Assert.NotNull( resp );
+        Assert.True( resp.Success );
+    }
+
+
+    /// <summary />
+    [Fact]
+    public async Task EmailCancel()
+    {
+        var emailId = Guid.NewGuid();
+
+        var resp = await _resend.EmailCancelAsync( emailId );
+
+        Assert.NotNull( resp );
+        Assert.True( resp.Success );
+    }
+
+
+    /// <summary />
+    [Fact]
     public async Task DomainList()
     {
         var resp = await _resend.DomainListAsync();

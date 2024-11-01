@@ -54,6 +54,34 @@ public interface IResend
 
 
     /// <summary>
+    /// Reschedule an email.
+    /// </summary>
+    /// <param name="emailId">
+    /// Email identifier.
+    /// </param>
+    /// <param name="rescheduleFor">
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <see href="https://www.resend.com/docs/api-reference/emails/update-email"/>
+    Task<ResendResponse> EmailRescheduleAsync( Guid emailId, DateTime rescheduleFor, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Cancel a scheduled email.
+    /// </summary>
+    /// <param name="emailId">
+    /// Email identifier.
+    /// </param>
+    /// <param name="cancellationToken">
+    /// Cancellation token.
+    /// </param>
+    /// <see href="https://www.resend.com/docs/api-reference/emails/cancel-email"/>
+    Task<ResendResponse> EmailCancelAsync( Guid emailId, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
     /// Retrieve a list of domains for the authenticated user.
     /// </summary>
     /// <param name="cancellationToken">

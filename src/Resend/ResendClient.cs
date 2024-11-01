@@ -3,7 +3,6 @@ using Resend.Payloads;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
-using System.Security;
 
 namespace Resend;
 
@@ -37,7 +36,7 @@ public class ResendClient : IResend
 
 
         /*
-         * Ask for JSON responses. Not necessar atm, since Resend always/only
+         * Ask for JSON responses. Not necessary atm, since Resend always/only
          * answers in JSON -- but good for future proofing.
          */
         httpClient.DefaultRequestHeaders.Accept.Add( new MediaTypeWithQualityHeaderValue( "application/json" ) );
@@ -105,6 +104,40 @@ public class ResendClient : IResend
 
         var value = obj.Select( x => x.Id ).ToList();
         return new ResendResponse<List<Guid>>( value );
+    }
+
+
+    /// <inheritdoc />
+    public async Task<ResendResponse> EmailRescheduleAsync( Guid emailId, DateTime rescheduleFor, CancellationToken cancellationToken = default )
+    {
+        var path = $"/emails/{emailId}";
+        var req = new EmailRescheduleRequest()
+        {
+            MomentSchedule = rescheduleFor,
+        };
+
+        var resp = await _http.PatchAsJsonAsync( path, req, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        return new ResendResponse();
+    }
+
+
+    /// <inheritdoc />
+    public async Task<ResendResponse> EmailCancelAsync( Guid emailId, CancellationToken cancellationToken = default )
+    {
+        var path = $"emails/{emailId}/cancel";
+        var resp = await _http.PostAsync( path, null, cancellationToken );
+
+        resp.EnsureSuccessStatusCode();
+
+        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
+
+        if ( obj == null )
+            throw new InvalidOperationException( "Received null response" );
+
+        return new ResendResponse();
     }
 
 

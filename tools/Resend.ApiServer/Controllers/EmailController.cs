@@ -63,4 +63,34 @@ public class EmailController : ControllerBase
             Id = Guid.NewGuid(),
         } );
     }
+
+
+    /// <summary />
+    [HttpPatch]
+    [Route( "emails/{id}" )]
+    public ObjectId EmailReschedule( [FromRoute] Guid emailId, [FromBody] EmailRescheduleRequest request )
+    {
+        _logger.LogDebug( "EmailReschedule" );
+
+        return new ObjectId()
+        {
+            Object = "email",
+            Id = emailId,
+        };
+    }
+
+
+    /// <summary />
+    [HttpPost]
+    [Route( "emails/{id}/cancel" )]
+    public ObjectId EmailCancel( [FromRoute] Guid emailId )
+    {
+        _logger.LogDebug( "EmailCancel" );
+
+        return new ObjectId()
+        {
+            Object = "email",
+            Id = emailId,
+        };
+    }
 }
