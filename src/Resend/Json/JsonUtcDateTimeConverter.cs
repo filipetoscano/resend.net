@@ -21,20 +21,27 @@ public class JsonUtcDateTimeConverter : JsonConverter<DateTime>
             throw new JsonException( $"Expected String when converting DateTime, found {reader.TokenType}" );
 
         var str = reader.GetString()!;
-        DateTime date;
+        DateTime value;
 
         try
         {
             // TODO: Consider exact parsing?
 
-            date = DateTime.Parse( str );
+            value = DateTime.Parse( str );
         }
         catch ( FormatException ex )
         {
             throw new JsonException( $"Value '{str}' is not valid", ex );
         }
 
-        return DateTime.SpecifyKind( date, DateTimeKind.Utc );
+
+        /*
+         * Ensure UTC
+         */
+        if ( value.Kind == DateTimeKind.Utc )
+            return value;
+
+        return DateTime.SpecifyKind( value, DateTimeKind.Utc );
     }
 
 
