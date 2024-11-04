@@ -41,7 +41,7 @@ public class JsonUtcDateTimeConverter : JsonConverter<DateTime>
         if ( value.Kind == DateTimeKind.Utc )
             return value;
 
-        return DateTime.SpecifyKind( value, DateTimeKind.Utc );
+        return value.ToUniversalTime();
     }
 
 
