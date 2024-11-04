@@ -26,8 +26,6 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
         /*
          * 
          */
-        reader.Read();
-
         if ( reader.TokenType != JsonTokenType.StartObject )
             throw new JsonException( "Expected StartObject" );
 
@@ -43,6 +41,7 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
         if ( reader.GetString() != "type" )
             throw new JsonException( "Expected 'type' property" );
 
+        reader.Read();
         value.EventType = _wet.Read( ref reader, typeof( Resend.WebhookEvent ), options );
 
 
@@ -57,6 +56,7 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
         if ( reader.GetString() != "created_at" )
             throw new JsonException( "Expected 'created_at' property" );
 
+        reader.Read();
         value.MomentCreated = _utc.Read( ref reader, typeof( DateTime ), options );
 
 
@@ -70,6 +70,8 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
 
         if ( reader.GetString() != "data" )
             throw new JsonException( "Expected 'data' property" );
+
+        reader.Read();
 
         if ( value.EventType.ToString().StartsWith( "Email" ) == true )
         {

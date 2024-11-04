@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System;
+using System.Text.Json;
 
 namespace Resend.Webhooks.Tests;
 
@@ -9,13 +10,23 @@ public class WebhookEventConverterTests
     [Fact]
     public void EmailEventRoundtrip()
     {
+        var utcNow = DateTime.UtcNow;
+        utcNow = new DateTime(
+            utcNow.Ticks - ( utcNow.Ticks % TimeSpan.TicksPerSecond ),
+            utcNow.Kind
+        );
+
+
+        /*
+         * 
+         */
         var expectedEmail = new EmailEventData();
         expectedEmail.Subject = "Test Roundtrip";
-        expectedEmail.MomentCreated = DateTime.UtcNow;
+        expectedEmail.MomentCreated = utcNow;
 
         var expected = new WebhookEvent();
         expected.EventType = Resend.WebhookEvent.EmailSent;
-        expected.MomentCreated = DateTime.UtcNow;
+        expected.MomentCreated = utcNow;
         expected.Data = expectedEmail;
 
         var json = JsonSerializer.Serialize( expected );
