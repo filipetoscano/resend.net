@@ -15,6 +15,7 @@ obj/
 
 # Specific
 tools/Resend.Cli/env.cmd
+tools/Resend.Cli/exec.cmd
 tools/Resend.Cli/*.json
 
 tests/Resend.Tests/TestReport/

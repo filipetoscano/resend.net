@@ -106,36 +106,46 @@ public class WebhookValidator
             { "svix-signature", s.Signature }
         };
 
-        s.IsValid = IsValid( h, payload );
 
-        if ( s.IsValid == false )
-            s.Exception = new WebhookException( "RWH201", "Signature validation failed" );
-
-        return s;
-    }
-
-
-    /// <summary />
-    private bool IsValid( WebHeaderCollection headers, string payload )
-    {
         /*
          * 
          */
-        var wh = new Svix.Webhook( _options.Secret );
+        Svix.Webhook wh;
 
         try
         {
-            wh.Verify( payload, headers );
-        }
-        catch ( WebhookVerificationException )
-        {
-            return false;
+            wh = new Svix.Webhook( _options.Secret );
         }
         catch
         {
-            throw;
+            s.Exception = new WebhookException( "RWH201", "Invalid signing secret" );
+
+            return s;
         }
 
-        return true;
+        try
+        {
+            wh.Verify( payload, h );
+        }
+        catch ( WebhookVerificationException )
+        {
+            s.Exception = new WebhookException( "RWH202", "Signature validation failed" );
+
+            return s;
+        }
+        catch
+        {
+            s.Exception = new WebhookException( "RWH203", "Unhandled exception verifying payload" );
+
+            return s;
+        }
+
+
+        /*
+         *
+         */
+        s.IsValid = true;
+
+        return s;
     }
 }
