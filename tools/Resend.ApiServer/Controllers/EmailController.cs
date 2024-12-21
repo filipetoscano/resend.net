@@ -53,15 +53,26 @@ public class EmailController : ControllerBase
     /// <summary />
     [HttpPost]
     [Route( "emails/batch" )]
-    public IEnumerable<ObjectId> EmailBatch( [FromBody] List<EmailMessage> messages )
+    public ListOf<ObjectId> EmailBatch( [FromBody] List<EmailMessage> messages )
     {
         _logger.LogDebug( "EmailBatch" );
 
-        return messages.Select( x => new ObjectId()
+        var list = new ListOf<ObjectId>();
+        list.Data = new List<ObjectId>();
+
+        list.Data.Add( new ObjectId()
         {
             Object = "email",
             Id = Guid.NewGuid(),
         } );
+
+        list.Data.Add( new ObjectId()
+        {
+            Object = "email",
+            Id = Guid.NewGuid(),
+        } );
+
+        return list;
     }
 
 

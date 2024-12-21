@@ -79,7 +79,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
 
         Assert.NotNull( resp );
         Assert.True( resp.Success );
-        Assert.Single( resp.Content );
+        Assert.Equal( 2, resp.Content.Count );
     }
 
 

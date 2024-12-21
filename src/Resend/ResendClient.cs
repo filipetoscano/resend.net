@@ -97,12 +97,12 @@ public class ResendClient : IResend
 
         resp.EnsureSuccessStatusCode();
 
-        var obj = await resp.Content.ReadFromJsonAsync<List<ObjectId>>( cancellationToken: cancellationToken );
+        var obj = await resp.Content.ReadFromJsonAsync<ListOf<ObjectId>>( cancellationToken: cancellationToken );
 
         if ( obj == null )
             throw new InvalidOperationException( "Received null response" );
 
-        var value = obj.Select( x => x.Id ).ToList();
+        var value = obj.Data.Select( x => x.Id ).ToList();
         return new ResendResponse<List<Guid>>( value );
     }
 
