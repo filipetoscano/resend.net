@@ -14,7 +14,7 @@ public enum WebhookEvent
     /// the message to the recipient’s mail server.
     /// </summary>
     [JsonStringValue( "email.sent" )]
-    EmailSent,
+    EmailSent = 1,
 
     /// <summary>
     /// Resend successfully delivered the email to the recipient’s mail server.
@@ -74,4 +74,23 @@ public enum WebhookEvent
     /// </summary>
     [JsonStringValue( "contact.deleted" )]
     ContactDeleted,
+
+
+    /// <summary>
+    /// A domain was successfully created.
+    /// </summary>
+    [JsonStringValue( "domain.created" )]
+    DomainCreated,
+
+    /// <summary>
+    /// A domain was successfully updated.
+    /// </summary>
+    [JsonStringValue( "domain.updated" )]
+    DomainUpdated,
+
+    /// <summary>
+    /// A domain was successfully deleted.
+    /// </summary>
+    [JsonStringValue( "domain.deleted" )]
+    DomainDeleted,
 }

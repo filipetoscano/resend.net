@@ -44,6 +44,8 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
         reader.Read();
         value.EventType = _wet.Read( ref reader, typeof( Resend.WebhookEvent ), options );
 
+        var category = value.EventType.Category();
+
 
         /*
          * 
@@ -73,7 +75,7 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
 
         reader.Read();
 
-        if ( value.EventType.ToString().StartsWith( "Email" ) == true )
+        if ( category == WebhookEventTypeCategory.Email )
         {
             var t1 = typeof( EmailEventData );
             var o1 = (JsonConverter<EmailEventData>) options.GetConverter( t1 );
@@ -85,12 +87,24 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
 
             value.Data = data;
         }
-        else if ( value.EventType.ToString().StartsWith( "Contact" ) == true )
+        else if ( category == WebhookEventTypeCategory.Contact )
         {
             var t2 = typeof( ContactEventData );
             var o2 = (JsonConverter<ContactEventData>) options.GetConverter( t2 );
 
             var data = o2.Read( ref reader, t2, options );
+
+            if ( data == null )
+                throw new JsonException( "Expected non-null data" );
+
+            value.Data = data;
+        }
+        else if ( category == WebhookEventTypeCategory.Domain )
+        {
+            var t3 = typeof( DomainEventData );
+            var o2 = (JsonConverter<DomainEventData>) options.GetConverter( t3 );
+
+            var data = o2.Read( ref reader, t3, options );
 
             if ( data == null )
                 throw new JsonException( "Expected non-null data" );
@@ -135,19 +149,26 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
          */
         writer.WritePropertyName( "data" );
 
-        if ( value.EventType.ToString().StartsWith( "Email" ) == true )
+        if ( value.EventType.Category() == WebhookEventTypeCategory.Email )
         {
             var t1 = typeof( EmailEventData );
             var o1 = (JsonConverter<EmailEventData>) options.GetConverter( t1 );
 
             o1.Write( writer, value.DataAs<EmailEventData>(), options );
         }
-        else if ( value.EventType.ToString().StartsWith( "Contact" ) == true )
+        else if ( value.EventType.Category() == WebhookEventTypeCategory.Contact )
         {
             var t2 = typeof( ContactEventData );
             var o2 = (JsonConverter<ContactEventData>) options.GetConverter( t2 );
 
             o2.Write( writer, value.DataAs<ContactEventData>(), options );
+        }
+        else if ( value.EventType.Category() == WebhookEventTypeCategory.Domain )
+        {
+            var t3 = typeof( DomainEventData );
+            var o3 = (JsonConverter<DomainEventData>) options.GetConverter( t3 );
+
+            o3.Write( writer, value.DataAs<DomainEventData>(), options );
         }
         else
         {

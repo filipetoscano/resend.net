@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Svix.Exceptions;
 using System.Net;
-using System.Text.Json;
+using System.Text;
 
 namespace Resend.Webhooks;
 
@@ -21,38 +20,103 @@ public class WebhookValidator
 
 
     /// <summary />
-    public ActionResult<Webhook> Validate( IHeaderDictionary header, string payload )
+    public WebhookValidation Validate( HttpRequest request )
     {
-        /*
-         * TODO:
-         */
-        var h = new WebHeaderCollection();
-        h.Add( "svix-id", "" );
-        h.Add( "svix-timestamp", "" );
-        h.Add( "svix-signature", "" );
+        var s = new WebhookValidation();
+        s.IsValid = false;
 
 
         /*
          * 
          */
-        if ( IsValid( h, payload ) == false )
-            return new BadRequestResult();
+        if ( request.Headers.ContainsKey( "svix-id" ) == false )
+        {
+            s.Exception = new WebhookException( "RWH101", "Missing required header 'svix-id'" );
+
+            return s;
+        }
+
+        if ( request.Headers.ContainsKey( "svix-timestamp" ) == false )
+        {
+            s.Exception = new WebhookException( "RWH102", "Missing required header 'svix-timestamp'" );
+
+            return s;
+        }
+
+        if ( request.Headers.ContainsKey( "svix-signature" ) == false )
+        {
+            s.Exception = new WebhookException( "RWH103", "Missing required header 'svix-signature'" );
+
+            return s;
+        }
+
+        if ( long.TryParse( request.Headers[ "svix-timestamp" ].ToString(), out var ts ) == false )
+        {
+            s.Exception = new WebhookException( "RWH104", "Invalid value 'svix-timestamp', expected long" );
+
+            return s;
+        }
+
+        s.MessageId = request.Headers[ "svix-id" ].ToString();
+        s.Timestamp = ts;
+        s.Signature = request.Headers[ "svix-signature" ].ToString();
 
 
         /*
          * 
          */
-        var obj = JsonSerializer.Deserialize<Webhook>( payload );
+        var bodyStream = request.Body;
+        string payload;
 
-        if ( obj == null )
-            return new BadRequestResult();
+        using ( var reader = new StreamReader( bodyStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: false, leaveOpen: false ) )
+        {
+            try
+            {
+                bodyStream.Position = 0;
+            }
+            catch
+            {
+                s.Exception = new WebhookException( "RWH001", "Unable to reset position, is EnableBuffering on?" );
 
-        return obj;
+                return s;
+            }
+
+            try
+            {
+                payload = reader.ReadToEnd();
+            }
+            catch
+            {
+                s.Exception = new WebhookException( "RWH002", "Unable to read raw body" );
+
+                return s;
+            }
+        }
+
+        s.Payload = payload;
+
+
+        /*
+         * 
+         */
+        var h = new WebHeaderCollection
+        {
+            { "svix-id", s.MessageId },
+            { "svix-timestamp", s.Timestamp.ToString() },
+            { "svix-signature", s.Signature }
+        };
+
+        s.IsValid = IsValid( h, payload );
+
+        if ( s.IsValid == false )
+            s.Exception = new WebhookException( "RWH201", "Signature validation failed" );
+
+        return s;
     }
 
 
     /// <summary />
-    public bool IsValid( WebHeaderCollection headers, string payload )
+    private bool IsValid( WebHeaderCollection headers, string payload )
     {
         /*
          * 

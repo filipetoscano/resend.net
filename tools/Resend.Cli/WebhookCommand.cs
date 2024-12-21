@@ -7,6 +7,7 @@ namespace Resend.Cli;
 [Subcommand( typeof( Webhook.WebhookCreateCommand ))]
 [Subcommand( typeof( Webhook.WebhookListCommand ))]
 [Subcommand( typeof( Webhook.WebhookDeleteCommand ) )]
+[Subcommand( typeof( Webhook.WebhookPostCommand ) )]
 public class WebhookCommand
 {
     /// <summary />

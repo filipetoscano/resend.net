@@ -23,6 +23,9 @@ public class EmailEventData : IWebhookData
     public EmailAddressList To { get; set; } = default!;
 
     /// <summary />
+    /// <remarks>
+    /// Only set for <see cref="Resend.WebhookEvent.EmailClicked" />, otherwise is null.
+    /// </remarks>
     [JsonPropertyName( "click" )]
     public EmailClickData? Click { get; set; }
 
