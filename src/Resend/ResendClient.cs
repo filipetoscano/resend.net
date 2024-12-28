@@ -62,14 +62,7 @@ public class ResendClient : IResend
     {
         var resp = await _http.PostAsJsonAsync( "/emails", email, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Guid>( obj.Id );
+        return await Handle<ObjectId, Guid>( resp, ( x ) => x.Id, cancellationToken );
     }
 
 
@@ -79,14 +72,7 @@ public class ResendClient : IResend
         var path = $"/emails/{emailId}";
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<EmailReceipt>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<EmailReceipt>( obj );
+        return await Handle<EmailReceipt, EmailReceipt>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -96,15 +82,7 @@ public class ResendClient : IResend
         var path = $"/emails/batch";
         var resp = await _http.PostAsJsonAsync( path, emails, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ListOf<ObjectId>>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        var value = obj.Data.Select( x => x.Id ).ToList();
-        return new ResendResponse<List<Guid>>( value );
+        return await Handle<ListOf<ObjectId>, List<Guid>>( resp, ( x ) => x.Data.Select( y => y.Id ).ToList(), cancellationToken );
     }
 
 
@@ -145,14 +123,7 @@ public class ResendClient : IResend
         var path = $"/domains";
         var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<Domain>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Domain>( obj );
+        return await Handle<Domain, Domain>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -162,14 +133,7 @@ public class ResendClient : IResend
         var path = $"/domains/{domainId}";
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<Domain>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Domain>( obj );
+        return await Handle<Domain, Domain>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -228,14 +192,7 @@ public class ResendClient : IResend
         var path = $"/api-keys";
         var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ApiKeyData>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<ApiKeyData>( obj );
+        return await Handle<ApiKeyData, ApiKeyData>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -280,14 +237,7 @@ public class ResendClient : IResend
         var path = $"/audiences";
         var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Guid>( obj.Id );
+        return await Handle<ObjectId, Guid>( resp, ( x ) => x.Id, cancellationToken );
     }
 
 
@@ -297,14 +247,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}";
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<Audience>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Audience>( obj );
+        return await Handle<Audience, Audience>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -337,14 +280,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}/contacts";
         var resp = await _http.PostAsJsonAsync( path, data, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Guid>( obj.Id );
+        return await Handle<ObjectId, Guid>( resp, ( x ) => x.Id, cancellationToken );
     }
 
 
@@ -354,14 +290,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}/contacts/{contactId}";
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<Contact>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<Contact>( obj );
+        return await Handle<Contact, Contact>( resp, ( x ) => x, cancellationToken );
     }
 
 
@@ -442,7 +371,7 @@ public class ResendClient : IResend
             return new ResendResponse( ex );
         }
 
-        
+
         /*
          * 
          */
