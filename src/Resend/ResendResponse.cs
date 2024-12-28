@@ -1,6 +1,5 @@
 ﻿namespace Resend;
 
-
 /// <summary>
 /// Response from Resend API.
 /// </summary>

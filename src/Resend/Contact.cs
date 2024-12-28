@@ -2,7 +2,6 @@
 
 namespace Resend;
 
-
 /// <summary>
 /// Properties of Contact.
 /// </summary>
