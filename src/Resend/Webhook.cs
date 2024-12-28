@@ -24,6 +24,26 @@ public class Webhook
     public DateTime MomentCreated { get; set; }
 
     /// <summary />
+    [JsonPropertyName( "status" )]
+    public WebhookStatus Status { get; set; }
+
+    /// <summary />
     [JsonPropertyName( "events" )]
     public List<WebhookEvent> Events { get; set; } = default!;
+
+    /// <summary />
+    /// <remarks>
+    /// Only returned in WebookRetrieve.
+    /// </remarks>
+    [JsonPropertyName( "svix_endpoint_id" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
+    public string? SvixEndpointId { get; set; }
+
+    /// <summary />
+    /// <remarks>
+    /// Only returned in WebookRetrieve.
+    /// </remarks>
+    [JsonPropertyName( "webhook_secret_key" )]
+    [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
+    public string? SecretKey { get; set; }
 }

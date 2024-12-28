@@ -27,7 +27,7 @@ public class WebhookListCommand
     public async Task<int> OnExecuteAsync()
     {
         //var res = await _resend.WebhookListAsync();
-        await Task.Delay( 10 );
+        await Task.Delay( 0 );
         var hooks = new List<Resend.Webhook>();
 
 
@@ -52,9 +52,9 @@ public class WebhookListCommand
                 table.AddRow(
                     new Markup( d.Id.ToString() ),
                     new Markup( d.EndpointUrl ),
-                    new Markup( "TODO" ),
+                    new Markup( string.Join( ",", d.Events ) ),
                     new Markup( d.MomentCreated.ToString() )
-                    );
+                );
             }
 
             AnsiConsole.Write( table );
