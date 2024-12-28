@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Resend.Payloads;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Reflection;
@@ -118,9 +119,7 @@ public class ResendClient : IResend
 
         var resp = await _http.PatchAsJsonAsync( path, req, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -130,14 +129,7 @@ public class ResendClient : IResend
         var path = $"emails/{emailId}/cancel";
         var resp = await _http.PostAsync( path, null, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ObjectId>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -187,9 +179,7 @@ public class ResendClient : IResend
         var path = $"/domains/{domainId}";
         var resp = await _http.PatchAsJsonAsync( path, data, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -201,9 +191,7 @@ public class ResendClient : IResend
 
         var resp = await _http.PostAsync( path, content, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -213,14 +201,7 @@ public class ResendClient : IResend
         var path = $"/domains";
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        var obj = await resp.Content.ReadFromJsonAsync<ListOf<Domain>>( cancellationToken: cancellationToken );
-
-        if ( obj == null )
-            throw new InvalidOperationException( "Received null response" );
-
-        return new ResendResponse<List<Domain>>( obj.Data );
+        return await Handle<ListOf<Domain>, List<Domain>>( resp, ( x ) => x.Data, cancellationToken );
     }
 
 
@@ -228,12 +209,9 @@ public class ResendClient : IResend
     public async Task<ResendResponse> DomainDeleteAsync( Guid domainId, CancellationToken cancellationToken = default )
     {
         var path = $"/domains/{domainId}";
-
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -275,10 +253,9 @@ public class ResendClient : IResend
     public async Task<ResendResponse> ApiKeyDelete( Guid apiKeyId, CancellationToken cancellationToken = default )
     {
         var path = $"/api-keys/{apiKeyId}";
-
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        return Handle( resp );
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -335,10 +312,9 @@ public class ResendClient : IResend
     public async Task<ResendResponse> AudienceDeleteAsync( Guid audienceId, CancellationToken cancellationToken = default )
     {
         var path = $"/audiences/{audienceId}";
-
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        return Handle( resp );
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -395,9 +371,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}/contacts/{contactId}";
         var resp = await _http.PatchAsJsonAsync( path, data, cancellationToken );
 
-        resp.EnsureSuccessStatusCode();
-
-        return new ResendResponse();
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -407,7 +381,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}/contacts/{contactId}";
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        return Handle( resp );
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -417,7 +391,7 @@ public class ResendClient : IResend
         var path = $"/audiences/{audienceId}/contacts/{email}";
         var resp = await _http.DeleteAsync( path, cancellationToken );
 
-        return Handle( resp );
+        return await Handle( resp, cancellationToken );
     }
 
 
@@ -432,19 +406,46 @@ public class ResendClient : IResend
 
 
     /// <summary />
-    private ResendResponse Handle( HttpResponseMessage resp )
+    private async Task<ResendResponse> Handle( HttpResponseMessage resp, CancellationToken cancellationToken )
     {
         /*
-         * 
+         * Following block is the same as Habdle<T1, T2>, but the response isn't <T2>.
          */
         if ( resp.IsSuccessStatusCode == false )
         {
-            if ( _throw == true )
-                resp.EnsureSuccessStatusCode();
+            ErrorResponse? err;
 
-            return new ResendResponse( resp.StatusCode );
+            try
+            {
+                err = await resp.Content.ReadFromJsonAsync<ErrorResponse>( cancellationToken );
+            }
+            catch ( Exception iex )
+            {
+                ResendException oex = new ResendException( HttpStatusCode.UnprocessableContent, ErrorType.Deserialization, "Failed deserializing error response", iex );
+
+                if ( _throw == true )
+                    throw oex;
+
+                return new ResendResponse( oex );
+            }
+
+            ResendException ex;
+
+            if ( err == null )
+                ex = new ResendException( resp.StatusCode, ErrorType.MissingResponse, "Missing error response" );
+            else
+                ex = new ResendException( err.StatusCode, err.ErrorType, err.Message );
+
+            if ( _throw == true )
+                throw ex;
+
+            return new ResendResponse( ex );
         }
 
+        
+        /*
+         * 
+         */
         return new ResendResponse();
     }
 
@@ -459,10 +460,33 @@ public class ResendClient : IResend
          */
         if ( resp.IsSuccessStatusCode == false )
         {
-            if ( _throw == true )
-                resp.EnsureSuccessStatusCode();
+            ErrorResponse? err;
 
-            return new ResendResponse<T2>( resp.StatusCode );
+            try
+            {
+                err = await resp.Content.ReadFromJsonAsync<ErrorResponse>( cancellationToken );
+            }
+            catch ( Exception iex )
+            {
+                ResendException oex = new ResendException( HttpStatusCode.UnprocessableContent, ErrorType.Deserialization, "Failed deserializing error response", iex );
+
+                if ( _throw == true )
+                    throw oex;
+
+                return new ResendResponse<T2>( oex );
+            }
+
+            ResendException ex;
+
+            if ( err == null )
+                ex = new ResendException( resp.StatusCode, ErrorType.MissingResponse, "Missing error response" );
+            else
+                ex = new ResendException( err.StatusCode, err.ErrorType, err.Message );
+
+            if ( _throw == true )
+                throw ex;
+
+            return new ResendResponse<T2>( ex );
         }
 
 
@@ -473,14 +497,16 @@ public class ResendClient : IResend
 
         try
         {
-            obj = await resp.Content.ReadFromJsonAsync<T1>( cancellationToken: cancellationToken );
+            obj = await resp.Content.ReadFromJsonAsync<T1>( cancellationToken );
         }
         catch ( Exception ex )
         {
-            if ( _throw == true )
-                throw;
+            ResendException oex = new ResendException( HttpStatusCode.UnprocessableContent, ErrorType.Deserialization, "Failed deserializing response", ex );
 
-            return new ResendResponse<T2>( ex, $"RC001: Failed to deserialize response" );
+            if ( _throw == true )
+                throw oex;
+
+            return new ResendResponse<T2>( oex );
         }
 
 
@@ -489,15 +515,17 @@ public class ResendClient : IResend
          */
         if ( obj == null )
         {
-            if ( _throw )
-                throw new InvalidOperationException( "RC002: Received null response" );
+            var ex = new ResendException( resp.StatusCode, ErrorType.MissingResponse, "Missing response" );
 
-            return new ResendResponse<T2>( "RC002: Received null response" );
+            if ( _throw )
+                throw ex;
+
+            return new ResendResponse<T2>( ex );
         }
 
 
         /*
-         * 
+         * Map T1 --> T2
          */
         T2 res;
 
@@ -507,15 +535,17 @@ public class ResendClient : IResend
         }
         catch ( Exception ex )
         {
-            if ( _throw )
-                throw;
+            var oex = new ResendException( resp.StatusCode, ErrorType.MissingResponse, "Failed to map response", ex );
 
-            return new ResendResponse<T2>( ex, $"RC003: Mapping from {typeof( T1 )} to {typeof( T2 )} failed" );
+            if ( _throw )
+                throw oex;
+
+            return new ResendResponse<T2>( oex );
         }
 
 
         /*
-         * 
+         * Ok
          */
         return new ResendResponse<T2>( res );
     }

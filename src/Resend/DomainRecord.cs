@@ -24,7 +24,9 @@ public class DomainRecord
     [JsonPropertyName( "type" )]
     public string RecordType { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Time to Live, in seconds -- or Auto.
+    /// </summary>
     [JsonPropertyName( "ttl" )]
     public string TimeToLive { get; set; } = default!;
 

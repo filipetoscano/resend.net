@@ -67,6 +67,15 @@ public class Program
 
             return 2;
         }
+        catch ( ResendException ex )
+        {
+            Console.WriteLine( "err: Resend API returned an error" );
+            Console.WriteLine( "Status Code = {0} {1}", (int) ex.StatusCode, ex.StatusCode );
+            Console.WriteLine( " Error Type = {0}", ex.ErrorType );
+            Console.WriteLine( "   Message  = {0}", ex.Message );
+
+            return 3;
+        }
         catch ( Exception ex )
         {
             Console.WriteLine( "ftl: unhandled exception during execution" );

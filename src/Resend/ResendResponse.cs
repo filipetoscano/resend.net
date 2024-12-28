@@ -1,6 +1,4 @@
-﻿using System.Net;
-
-namespace Resend;
+﻿namespace Resend;
 
 
 /// <summary>
@@ -9,9 +7,7 @@ namespace Resend;
 public class ResendResponse
 {
     private readonly bool _success;
-    private readonly HttpStatusCode? _statusCode;
     private readonly Exception? _exception;
-    private readonly string? _error;
 
 
     /// <summary />
@@ -22,27 +18,10 @@ public class ResendResponse
 
 
     /// <summary />
-    public ResendResponse( HttpStatusCode statusCode )
-    {
-        _success = false;
-        _statusCode = statusCode;
-    }
-
-
-    /// <summary />
-    public ResendResponse( string error )
-    {
-        _success = false;
-        _error = error;
-    }
-
-
-    /// <summary />
-    public ResendResponse( Exception exception, string error )
+    public ResendResponse( Exception exception )
     {
         _success = false;
         _exception = exception;
-        _error = error;
     }
 
 
@@ -77,22 +56,8 @@ public class ResendResponse<T> : ResendResponse
 
 
     /// <summary />
-    public ResendResponse( HttpStatusCode statusCode )
-        : base( statusCode )
-    {
-    }
-
-
-    /// <summary />
-    public ResendResponse( string error )
-        : base( error )
-    {
-    }
-
-
-    /// <summary />
-    public ResendResponse( Exception exception, string error )
-        : base( exception, error )
+    public ResendResponse( Exception exception )
+        : base( exception )
     {
     }
 
