@@ -121,6 +121,4 @@ Roadmap
 
 * Check if there is API for webhooks (client side, as well as server side)
 * Write documentation in the README.md
-* Return ApiResponse<T> (rather than T), for folks that prefer responses rather than exceptions
 * Complete the API / object XML documentation
-* Target multiple frameworks (.NET Standard, .NET 6) -- rather than .NET 7
