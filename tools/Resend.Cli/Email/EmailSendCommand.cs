@@ -47,6 +47,9 @@ public class EmailSendCommand
                 if ( att.Content != null )
                     continue;
 
+                if ( att.Path != null )
+                    continue;
+
                 if ( File.Exists( att.Filename ) == false )
                 {
                     Console.Error.WriteLine( "err: ES001: unable to load attachment from file {0}", att.Filename );
