@@ -21,7 +21,7 @@ public class EmailAttachment
     /// </remarks>
     [JsonPropertyName( "path" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
-    public Uri? Path { get; set; }
+    public string? Path { get; set; }
 
     /// <summary>
     /// Content of the attached file.
