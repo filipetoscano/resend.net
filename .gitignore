@@ -17,6 +17,7 @@ obj/
 tools/Resend.Cli/env.cmd
 tools/Resend.Cli/exec.cmd
 tools/Resend.Cli/*.json
+tools/Resend.Cli/Properties/launchSettings.json
 
 tests/Resend.Tests/TestReport/
 tests/Resend.Tests/TestResults/
