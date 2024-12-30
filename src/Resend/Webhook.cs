@@ -21,6 +21,7 @@ public class Webhook
     /// Moment in which endpoint was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentCreated { get; set; }
 
     /// <summary />
