@@ -109,6 +109,8 @@ public class WebhookEventConverterTests
         var expectedDomain = new DomainEventData();
         expectedDomain.Id = Guid.NewGuid();
         expectedDomain.Name = "example.com";
+        expectedDomain.Region = DeliveryRegion.UsEast1;
+        expectedDomain.Status = ValidationStatus.Verified;
         expectedDomain.MomentCreated = utcNow;
 
         var expected = new WebhookEvent();
@@ -132,6 +134,8 @@ public class WebhookEventConverterTests
 
         Assert.Equal( expectedDomain.Id, actualDomain.Id );
         Assert.Equal( expectedDomain.Name, actualDomain.Name );
+        Assert.Equal( expectedDomain.Region, actualDomain.Region );
+        Assert.Equal( expectedDomain.Status, actualDomain.Status );
         Assert.Equal( expectedDomain.MomentCreated, actualDomain.MomentCreated );
     }
 }
