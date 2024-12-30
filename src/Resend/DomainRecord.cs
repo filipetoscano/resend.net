@@ -6,14 +6,21 @@ namespace Resend;
 public class DomainRecord
 {
     /// <summary />
+    /// <remarks>
+    /// Example values: SPF, DKIM.
+    /// </remarks>
     [JsonPropertyName( "record" )]
     public string Record { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Name of the DNS record required for verification.
+    /// </summary>
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Value of the DNS record required for verification.
+    /// </summary>
     [JsonPropertyName( "value" )]
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public string? Value { get; set; }
@@ -21,6 +28,9 @@ public class DomainRecord
     /// <summary>
     /// Type of DNS record to be added.
     /// </summary>
+    /// <remarks>
+    /// Example values: TXT, MX.
+    /// </remarks>
     [JsonPropertyName( "type" )]
     public string RecordType { get; set; } = default!;
 
@@ -35,7 +45,9 @@ public class DomainRecord
     [JsonIgnore( Condition = JsonIgnoreCondition.WhenWritingNull )]
     public int? Priority { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Validation status of individual DNS record.
+    /// </summary>
     [JsonPropertyName( "status" )]
     public ValidationStatus Status { get; set; }
 }

@@ -17,7 +17,9 @@ public class Domain
     [JsonPropertyName( "name" )]
     public string Name { get; set; } = default!;
 
-    /// <summary />
+    /// <summary>
+    /// Validation status.
+    /// </summary>
     [JsonPropertyName( "status" )]
     public ValidationStatus Status { get; set; }
 
