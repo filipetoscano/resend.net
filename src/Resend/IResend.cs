@@ -1,4 +1,6 @@
-﻿namespace Resend;
+﻿using System.Threading.Tasks;
+
+namespace Resend;
 
 /// <summary>
 /// Resend client.
@@ -404,4 +406,58 @@ public interface IResend
     /// </returns>
     /// <see href="https://resend.com/docs/api-reference/contacts/list-contacts" />
     Task<ResendResponse<List<Contact>>> ContactListAsync( Guid audienceId, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Create a broadcast.
+    /// </summary>
+    /// <param name="data">Broadcast data.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>Broadcast identifier.</returns>
+    Task<ResendResponse<Guid>> BroadcastAddAsync( BroadcastData data, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Retrieve a broadcast.
+    /// </summary>
+    /// <param name="broadcastId">Broadcast identifier.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>Broadcast data.</returns>
+    Task<ResendResponse<Broadcast>> BroadcastRetrieveAsync( Guid broadcastId, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Sends a broadcast immediately.
+    /// </summary>
+    /// <param name="broadcastId">Broadcast identifier.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>Response.</returns>
+    Task<ResendResponse> BroadcastSendAsync( Guid broadcastId, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Schedules a broadcast for a future moment.
+    /// </summary>
+    /// <param name="broadcastId">Broadcast identifier.</param>
+    /// <param name="scheduleFor">Moment for which broadcast is being scheduled for.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>Response.</returns>
+    Task<ResendResponse> BroadcastScheduleAsync( Guid broadcastId, DateTime scheduleFor, CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Lists all broadcasts.
+    /// </summary>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>List of broadcasts</returns>
+    Task<ResendResponse<List<Broadcast>>> BroadcastListAsync( CancellationToken cancellationToken = default );
+
+
+    /// <summary>
+    /// Removes a broadcast.
+    /// </summary>
+    /// <param name="broadcastId">Broadcast identifier.</param>
+    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <returns>Response.</returns>
+    Task<ResendResponse> BroadcastDeleteAsync( Guid broadcastId, CancellationToken cancellationToken = default );
 }

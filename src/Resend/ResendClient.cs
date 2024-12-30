@@ -89,12 +89,12 @@ public class ResendClient : IResend
     /// <inheritdoc />
     public async Task<ResendResponse> EmailRescheduleAsync( Guid emailId, DateTime rescheduleFor, CancellationToken cancellationToken = default )
     {
-        var path = $"/emails/{emailId}";
         var req = new EmailRescheduleRequest()
         {
             MomentSchedule = rescheduleFor,
         };
 
+        var path = $"/emails/{emailId}";
         var resp = await _http.PatchAsJsonAsync( path, req, cancellationToken );
 
         return await Handle( resp, cancellationToken );
@@ -331,6 +331,73 @@ public class ResendClient : IResend
         var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
 
         return await Handle<ListOf<Contact>, List<Contact>>( resp, ( x ) => x.Data, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse<Guid>> BroadcastAddAsync( BroadcastData data, CancellationToken cancellationToken = default )
+    {
+        var path = $"/broadcasts";
+        var resp = await _http.PostAsJsonAsync( path, data, cancellationToken );
+
+        return await Handle<ObjectId, Guid>( resp, ( x ) => x.Id, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse<Broadcast>> BroadcastRetrieveAsync( Guid broadcastId, CancellationToken cancellationToken = default )
+    {
+        var path = $"/broadcasts/{broadcastId}";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        return await Handle<Broadcast, Broadcast>( resp, ( x ) => x, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> BroadcastSendAsync( Guid broadcastId, CancellationToken cancellationToken = default )
+    {
+        var req = new { };
+
+        var path = $"/broadcasts/{broadcastId}/send";
+        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+
+        return await Handle( resp, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> BroadcastScheduleAsync( Guid broadcastId, DateTime scheduleFor, CancellationToken cancellationToken = default )
+    {
+        var req = new BroadcastScheduleRequest()
+        {
+            MomentSchedule = scheduleFor,
+        };
+
+        var path = $"/broadcasts/{broadcastId}/send";
+        var resp = await _http.PostAsJsonAsync( path, req, cancellationToken );
+
+        return await Handle( resp, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse<List<Broadcast>>> BroadcastListAsync( CancellationToken cancellationToken = default )
+    {
+        var path = $"/broadcasts";
+        var resp = await _http.GetAsync( path, HttpCompletionOption.ResponseContentRead, cancellationToken );
+
+        return await Handle<ListOf<Broadcast>, List<Broadcast>>( resp, ( x ) => x.Data, cancellationToken );
+    }
+
+
+    /// <inheritdoc/>
+    public async Task<ResendResponse> BroadcastDeleteAsync( Guid broadcastId, CancellationToken cancellationToken = default )
+    {
+        var path = $"/broadcasts/{broadcastId}";
+        var resp = await _http.DeleteAsync( path, cancellationToken );
+
+        return await Handle( resp, cancellationToken );
     }
 
 

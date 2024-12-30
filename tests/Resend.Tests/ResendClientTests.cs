@@ -313,4 +313,76 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
 
         Assert.NotNull( resp );
     }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastCreate()
+    {
+        var req = new BroadcastData()
+        {
+            AudienceId = Guid.NewGuid(),
+            DisplayName = "Display Name",
+            Subject = "Unit testing",
+            From = "from@example.com",
+            HtmlBody = "From unit test!",
+        };
+
+        var resp = await _resend.BroadcastAddAsync( req );
+
+        Assert.NotNull( resp );
+        Assert.NotEqual( Guid.Empty, resp.Content );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastRetrieve()
+    {
+        var resp = await _resend.BroadcastRetrieveAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastSend()
+    {
+        var resp = await _resend.BroadcastSendAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastSchedule()
+    {
+        var resp = await _resend.BroadcastScheduleAsync( Guid.NewGuid(), DateTime.UtcNow );
+
+        Assert.NotNull( resp );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastList()
+    {
+        var resp = await _resend.BroadcastListAsync();
+
+        Assert.NotNull( resp );
+        Assert.NotNull( resp.Content );
+        Assert.Equal( 3, resp.Content.Count );
+    }
+
+
+    /// <summary/>
+    [Fact]
+    public async Task BroadcastDelete()
+    {
+        var resp = await _resend.BroadcastDeleteAsync( Guid.NewGuid() );
+
+        Assert.NotNull( resp );
+    }
 }

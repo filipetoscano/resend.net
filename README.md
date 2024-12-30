@@ -10,13 +10,14 @@
 Functionality
 --------------------------------------------------------------------------
 
-The `ResendClient` support the following objects (and methods):
+The `ResendClient` supports the following objects (and methods):
 
 * Email (Send, Batch, Retrieve, Reschedule, Cancel)
 * Domain (List, Add, Retrieve, Update, Verify, Delete)
 * API key (List, Create, Delete)
 * Audience (List, Add, Retrieve, Delete)
 * Contact (List, Add, Retrieve, Update, Delete)
+* Broadcast (List, Add, Retrieve, Send, Schedule, Delete)
 
 
 Installing via NuGet
@@ -104,6 +105,7 @@ Options:
 Commands:
   apikey        API key management
   audience      Audience management
+  broadcast     Broadcast management
   contact       Contact management
   domain        Email (sender) domain management
   email         Send emails

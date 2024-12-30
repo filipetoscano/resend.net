@@ -8,7 +8,7 @@ namespace Resend;
 public class Audience
 {
     /// <summary>
-    /// Audience key identifier.
+    /// Audience identifier.
     /// </summary>
     [JsonPropertyName( "id" )]
     public Guid Id { get; set; }
