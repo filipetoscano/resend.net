@@ -8,6 +8,7 @@ namespace Resend.Cli;
 [Subcommand( typeof( Domain.DomainDeleteCommand ))]
 [Subcommand( typeof( Domain.DomainListCommand ) )]
 [Subcommand( typeof( Domain.DomainRetrieveCommand ) )]
+[Subcommand( typeof( Domain.DomainUpdateCommand ) )]
 [Subcommand( typeof( Domain.DomainVerifyCommand ))]
 public class DomainCommand
 {
