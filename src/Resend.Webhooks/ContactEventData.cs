@@ -37,5 +37,5 @@ public class ContactEventData : IWebhookData
 
     /// <summary />
     [JsonPropertyName( "unsubscribed" )]
-    public bool IsUnsubscribe { get; set; }
+    public bool IsUnsubscribed { get; set; }
 }
