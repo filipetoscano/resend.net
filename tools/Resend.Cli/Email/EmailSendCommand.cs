@@ -74,15 +74,16 @@ public class EmailSendCommand
             Console.WriteLine( "  To: {0}", string.Join( ", ", message.To ) );
             Console.WriteLine( "Subj: {0}", message.Subject );
 
+            if ( message.HtmlBody != null )
+            {
+                Console.WriteLine( "Body: Html", message.Subject );
+                Console.WriteLine( "{0}", message.HtmlBody );
+            }
+
             if ( message.TextBody != null )
             {
                 Console.WriteLine( "Body: Text", message.Subject );
                 Console.WriteLine( "{0}", message.TextBody );
-            }
-            else
-            {
-                Console.WriteLine( "Body: Html", message.Subject );
-                Console.WriteLine( "{0}", message.HtmlBody );
             }
 
             // TODO: headers
