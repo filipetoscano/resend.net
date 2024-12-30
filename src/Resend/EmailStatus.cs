@@ -5,14 +5,37 @@ namespace Resend;
 /// <summary>
 /// Email statuses.
 /// </summary>
+/// <see href="https://github.com/resend/resend-node/blob/canary/src/emails/interfaces/get-email-options.interface.ts" />
 [JsonConverter( typeof( JsonStringEnumValueConverter<EmailStatus> ) )]
 public enum EmailStatus
 {
     /// <summary>
-    /// Email has been sent by Resend.
+    /// Email bounced (for whatever reason).
     /// </summary>
-    [JsonStringValue( "sent" )]
-    Sent,
+    [JsonStringValue( "bounced" )]
+    Bounced,
+
+    /// <summary>
+    /// Email has been canceled.
+    /// </summary>
+    [JsonStringValue( "canceled" )]
+    Canceled,
+
+    /// <summary>
+    /// Links in the email have been clicked on by recipient.
+    /// </summary>
+    /// <remarks>
+    /// This status is only available if the 'Click Tracking' option has
+    /// been enabled for the domain.
+    /// </remarks>
+    [JsonStringValue( "clicked" )]
+    Clicked,
+
+    /// <summary>
+    /// Recipient has filed a complaint.
+    /// </summary>
+    [JsonStringValue( "complained" )]
+    Complained,
 
     /// <summary>
     /// Email has been delivered to recipient.
@@ -27,28 +50,6 @@ public enum EmailStatus
     DeliveryDelayed,
 
     /// <summary>
-    /// Recipient has filed a complaint.
-    /// </summary>
-    [JsonStringValue( "complained" )]
-    Complained,
-
-    /// <summary>
-    /// Email bounced (for whatever reason).
-    /// </summary>
-    [JsonStringValue( "bounced" )]
-    Bounced,
-
-    /// <summary>
-    /// Links in the email have been clicked on by recipient.
-    /// </summary>
-    /// <remarks>
-    /// This status is only available if the 'Click Tracking' option has
-    /// been enabled for the domain.
-    /// </remarks>
-    [JsonStringValue( "clicked" )]
-    Clicked,
-
-    /// <summary>
     /// Email has been opened by recipient.
     /// </summary>
     /// <remarks>
@@ -57,4 +58,16 @@ public enum EmailStatus
     /// </remarks>
     [JsonStringValue( "opened" )]
     Opened,
+
+    /// <summary>
+    /// Email has been queued for delivery.
+    /// </summary>
+    [JsonStringValue( "queued" )]
+    Queued,
+
+    /// <summary>
+    /// Email is scheduled for (future) delivery.
+    /// </summary>
+    [JsonStringValue( "scheduled" )]
+    Scheduled,
 }

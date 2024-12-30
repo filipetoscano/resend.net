@@ -3,7 +3,8 @@
 namespace Resend;
 
 /// <summary />
-/// <see href="https://resend.com/docs/dashboard/domains/introduction#understand-a-domain-status"/>
+/// <see href="https://resend.com/docs/dashboard/domains/introduction#understand-a-domain-status" />
+/// <see href="https://github.com/resend/resend-node/blob/canary/src/domains/interfaces/domain.ts" />
 [JsonConverter( typeof( JsonStringEnumValueConverter<ValidationStatus> ) )]
 public enum ValidationStatus
 {
@@ -30,8 +31,8 @@ public enum ValidationStatus
     /// Validation has failed: Resend was unable to detect necessary DNS
     /// records within 72h.
     /// </summary>
-    [JsonStringValue( "failure" )]
-    Failure,
+    [JsonStringValue( "failed" )]
+    Failed,
 
     /// <summary>
     /// Previously verified domain no longer has necessary DNS records.
@@ -41,7 +42,7 @@ public enum ValidationStatus
     /// record required for verification. If at some point, Resend is unable to detect
     /// the record, the status would change to “<see cref="TemporaryFailure" />”. Resend will
     /// recheck for the DNS record for 72 hours, and if it’s unable to detect the
-    /// record, the domain status would change to “<see cref="Failure" />”. If it’s able to detect
+    /// record, the domain status would change to “<see cref="Failed" />”. If it’s able to detect
     /// the record, the domain status would change to “<see cref="Verified"/>”.
     /// </remarks>
     [JsonStringValue( "temporary_failure" )]

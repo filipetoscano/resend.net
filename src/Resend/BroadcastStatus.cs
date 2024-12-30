@@ -8,11 +8,21 @@ namespace Resend;
 [JsonConverter( typeof( JsonStringEnumValueConverter<BroadcastStatus> ) )]
 public enum BroadcastStatus
 {
-    /// <summary />
+    /// <summary>
+    /// Broadcast has not been sent.
+    /// </summary>
     [JsonStringValue( "draft" )]
     Draft,
 
-    /// <summary />
+    /// <summary>
+    /// Broadcast has been queued for sending.
+    /// </summary>
+    [JsonStringValue( "queued" )]
+    Queued,
+
+    /// <summary>
+    /// Broadcast has been sent.
+    /// </summary>
     [JsonStringValue( "sent" )]
     Sent,
 }
