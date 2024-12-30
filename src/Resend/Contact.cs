@@ -37,6 +37,7 @@ public class Contact
     /// Moment in which the contact was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentCreated { get; set; }
 
     /// <summary>

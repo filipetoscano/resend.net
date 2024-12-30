@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Resend.Cli.Contact;
 
 /// <summary />
-[Command( "patch", Description = "Update a contact" )]
+[Command( "update", Description = "Update a contact" )]
 public class ContactUpdateCommand
 {
     private readonly IResend _resend;
@@ -16,6 +16,7 @@ public class ContactUpdateCommand
 
     /// <summary />
     [Argument( 1, Description = "Contact identifier" )]
+    [Required]
     public Guid ContactId { get; set; }
 
     /// <summary />
