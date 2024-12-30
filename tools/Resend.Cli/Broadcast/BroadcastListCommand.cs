@@ -26,6 +26,9 @@ public class BroadcastListCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
+        /*
+         * 
+         */
         var res = await _resend.BroadcastListAsync();
         var contacts = res.Content;
 
@@ -38,10 +41,15 @@ public class BroadcastListCommand
         }
         else
         {
+            var res2 = await _resend.AudienceListAsync();
+            var audiences = res2.Content;
+
+
             var table = new Table();
             table.Border = TableBorder.SimpleHeavy;
             table.AddColumn( "Broadcast Id" );
-            table.AddColumn( "Audience Id" );
+            table.AddColumn( "Audience" );
+            table.AddColumn( "Name" );
             table.AddColumn( "Status" );
             table.AddColumn( "Created" );
             table.AddColumn( "Scheduled" );
@@ -49,9 +57,12 @@ public class BroadcastListCommand
 
             foreach ( var c in contacts )
             {
+                var aud = audiences.SingleOrDefault( x => x.Id == c.AudienceId );
+
                 table.AddRow(
                    new Markup( c.Id.ToString() ),
-                   new Markup( c.AudienceId.ToString() ),
+                   new Markup( aud?.Name ?? c.AudienceId.ToString() ),
+                   new Markup( c.DisplayName ?? "" ),
                    new Markup( c.Status.ToString() ),
                    new Markup( c.MomentCreated.ToShortDateString() ),
                    new Markup( c.MomentScheduled?.ToShortDateString() ?? "" ),
