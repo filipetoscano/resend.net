@@ -39,9 +39,9 @@ public enum ValidationStatus
     /// <remarks>
     /// For a previously verified domain, Resend will periodically check for the DNS
     /// record required for verification. If at some point, Resend is unable to detect
-    /// the record, the status would change to “<see cref="TemporaryFailure">”. Resend will
+    /// the record, the status would change to “<see cref="TemporaryFailure" />”. Resend will
     /// recheck for the DNS record for 72 hours, and if it’s unable to detect the
-    /// record, the domain status would change to “<see cref="Failure">”. If it’s able to detect
+    /// record, the domain status would change to “<see cref="Failure" />”. If it’s able to detect
     /// the record, the domain status would change to “<see cref="Verified"/>”.
     /// </remarks>
     [JsonStringValue( "temporary_failure" )]
