@@ -1,4 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 
 namespace Resend.Cli.Email;
@@ -12,7 +13,8 @@ public class EmailRetrieveCommand
 
     /// <summary />
     [Argument( 0, Description = "Email identifier" )]
-    public Guid EmailId { get; set; }
+    [Required]
+    public Guid? EmailId { get; set; }
 
     /// <summary />
     public EmailRetrieveCommand( IResend resend )
@@ -24,7 +26,7 @@ public class EmailRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.EmailRetrieveAsync( this.EmailId );
+        var res = await _resend.EmailRetrieveAsync( this.EmailId!.Value );
         var email = res.Content;
 
 

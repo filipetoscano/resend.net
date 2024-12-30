@@ -13,7 +13,7 @@ public class ApiKeyDeleteCommand
     /// <summary />
     [Argument( 0, Description = "API key identifier" )]
     [Required]
-    public Guid KeyId { get; set; }
+    public Guid? KeyId { get; set; }
 
 
     /// <summary />
@@ -26,7 +26,7 @@ public class ApiKeyDeleteCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.ApiKeyDelete( this.KeyId );
+        await _resend.ApiKeyDelete( this.KeyId!.Value );
 
         return 0;
     }

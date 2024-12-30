@@ -15,12 +15,12 @@ public class ContactRetrieveCommand
     /// <summary />
     [Argument( 0, Description = "Audience identifier" )]
     [Required]
-    public Guid AudienceId { get; set; }
+    public Guid? AudienceId { get; set; }
 
     /// <summary />
     [Argument( 1, Description = "Contact identifier" )]
     [Required]
-    public Guid ContactId { get; set; }
+    public Guid? ContactId { get; set; }
 
     /// <summary />
     [Option( "-j|--json", CommandOptionType.NoValue, Description = "Emit output as JSON array" )]
@@ -37,7 +37,7 @@ public class ContactRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.ContactRetrieveAsync( this.AudienceId, this.ContactId );
+        var res = await _resend.ContactRetrieveAsync( this.AudienceId!.Value, this.ContactId!.Value );
         var contact = res.Content;
 
 

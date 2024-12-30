@@ -13,7 +13,7 @@ public class AudienceDeleteCommand
     /// <summary />
     [Argument( 0, Description = "Audience identifier" )]
     [Required]
-    public Guid AudienceId { get; set; }
+    public Guid? AudienceId { get; set; }
 
 
     /// <summary />
@@ -26,7 +26,7 @@ public class AudienceDeleteCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.AudienceDeleteAsync( this.AudienceId );
+        await _resend.AudienceDeleteAsync( this.AudienceId!.Value );
 
         return 0;
     }

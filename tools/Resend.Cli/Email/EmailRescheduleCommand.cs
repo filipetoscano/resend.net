@@ -1,4 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using System.ComponentModel.DataAnnotations;
 
 namespace Resend.Cli.Email;
 
@@ -11,11 +12,13 @@ public class EmailRescheduleCommand
 
     /// <summary />
     [Argument( 0, Description = "Email identifier" )]
-    public Guid EmailId { get; set; }
+    [Required]
+    public Guid? EmailId { get; set; }
 
     /// <summary />
     [Argument( 1, Description = "Reschedule for" )]
-    public DateTime RescheduleFor { get; set; }
+    [Required]
+    public DateTime? RescheduleFor { get; set; }
 
 
     /// <summary />
@@ -28,7 +31,7 @@ public class EmailRescheduleCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.EmailRescheduleAsync( this.EmailId, this.RescheduleFor );
+        var res = await _resend.EmailRescheduleAsync( this.EmailId!.Value, this.RescheduleFor!.Value );
 
         return 0;
     }

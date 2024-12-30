@@ -14,13 +14,13 @@ public class DomainUpdateCommand
     /// <summary />
     [Argument( 0, Description = "Domain identifier" )]
     [Required]
-    public Guid DomainId { get; set; } = default!;
+    public Guid? DomainId { get; set; } = default!;
 
     /// <summary />
     [Argument( 1, Description = "Domain settings" )]
     [FileExists]
     [Required]
-    public string Filename { get; set; } = "";
+    public string? Filename { get; set; }
 
 
     /// <summary />
@@ -36,14 +36,14 @@ public class DomainUpdateCommand
         /*
          * 
          */
-        var json = await File.ReadAllTextAsync( this.Filename );
+        var json = await File.ReadAllTextAsync( this.Filename! );
         var dud = JsonSerializer.Deserialize<DomainUpdateData>( json );
 
 
         /*
          * 
          */
-        var res = await _resend.DomainUpdateAsync( this.DomainId, dud! );
+        var res = await _resend.DomainUpdateAsync( this.DomainId!.Value, dud! );
 
         return 0;
     }

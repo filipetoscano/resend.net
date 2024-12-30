@@ -13,7 +13,7 @@ public class ContactAddCommand
     /// <summary />
     [Argument( 0, Description = "The Audience Id." )]
     [Required]
-    public Guid AudienceId { get; set; }
+    public Guid? AudienceId { get; set; }
 
     /// <summary />
     [Option( "-e|--email", CommandOptionType.SingleValue, Description = "Email" )]
@@ -51,7 +51,7 @@ public class ContactAddCommand
             IsUnsubscribed = this.IsUnsubscribed,
         };
 
-        var res = await _resend.ContactAddAsync( this.AudienceId, data );
+        var res = await _resend.ContactAddAsync( this.AudienceId!.Value, data );
         var id = res.Content;
 
 

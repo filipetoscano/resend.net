@@ -13,7 +13,7 @@ public class DomainVerifyCommand
     /// <summary />
     [Argument( 0, Description = "Domain identifier" )]
     [Required]
-    public Guid DomainId { get; set; }
+    public Guid? DomainId { get; set; }
 
 
     /// <summary />
@@ -26,7 +26,7 @@ public class DomainVerifyCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.DomainVerifyAsync( this.DomainId );
+        await _resend.DomainVerifyAsync( this.DomainId!.Value );
 
         return 0;
     }

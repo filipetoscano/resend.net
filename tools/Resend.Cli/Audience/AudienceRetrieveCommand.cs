@@ -15,7 +15,7 @@ public class AudienceRetrieveCommand
     /// <summary />
     [Argument( 0, Description = "Audience identifier" )]
     [Required]
-    public Guid AudienceId { get; set; }
+    public Guid? AudienceId { get; set; }
 
     /// <summary />
     [Option( "-j|--json", CommandOptionType.NoValue, Description = "Emit output as JSON array" )]
@@ -32,7 +32,7 @@ public class AudienceRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.AudienceRetrieveAsync( this.AudienceId );
+        var res = await _resend.AudienceRetrieveAsync( this.AudienceId!.Value );
         var audience = res.Content;
 
 

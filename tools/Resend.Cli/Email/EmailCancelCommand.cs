@@ -1,4 +1,5 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
+using System.ComponentModel.DataAnnotations;
 
 namespace Resend.Cli.Email;
 
@@ -11,7 +12,9 @@ public class EmailCancelCommand
 
     /// <summary />
     [Argument( 0, Description = "Email identifier" )]
-    public Guid EmailId { get; set; }
+    [Required]
+    public Guid? EmailId { get; set; }
+
 
     /// <summary />
     public EmailCancelCommand( IResend resend )
@@ -23,7 +26,7 @@ public class EmailCancelCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.EmailCancelAsync( this.EmailId );
+        var res = await _resend.EmailCancelAsync( this.EmailId!.Value );
 
         return 0;
     }

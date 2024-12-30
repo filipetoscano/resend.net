@@ -13,7 +13,7 @@ public class DomainDeleteCommand
     /// <summary />
     [Argument( 0, Description = "Domain identifier" )]
     [Required]
-    public Guid DomainId { get; set; }
+    public Guid? DomainId { get; set; }
 
 
     /// <summary />
@@ -26,7 +26,7 @@ public class DomainDeleteCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        await _resend.DomainDeleteAsync( this.DomainId );
+        await _resend.DomainDeleteAsync( this.DomainId!.Value );
 
         return 0;
     }

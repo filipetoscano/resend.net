@@ -15,7 +15,7 @@ public class DomainRetrieveCommand
     /// <summary />
     [Argument( 0, Description = "Domain identifier" )]
     [Required]
-    public Guid DomainId { get; set; }
+    public Guid? DomainId { get; set; }
 
     /// <summary />
     [Option( "-j|--json", CommandOptionType.NoValue, Description = "Emit output as JSON array" )]
@@ -32,7 +32,7 @@ public class DomainRetrieveCommand
     /// <summary />
     public async Task<int> OnExecuteAsync()
     {
-        var res = await _resend.DomainRetrieveAsync( this.DomainId );
+        var res = await _resend.DomainRetrieveAsync( this.DomainId!.Value );
         var domain = res.Content;
 
 

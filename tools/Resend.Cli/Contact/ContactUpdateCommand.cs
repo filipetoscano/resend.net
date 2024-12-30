@@ -12,12 +12,12 @@ public class ContactUpdateCommand
     /// <summary />
     [Argument( 0, Description = "Audience identifier" )]
     [Required]
-    public Guid AudienceId { get; set; }
+    public Guid? AudienceId { get; set; }
 
     /// <summary />
     [Argument( 1, Description = "Contact identifier" )]
     [Required]
-    public Guid ContactId { get; set; }
+    public Guid? ContactId { get; set; }
 
     /// <summary />
     [Option( "-e|--email", CommandOptionType.SingleValue, Description = "Email" )]
@@ -54,7 +54,7 @@ public class ContactUpdateCommand
             IsUnsubscribed = this.IsUnsubscribed,
         };
 
-        await _resend.ContactUpdateAsync( this.AudienceId, this.ContactId, data );
+        await _resend.ContactUpdateAsync( this.AudienceId!.Value, this.ContactId!.Value, data );
 
         return 0;
     }
