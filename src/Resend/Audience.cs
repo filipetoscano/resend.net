@@ -23,5 +23,6 @@ public class Audience
     /// Moment in which the Audience was created.
     /// </summary>
     [JsonPropertyName( "created_at" )]
+    [JsonConverter( typeof( JsonUtcDateTimeConverter ) )]
     public DateTime MomentCreated { get; set; }
 }
