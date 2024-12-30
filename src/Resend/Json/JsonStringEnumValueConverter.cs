@@ -16,7 +16,7 @@ public class JsonStringEnumValueConverter<T> : JsonConverter<T>
     public JsonStringEnumValueConverter()
     {
         var tt = typeof( T );
-        
+
         var names = tt.GetEnumNames();
         var values = tt.GetEnumValues();
 
@@ -25,7 +25,7 @@ public class JsonStringEnumValueConverter<T> : JsonConverter<T>
 
         for ( var i = 0; i < names.Length; i++ )
         {
-            var name = names[i];
+            var name = names[ i ];
             var field = tt.GetField( name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static )!;
 
             var str = field.GetCustomAttribute<JsonStringValueAttribute>()?.Value ?? name;
@@ -62,6 +62,9 @@ public class JsonStringEnumValueConverter<T> : JsonConverter<T>
     /// <inheritdoc />
     public override void Write( Utf8JsonWriter writer, T value, JsonSerializerOptions options )
     {
+        if ( _fwd.ContainsKey( value ) == false )
+            throw new JsonException( $"SE003: Invalid '{typeof( T ).Name}' value: '{value}'" );
+
         var str = _fwd[ value ];
 
         writer.WriteStringValue( str );
