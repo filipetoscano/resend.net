@@ -1,5 +1,4 @@
 ﻿using McMaster.Extensions.CommandLineUtils;
-using Resend;
 using System.ComponentModel.DataAnnotations;
 
 namespace Resend.Cli.ApiKey;

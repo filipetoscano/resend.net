@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Resend;
+﻿namespace Resend;
 
 /// <summary>
 /// Resend client.
