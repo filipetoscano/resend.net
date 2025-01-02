@@ -25,4 +25,16 @@ public enum BroadcastStatus
     /// </summary>
     [JsonStringValue( "sent" )]
     Sent,
+
+    /// <summary>
+    /// Broadcast is scheduled for delivery.
+    /// </summary>
+    [JsonStringValue( "scheduled" )]
+    Scheduled,
+
+    /// <summary>
+    /// Broadcast failed to send.
+    /// </summary>
+    [JsonStringValue( "failed" )]
+    Failed,
 }
