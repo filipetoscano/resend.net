@@ -8,7 +8,7 @@ public class WebhookEvent
 {
     /// <summary />
     [JsonPropertyName( "type" )]
-    public Resend.WebhookEvent EventType { get; set; }
+    public WebhookEventType EventType { get; set; }
 
     /// <summary />
     [JsonPropertyName( "created_at" )]

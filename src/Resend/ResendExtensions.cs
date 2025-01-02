@@ -6,27 +6,27 @@ public static class ResendExtensions
     /// <summary>
     /// Returns the event category for a given event type.
     /// </summary>
-    public static WebhookEventTypeCategory Category( this WebhookEvent @event )
+    public static WebhookEventTypeCategory Category( this WebhookEventType @event )
     {
         switch ( @event )
         {
-            case WebhookEvent.DomainCreated:
-            case WebhookEvent.DomainUpdated:
-            case WebhookEvent.DomainDeleted:
+            case WebhookEventType.DomainCreated:
+            case WebhookEventType.DomainUpdated:
+            case WebhookEventType.DomainDeleted:
                 return WebhookEventTypeCategory.Domain;
 
-            case WebhookEvent.ContactCreated:
-            case WebhookEvent.ContactUpdated:
-            case WebhookEvent.ContactDeleted:
+            case WebhookEventType.ContactCreated:
+            case WebhookEventType.ContactUpdated:
+            case WebhookEventType.ContactDeleted:
                 return WebhookEventTypeCategory.Contact;
 
-            case WebhookEvent.EmailBounced:
-            case WebhookEvent.EmailClicked:
-            case WebhookEvent.EmailComplained:
-            case WebhookEvent.EmailDelivered:
-            case WebhookEvent.EmailDeliveryDelay:
-            case WebhookEvent.EmailOpened:
-            case WebhookEvent.EmailSent:
+            case WebhookEventType.EmailBounced:
+            case WebhookEventType.EmailClicked:
+            case WebhookEventType.EmailComplained:
+            case WebhookEventType.EmailDelivered:
+            case WebhookEventType.EmailDeliveryDelay:
+            case WebhookEventType.EmailOpened:
+            case WebhookEventType.EmailSent:
                 return WebhookEventTypeCategory.Email;
 
             default:

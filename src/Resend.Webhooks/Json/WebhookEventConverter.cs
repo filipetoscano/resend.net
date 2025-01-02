@@ -6,13 +6,13 @@ namespace Resend.Webhooks;
 /// <summary />
 public class WebhookEventConverter : JsonConverter<WebhookEvent>
 {
-    private readonly JsonStringEnumValueConverter<Resend.WebhookEvent> _wet;
+    private readonly JsonStringEnumValueConverter<WebhookEventType> _wet;
     private readonly JsonUtcDateTimeConverter _utc;
 
     /// <summary />
     public WebhookEventConverter()
     {
-        _wet = new JsonStringEnumValueConverter<Resend.WebhookEvent>();
+        _wet = new JsonStringEnumValueConverter<WebhookEventType>();
         _utc = new JsonUtcDateTimeConverter();
     }
 
@@ -42,7 +42,7 @@ public class WebhookEventConverter : JsonConverter<WebhookEvent>
             throw new JsonException( "Expected 'type' property" );
 
         reader.Read();
-        value.EventType = _wet.Read( ref reader, typeof( Resend.WebhookEvent ), options );
+        value.EventType = _wet.Read( ref reader, typeof( WebhookEventType ), options );
 
         var category = value.EventType.Category();
 

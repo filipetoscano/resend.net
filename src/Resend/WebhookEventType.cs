@@ -6,8 +6,8 @@ namespace Resend;
 /// <remarks>
 /// See https://www.resend.com/docs/dashboard/webhooks/event-types
 /// </remarks>
-[JsonConverter( typeof( JsonStringEnumValueConverter<WebhookEvent> ) )]
-public enum WebhookEvent
+[JsonConverter( typeof( JsonStringEnumValueConverter<WebhookEventType> ) )]
+public enum WebhookEventType
 {
     /// <summary>
     /// The API request was successful and Resend will attempt to deliver

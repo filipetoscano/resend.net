@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace Resend.Webhooks.Tests;
 
@@ -25,7 +24,7 @@ public class WebhookEventConverterTests
         expectedEmail.MomentCreated = utcNow;
 
         var expected = new WebhookEvent();
-        expected.EventType = Resend.WebhookEvent.EmailSent;
+        expected.EventType = WebhookEventType.EmailSent;
         expected.MomentCreated = utcNow;
         expected.Data = expectedEmail;
 
@@ -68,7 +67,7 @@ public class WebhookEventConverterTests
         expectedContact.MomentCreated = utcNow;
 
         var expected = new WebhookEvent();
-        expected.EventType = Resend.WebhookEvent.ContactCreated;
+        expected.EventType = WebhookEventType.ContactCreated;
         expected.MomentCreated = utcNow;
         expected.Data = expectedContact;
 
@@ -114,7 +113,7 @@ public class WebhookEventConverterTests
         expectedDomain.MomentCreated = utcNow;
 
         var expected = new WebhookEvent();
-        expected.EventType = Resend.WebhookEvent.DomainCreated;
+        expected.EventType = WebhookEventType.DomainCreated;
         expected.MomentCreated = utcNow;
         expected.Data = expectedDomain;
 
