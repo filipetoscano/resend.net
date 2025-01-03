@@ -2,7 +2,7 @@
 ==========================================================================
 
 [![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
-[![NuGet](http://img.shields.io/nuget/vpre/resend.svg?label=NuGet)](https://www.nuget.org/packages/Resend/)
+[![NuGet](https://img.shields.io/nuget/vpre/resend.svg?label=NuGet)](https://www.nuget.org/packages/Resend/)
 
 .NET client for [resend](https://resend.com), an email API, written in C#.
 

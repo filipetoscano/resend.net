@@ -2,7 +2,7 @@ resend webhooks
 ==========================================================================
 
 [![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
-[![NuGet](http://img.shields.io/nuget/vpre/resend.webhooks.svg?label=NuGet)](https://www.nuget.org/packages/Resend.Webhooks/)
+[![NuGet](https://img.shields.io/nuget/vpre/resend.webhooks.svg?label=NuGet)](https://www.nuget.org/packages/Resend.Webhooks/)
 
 
 Installing via NuGet
