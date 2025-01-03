@@ -6,7 +6,7 @@
 public class ResendResponse
 {
     private readonly bool _success;
-    private readonly Exception? _exception;
+    private readonly ResendException? _exception;
 
 
     /// <summary />
@@ -17,7 +17,7 @@ public class ResendResponse
 
 
     /// <summary />
-    public ResendResponse( Exception exception )
+    public ResendResponse( ResendException exception )
     {
         _success = false;
         _exception = exception;
@@ -29,10 +29,16 @@ public class ResendResponse
     /// </summary>
     public bool Success
     {
-        get
-        {
-            return _success;
-        }
+        get => _success;
+    }
+
+
+    /// <summary>
+    /// Gets the error in case of an unsuccessful execution.
+    /// </summary>
+    public ResendException? Exception
+    {
+        get => _exception;
     }
 }
 
@@ -55,7 +61,7 @@ public class ResendResponse<T> : ResendResponse
 
 
     /// <summary />
-    public ResendResponse( Exception exception )
+    public ResendResponse( ResendException exception )
         : base( exception )
     {
     }
