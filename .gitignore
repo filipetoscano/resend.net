@@ -21,5 +21,7 @@ tools/Resend.Cli/Properties/launchSettings.json
 
 tests/Resend.Tests/TestReport/
 tests/Resend.Tests/TestResults/
+tests/Resend.FluentEmail.Tests/TestReport/
+tests/Resend.FluentEmail.Tests/TestResults/
 
 # eof

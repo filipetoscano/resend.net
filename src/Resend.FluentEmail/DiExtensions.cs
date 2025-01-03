@@ -1,7 +1,7 @@
 ﻿using FluentEmail.Core.Interfaces;
 using Microsoft.Extensions.Options;
-using Resend.FluentEmail;
 using Resend;
+using Resend.FluentEmail;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

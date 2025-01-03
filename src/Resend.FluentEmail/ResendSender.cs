@@ -34,12 +34,33 @@ public class ResendSender : ISender
 
         var resp = await _resend.EmailSendAsync( message, token ?? CancellationToken.None );
 
-        // TODO: error handling
 
+        /*
+         * 
+         */
+        if ( resp.Success == false )
+        {
+            return new SendResponse()
+            {
+                ErrorMessages = ToErrorMessages( resp.Exception! ).ToList(),
+            };
+        }
+
+
+        /*
+         * 
+         */
         return new SendResponse()
         {
-            MessageId = resp.ToString(),
+            MessageId = resp.Content.ToString(),
         };
+    }
+
+
+    /// <summary />
+    private IEnumerable<string> ToErrorMessages( ResendException exception )
+    {
+        yield return $"{exception.StatusCode}: {exception.ErrorType}: {exception.Message}";
     }
 
 
@@ -72,9 +93,16 @@ public class ResendSender : ISender
          * Body
          */
         if ( email.Data.IsHtml == true )
+        {
             message.HtmlBody = email.Data.Body;
+
+            if ( email.Data.PlaintextAlternativeBody != "" )
+                message.TextBody = email.Data.PlaintextAlternativeBody;
+        }
         else
+        {
             message.TextBody = email.Data.Body;
+        }
 
 
         /*
@@ -121,18 +149,32 @@ public class ResendSender : ISender
          */
         if ( email.Data.Tags.Count > 0 )
         {
-            message.Tags.AddRange( email.Data.Tags.Select( x => new EmailTag()
+            message.Tags = email.Data.Tags.Select( x => new EmailTag()
             {
                 Name = x,
                 Value = "1",
-            } ) );
+            } ).ToList();
         }
 
 
         /*
          * Attachments
          */
-        // TODO
+        if ( email.Data.Attachments.Count > 0 )
+        {
+            message.Attachments = email.Data.Attachments.Select( x =>
+            {
+                var ms = new MemoryStream();
+                x.Data.CopyTo( ms );
+
+                return new EmailAttachment()
+                {
+                    Filename = x.Filename,
+                    ContentType = x.ContentType,
+                    Content = ms.ToArray(),
+                };
+            } ).ToList();
+        }
 
         return message;
     }
