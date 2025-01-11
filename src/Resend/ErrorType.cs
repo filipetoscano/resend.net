@@ -67,6 +67,16 @@ public enum ErrorType
     ApplicationError,
 
 
+
+    /// <summary>
+    /// Failed to send the HTTP request.
+    /// </summary>
+    /// <remarks>
+    /// Not returned by API, part of the SDK.
+    /// </remarks>
+    [JsonStringValue( "http_send_failed" )]
+    HttpSendFailed,
+
     /// <summary>
     /// Expected JSON response was missing.
     /// </summary>

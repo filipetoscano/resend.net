@@ -14,7 +14,7 @@ namespace Resend.Cli;
 [Subcommand( typeof( EmailCommand ) )]
 [Subcommand( typeof( WebhookCommand ) )]
 [HelpOption]
-[VersionOptionFromMember( MemberName = nameof( GetVersion ))]
+[VersionOptionFromMember( MemberName = nameof( GetVersion ) )]
 public class Program
 {
     /// <summary />
@@ -29,6 +29,11 @@ public class Program
         svc.AddOptions();
         svc.Configure<ResendClientOptions>( o =>
         {
+            var apiUrl = Environment.GetEnvironmentVariable( "RESEND_APIURL" );
+
+            if ( apiUrl != null )
+                o.ApiUrl = apiUrl;
+
             o.ApiToken = Environment.GetEnvironmentVariable( "RESEND_APITOKEN" )!;
         } );
         svc.AddHttpClient<ResendClient>();
@@ -71,7 +76,10 @@ public class Program
         catch ( ResendException ex )
         {
             Console.WriteLine( "err: Resend API returned an error" );
-            Console.WriteLine( "Status Code = {0} {1}", (int) ex.StatusCode, ex.StatusCode );
+
+            if ( ex.StatusCode != null )
+                Console.WriteLine( "Status Code = {0} {1}", (int) ex.StatusCode, ex.StatusCode );
+
             Console.WriteLine( " Error Type = {0}", ex.ErrorType );
             Console.WriteLine( "   Message  = {0}", ex.Message );
 
@@ -89,7 +97,7 @@ public class Program
 
     /// <summary />
     private static string GetVersion()
-    { 
+    {
         return typeof( Program ).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion;
     }
 

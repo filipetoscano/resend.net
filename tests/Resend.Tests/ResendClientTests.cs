@@ -56,6 +56,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         Assert.NotNull( resp );
         Assert.True( resp.Success );
         Assert.NotNull( resp.Content );
+        Assert.Equal( anyId, resp.Content.Id );
         Assert.Equal( "from@example.com", resp.Content.From.Email );
         Assert.Single( resp.Content.To );
         Assert.Null( resp.Content.TextBody );
@@ -73,7 +74,7 @@ public partial class ResendClientTests : IClassFixture<WebApplicationFactory<Pro
         email.To = "to@example.com";
         email.HtmlBody = "From unit test!";
 
-        var list = new List<EmailMessage>() { email };
+        var list = new List<EmailMessage>() { email, email };
 
         var resp = await _resend.EmailBatchAsync( list );
 

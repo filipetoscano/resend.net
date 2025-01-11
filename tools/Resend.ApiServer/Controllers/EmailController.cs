@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Resend.Payloads;
+using System.Net;
 
 namespace Resend.ApiServer.Controllers;
 
@@ -58,19 +59,11 @@ public class EmailController : ControllerBase
         _logger.LogDebug( "EmailBatch" );
 
         var list = new ListOf<ObjectId>();
-        list.Data = new List<ObjectId>();
-
-        list.Data.Add( new ObjectId()
+        list.Data = messages.Select( x => new ObjectId()
         {
             Object = "email",
             Id = Guid.NewGuid(),
-        } );
-
-        list.Data.Add( new ObjectId()
-        {
-            Object = "email",
-            Id = Guid.NewGuid(),
-        } );
+        } ).ToList();
 
         return list;
     }
@@ -79,9 +72,19 @@ public class EmailController : ControllerBase
     /// <summary />
     [HttpPatch]
     [Route( "emails/{id}" )]
-    public ObjectId EmailReschedule( [FromRoute] Guid emailId, [FromBody] EmailRescheduleRequest request )
+    public ActionResult<ObjectId> EmailReschedule( [FromRoute] Guid emailId, [FromBody] EmailRescheduleRequest request )
     {
         _logger.LogDebug( "EmailReschedule" );
+
+        if ( request.MomentSchedule < DateTime.UtcNow )
+        {
+            return BadRequest( new ErrorResponse()
+            {
+                StatusCode = (int) HttpStatusCode.BadRequest,
+                ErrorType = ErrorType.ApplicationError,
+                Message = "Moment in past",
+            } );
+        }
 
         return new ObjectId()
         {
