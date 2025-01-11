@@ -6,6 +6,7 @@
 public class ResendResponse
 {
     private readonly bool _success;
+    private readonly ResendRateLimit? _limit;
     private readonly ResendException? _exception;
 
 
@@ -13,13 +14,23 @@ public class ResendResponse
     public ResendResponse()
     {
         _success = true;
+        _limit = null;
     }
 
 
     /// <summary />
-    public ResendResponse( ResendException exception )
+    public ResendResponse( ResendRateLimit? limit )
+    {
+        _success = true;
+        _limit = limit;
+    }
+
+
+    /// <summary />
+    public ResendResponse( ResendException exception, ResendRateLimit? limit )
     {
         _success = false;
+        _limit = limit;
         _exception = exception;
     }
 
@@ -30,6 +41,13 @@ public class ResendResponse
     public bool Success
     {
         get => _success;
+    }
+
+
+    /// <summary />
+    public ResendRateLimit? Limits
+    {
+        get => _limit;
     }
 
 
@@ -53,16 +71,16 @@ public class ResendResponse<T> : ResendResponse
 
 
     /// <summary />
-    public ResendResponse( T value )
-        : base()
+    public ResendResponse( T value, ResendRateLimit? limit )
+        : base( limit )
     {
         _value = value;
     }
 
 
     /// <summary />
-    public ResendResponse( ResendException exception )
-        : base( exception )
+    public ResendResponse( ResendException exception, ResendRateLimit? limit )
+        : base( exception, limit )
     {
     }
 

@@ -424,8 +424,14 @@ public class ResendClient : IResend
             if ( _throw == true )
                 throw oex;
 
-            return new ResendResponse( oex );
+            return new ResendResponse( oex, null );
         }
+
+
+        /*
+         * 
+         */
+        var rrl = FromHeaders( resp.Headers );
 
 
         /*
@@ -446,7 +452,7 @@ public class ResendClient : IResend
                 if ( _throw == true )
                     throw oex;
 
-                return new ResendResponse( oex );
+                return new ResendResponse( oex, rrl );
             }
 
             ResendException ex;
@@ -459,14 +465,14 @@ public class ResendClient : IResend
             if ( _throw == true )
                 throw ex;
 
-            return new ResendResponse( ex );
+            return new ResendResponse( ex, rrl );
         }
 
 
         /*
          * 
          */
-        return new ResendResponse();
+        return new ResendResponse( rrl );
     }
 
 
@@ -495,8 +501,14 @@ public class ResendClient : IResend
             if ( _throw == true )
                 throw oex;
 
-            return new ResendResponse<T2>( oex );
+            return new ResendResponse<T2>( oex, null );
         }
+
+
+        /*
+         * 
+         */
+        var rrl = FromHeaders( resp.Headers );
 
 
         /*
@@ -521,7 +533,7 @@ public class ResendClient : IResend
                 if ( _throw == true )
                     throw oex;
 
-                return new ResendResponse<T2>( oex );
+                return new ResendResponse<T2>( oex, rrl );
             }
 
             ResendException ex;
@@ -534,7 +546,7 @@ public class ResendClient : IResend
             if ( _throw == true )
                 throw ex;
 
-            return new ResendResponse<T2>( ex );
+            return new ResendResponse<T2>( ex, rrl );
         }
 
 
@@ -558,7 +570,7 @@ public class ResendClient : IResend
             if ( _throw == true )
                 throw oex;
 
-            return new ResendResponse<T2>( oex );
+            return new ResendResponse<T2>( oex, rrl );
         }
 
 
@@ -572,7 +584,7 @@ public class ResendClient : IResend
             if ( _throw )
                 throw ex;
 
-            return new ResendResponse<T2>( ex );
+            return new ResendResponse<T2>( ex, rrl );
         }
 
 
@@ -592,13 +604,53 @@ public class ResendClient : IResend
             if ( _throw )
                 throw oex;
 
-            return new ResendResponse<T2>( oex );
+            return new ResendResponse<T2>( oex, rrl );
         }
 
 
         /*
          * Ok
          */
-        return new ResendResponse<T2>( res );
+        return new ResendResponse<T2>( res, rrl );
+    }
+
+
+    /// <summary />
+    private ResendRateLimit FromHeaders( HttpResponseHeaders headers )
+    {
+        var rrl = new ResendRateLimit();
+        rrl.Policy = Header2<string>( headers, "ratelimit-policy" );
+        rrl.Limit = Header<int>( headers, "ratelimit-limit" );
+        rrl.Remaining = Header<int>( headers, "ratelimit-remaining" );
+        rrl.Reset = Header<int>( headers, "ratelimit-reset" );
+        rrl.RetryAfter = Header<int>( headers, "retry-after" );
+
+        return rrl;
+    }
+
+
+    /// <summary />
+    private T? Header<T>( HttpResponseHeaders headers, string name )
+        where T : struct
+    {
+        if ( headers.Contains( name ) == false )
+            return default;
+
+        var v = headers.GetValues( name ).First();
+
+        return (T) Convert.ChangeType( v, typeof( T ) );
+    }
+
+
+    /// <summary />
+    private T? Header2<T>( HttpResponseHeaders headers, string name )
+        where T : class
+    {
+        if ( headers.Contains( name ) == false )
+            return null;
+
+        var v = headers.GetValues( name ).First();
+
+        return (T) Convert.ChangeType( v, typeof( T ) );
     }
 }
