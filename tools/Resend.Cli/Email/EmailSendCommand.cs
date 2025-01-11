@@ -11,9 +11,9 @@ public class EmailSendCommand
 
 
     /// <summary />
-    [Option( "-i|--input", CommandOptionType.SingleValue, Description = "Input JSON file" )]
+    [Argument( 0, Description = "Input JSON file" )]
     [FileExists]
-    public string InputFile { get; set; } = "email.json";
+    public string? InputFile { get; set; }
 
     /// <summary />
     [Option( "-v|--verbose", CommandOptionType.NoValue, Description = "Emit additional console output" )]
@@ -33,7 +33,29 @@ public class EmailSendCommand
         /*
          * 
          */
-        var json = File.ReadAllText( this.InputFile );
+        string json;
+
+        if ( Console.IsInputRedirected == true )
+        {
+            json = await Console.In.ReadToEndAsync();
+        }
+        else
+        {
+            var ifile = this.InputFile ?? "email.json";
+
+            if ( File.Exists( ifile ) == false )
+            {
+                var of = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine( "The file '{0}' does not exist.", ifile );
+                Console.ForegroundColor = of;
+
+                return 1;
+            }
+
+            json = File.ReadAllText( ifile );
+        }
+
         EmailMessage message = JsonSerializer.Deserialize<EmailMessage>( json )!;
 
 
@@ -98,6 +120,19 @@ public class EmailSendCommand
         var res = await _resend.EmailSendAsync( message );
 
         Console.WriteLine( res.Content );
+
+
+        /*
+         * 
+         */
+        if ( this.Verbose == true && res.Limits != null )
+        {
+            Console.WriteLine( "Policy={0}", res.Limits.Policy );
+            Console.WriteLine( "Limit={0}", res.Limits.Limit );
+            Console.WriteLine( "Remaining={0}", res.Limits.Remaining );
+            Console.WriteLine( "Reset={0}", res.Limits.Reset );
+            Console.WriteLine( "RetryAfter={0}", res.Limits.RetryAfter );
+        }
 
         return 0;
     }
