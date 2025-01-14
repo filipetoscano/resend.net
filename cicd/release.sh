@@ -68,8 +68,9 @@ zip -j -r  artifacts/resend-cli-osx-x64-${VERSION}.zip    tmp/osx-x64/resend-cli
 mkdir -p nupkg
 rm -f nupkg/*.*
 
-dotnet pack    -c Release --no-restore --no-build src/Resend -o nupkg -p:Version=${VERSION}
-dotnet pack    -c Release --no-restore --no-build src/Resend.Webhooks -o nupkg -p:Version=${VERSION}
+dotnet pack    -c Release --no-restore --no-build src/Resend              -o nupkg -p:Version=${VERSION}
+dotnet pack    -c Release --no-restore --no-build src/Resend.FluentEmail  -o nupkg -p:Version=${VERSION}
+dotnet pack    -c Release --no-restore --no-build src/Resend.Webhooks     -o nupkg -p:Version=${VERSION}
 
 dotnet nuget push "nupkg/*.nupkg" --api-key ${NUGET_APIKEY} --source=https://api.nuget.org/v3/index.json
 

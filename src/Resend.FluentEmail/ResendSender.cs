@@ -76,17 +76,17 @@ public class ResendSender : ISender
          * Basics
          */
         message.Subject = email.Data.Subject;
-        message.From = email.Data.FromAddress.EmailAddress;
+        message.From = ToEmailAddress( email.Data.FromAddress );
         message.To.AddRange( email.Data.ToAddresses.Select( x => x.EmailAddress ) );
 
         if ( email.Data.CcAddresses.Count > 0 )
-            message.Cc = EmailAddressList.From( email.Data.CcAddresses.Select( x => x.EmailAddress ) );
+            message.Cc = EmailAddressList.From( email.Data.CcAddresses.Select( x => x.ToString() ) );
 
         if ( email.Data.BccAddresses.Count > 0 )
-            message.Bcc = EmailAddressList.From( email.Data.BccAddresses.Select( x => x.EmailAddress ) );
+            message.Bcc = EmailAddressList.From( email.Data.BccAddresses.Select( x => x.ToString() ) );
 
         if ( email.Data.ReplyToAddresses.Count > 0 )
-            message.ReplyTo = EmailAddressList.From( email.Data.ReplyToAddresses.Select( x => x.EmailAddress ) );
+            message.ReplyTo = EmailAddressList.From( email.Data.ReplyToAddresses.Select( x => x.ToString() ) );
 
 
         /*
@@ -177,5 +177,18 @@ public class ResendSender : ISender
         }
 
         return message;
+    }
+
+
+    /// <summary />
+    private static EmailAddress ToEmailAddress( Address fluentAddress )
+    {
+        EmailAddress addr = new EmailAddress();
+        addr.Email = fluentAddress.EmailAddress;
+
+        if ( string.IsNullOrEmpty( fluentAddress.Name ) == true )
+            addr.DisplayName = fluentAddress.Name;
+
+        return addr;
     }
 }
