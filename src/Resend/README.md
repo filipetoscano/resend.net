@@ -6,10 +6,6 @@
 
 .NET client for [resend](https://resend.com), an email API, written in C#.
 
-Also:
-* [Resend.FluentEmail](https://github.com/filipetoscano/resend.net/tree/master/src/Resend.FluentEmail/README.md): Sender for FluentEmail
-* [Resent.Webhooks](https://github.com/filipetoscano/resend.net/blob/master/src/Resend.Webhooks/README.md): SDK to receive Webhooks from Resend
-
 
 Functionality
 --------------------------------------------------------------------------
@@ -88,43 +84,3 @@ public class FeatureImplementation
     }
 }
 ```
-
-
-`resend` command-line tool
---------------------------------------------------------------------------
-
-In addition to the .NET library, this repository also releases a cross platform
-command line interface program to invoke the API. This program is available as
-a .NET tool.
-
-```
-Command-line tool for Resend API
-
-Usage: resend [command] [options]
-
-Options:
-  --version     Show version information.
-  -?|-h|--help  Show help information.
-
-Commands:
-  apikey        API key management
-  audience      Audience management
-  broadcast     Broadcast management
-  contact       Contact management
-  domain        Email (sender) domain management
-  email         Send emails
-  webhook       Webhook management
-
-Run 'resend [command] -?|-h|--help' for more information about a command.
-```
-
-Each command has sub-commands: you can enumerate the sub-commands with
-the `--help` flag, eg `resend email --help`.
-
-
-Roadmap
---------------------------------------------------------------------------
-
-* Check if there is API for webhooks (client side, as well as server side)
-* Write documentation in the README.md
-* Complete the API / object XML documentation
