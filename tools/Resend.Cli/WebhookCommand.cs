@@ -6,7 +6,6 @@ namespace Resend.Cli;
 [Command( "webhook", Description = "Webhook management" )]
 [Subcommand( typeof( Webhook.WebhookPostCommand ) )]
 public class WebhookCommand
-public class WebhookCommand
 {
     /// <summary />
     public int OnExecute( CommandLineApplication app )
