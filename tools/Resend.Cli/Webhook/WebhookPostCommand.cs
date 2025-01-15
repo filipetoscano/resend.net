@@ -6,7 +6,7 @@ using System.Text;
 namespace Resend.Cli.Webhook;
 
 /// <summary />
-[Command( "post" )]
+[Command( "post", Description = "Post a webhook event onto a Webhook sink" )]
 public class WebhookPostCommand
 {
     /// <summary />
