@@ -1,49 +1,31 @@
-﻿resend
+﻿Resend .NET SDK
 ==========================================================================
 
-[![CI](https://github.com/resend/resend-dotnet/workflows/CI/badge.svg)](https://github.com/resend/resend-dotnet/actions)
-[![NuGet](https://img.shields.io/nuget/vpre/resend.svg?label=NuGet)](https://www.nuget.org/packages/Resend/)
-
-.NET client for [resend](https://resend.com), an email API, written in C#.
-
-Also:
-* [Resend.FluentEmail](https://github.com/resend/resend-dotnet/tree/master/src/Resend.FluentEmail/README.md): Sender for FluentEmail
-* [Resent.Webhooks](https://github.com/resend/resend-dotnet/blob/master/src/Resend.Webhooks/README.md): SDK to receive Webhooks from Resend
+.NET library for the Resend API.
 
 
-Functionality
+Install
 --------------------------------------------------------------------------
-
-The `ResendClient` supports the following objects (and methods):
-
-* Email (Send, Batch, Retrieve, Reschedule, Cancel)
-* Domain (List, Add, Retrieve, Update, Verify, Delete)
-* API key (List, Create, Delete)
-* Audience (List, Add, Retrieve, Delete)
-* Contact (List, Add, Retrieve, Update, Delete)
-* Broadcast (List, Add, Retrieve, Send, Schedule, Delete)
-
-
-Installing via NuGet
---------------------------------------------------------------------------
-
-Package is published in the [NuGet](https://www.nuget.org/packages/Resend/) gallery.
-
-From the command-line:
 
 ```
 > dotnet add package Resend
 ```
 
-From within Visual Studio using Package Manager Console:
 
-```
-PM> Install-Package Resend
-```
-
-
-Getting started
+Examples
 --------------------------------------------------------------------------
+
+Send email with:
+
+* ASP.NET Controller (WIP)
+* Console app (WIP)
+
+
+Setup
+--------------------------------------------------------------------------
+
+First, you need to get an API key, which is available in the
+[Resend Dashboard](https://resend.com/).
 
 In the startup of your application, configure the DI container as follows:
 
@@ -59,8 +41,13 @@ builder.Services.Configure<ResendClientOptions>( o =>
 builder.Services.AddTransient<IResend, ResendClient>()
 ```
 
+You can then use the injected `IResend` instance to send emails.
 
-Send an email using the injected `IResend` instance:
+
+Usage
+--------------------------------------------------------------------------
+
+Send your first email:
 
 ```
 using Resend;
@@ -79,10 +66,10 @@ public class FeatureImplementation
     public Task Execute()
     {
         var message = new EmailMessage();
-        message.From = "onboarding@resend.dev";
-        message.To.Add( "myapp@example.com" );
-        message.Subject = "Hello!";
-        message.HtmlBody = "<div><strong>Greetings<strong> 👋🏻 from .NET</div>";
+        message.From = "you@example.com";
+        message.To.Add( "user@gmail.com" );
+        message.Subject = "hello world";
+        message.TextBody = "it works!";
 
         await _resend.EmailSendAsync( message );
     }
@@ -90,33 +77,40 @@ public class FeatureImplementation
 ```
 
 
-`resend` command-line tool
+Send email using HTML
 --------------------------------------------------------------------------
 
-In addition to the .NET library, this repository also releases a cross platform
-command line interface program to invoke the API. This program is available as
-a .NET tool.
+Send an email custom HTML content:
 
 ```
-Command-line tool for Resend API
+using Resend;
 
-Usage: resend [command] [options]
+public class FeatureImplementation
+{
+    private readonly IResend _resend;
 
-Options:
-  --version     Show version information.
-  -?|-h|--help  Show help information.
 
-Commands:
-  apikey        API key management
-  audience      Audience management
-  broadcast     Broadcast management
-  contact       Contact management
-  domain        Email (sender) domain management
-  email         Send emails
-  webhook       Webhook management
+    public FeatureImplementation( IResend resend )
+    {
+        _resend = resend;
+    }
 
-Run 'resend [command] -?|-h|--help' for more information about a command.
+
+    public Task Execute()
+    {
+        var message = new EmailMessage();
+        message.From = "you@example.com";
+        message.To.Add( "user@gmail.com" );
+        message.Subject = "hello world";
+        message.HtmlBody = "<strong>it works!</strong>";
+
+        await _resend.EmailSendAsync( message );
+    }
+}
 ```
 
-Each command has sub-commands: you can enumerate the sub-commands with
-the `--help` flag, eg `resend email --help`.
+
+License
+--------------------------------------------------------------------------
+
+MIT License
