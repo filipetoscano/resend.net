@@ -1,7 +1,7 @@
 ﻿resend sender for FluentEmail
 ==========================================================================
 
-[![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
+[![CI](https://github.com/resend/resend-dotnet/workflows/CI/badge.svg)](https://github.com/resend/resend-dotnet/actions)
 [![NuGet](https://img.shields.io/nuget/vpre/resend.fluentemail.svg?label=NuGet)](https://www.nuget.org/packages/Resend.FluentEmail/)
 
 Send emails using [FluentEmail](https://github.com/lukencode/FluentEmail) .NET API,

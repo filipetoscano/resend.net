@@ -1,14 +1,14 @@
 ﻿resend
 ==========================================================================
 
-[![CI](https://github.com/filipetoscano/resend.net/workflows/CI/badge.svg)](https://github.com/filipetoscano/resend.net/actions)
+[![CI](https://github.com/resend/resend-dotnet/workflows/CI/badge.svg)](https://github.com/resend/resend-dotnet/actions)
 [![NuGet](https://img.shields.io/nuget/vpre/resend.svg?label=NuGet)](https://www.nuget.org/packages/Resend/)
 
 .NET client for [resend](https://resend.com), an email API, written in C#.
 
 Also:
-* [Resend.FluentEmail](https://github.com/filipetoscano/resend.net/tree/master/src/Resend.FluentEmail/README.md): Sender for FluentEmail
-* [Resent.Webhooks](https://github.com/filipetoscano/resend.net/blob/master/src/Resend.Webhooks/README.md): SDK to receive Webhooks from Resend
+* [Resend.FluentEmail](https://github.com/resend/resend-dotnet/tree/master/src/Resend.FluentEmail/README.md): Sender for FluentEmail
+* [Resent.Webhooks](https://github.com/resend/resend-dotnet/blob/master/src/Resend.Webhooks/README.md): SDK to receive Webhooks from Resend
 
 
 Functionality
@@ -120,11 +120,3 @@ Run 'resend [command] -?|-h|--help' for more information about a command.
 
 Each command has sub-commands: you can enumerate the sub-commands with
 the `--help` flag, eg `resend email --help`.
-
-
-Roadmap
---------------------------------------------------------------------------
-
-* Check if there is API for webhooks (client side, as well as server side)
-* Write documentation in the README.md
-* Complete the API / object XML documentation
