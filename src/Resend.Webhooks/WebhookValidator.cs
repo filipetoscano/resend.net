@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Svix.Exceptions;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 
 namespace Resend.Webhooks;
 
@@ -20,9 +21,50 @@ public class WebhookValidator
 
 
     /// <summary />
-    public WebhookValidation Validate( HttpRequest request )
+    public WebhookContext Validate( HttpRequest request )
     {
-        var s = new WebhookValidation();
+        /*
+         * 
+         */
+        var s = new WebhookContext();
+        s.IsValid = false;
+
+        var bodyStream = request.Body;
+
+        using ( var reader = new StreamReader( bodyStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: false, leaveOpen: false ) )
+        {
+            //try
+            //{
+            //    bodyStream.Position = 0;
+            //}
+            //catch
+            //{
+            //    s.Exception = new WebhookException( "RWH001", "Unable to reset position, is EnableBuffering on?" );
+
+            //    return s;
+            //}
+
+            try
+            {
+                s.Payload = reader.ReadToEnd();
+            }
+            catch
+            {
+                s.Exception = new WebhookException( "RWH002", "Unable to read raw body" );
+
+                return s;
+            }
+        }
+
+
+        return Validate( request, s.Payload );
+    }
+
+
+    /// <summary />
+    public WebhookContext Validate( HttpRequest request, string payload )
+    {
+        var s = new WebhookContext();
         s.IsValid = false;
 
 
@@ -60,39 +102,6 @@ public class WebhookValidator
         s.MessageId = request.Headers[ "svix-id" ].ToString();
         s.Timestamp = ts;
         s.Signature = request.Headers[ "svix-signature" ].ToString();
-
-
-        /*
-         * 
-         */
-        var bodyStream = request.Body;
-        string payload;
-
-        using ( var reader = new StreamReader( bodyStream, Encoding.UTF8, detectEncodingFromByteOrderMarks: false, leaveOpen: false ) )
-        {
-            try
-            {
-                bodyStream.Position = 0;
-            }
-            catch
-            {
-                s.Exception = new WebhookException( "RWH001", "Unable to reset position, is EnableBuffering on?" );
-
-                return s;
-            }
-
-            try
-            {
-                payload = reader.ReadToEnd();
-            }
-            catch
-            {
-                s.Exception = new WebhookException( "RWH002", "Unable to read raw body" );
-
-                return s;
-            }
-        }
-
         s.Payload = payload;
 
 
@@ -139,6 +148,12 @@ public class WebhookValidator
 
             return s;
         }
+
+
+        /*
+         * 
+         */
+        s.Event = JsonSerializer.Deserialize<WebhookEvent>( s.Payload );
 
 
         /*

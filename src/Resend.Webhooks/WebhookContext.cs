@@ -1,7 +1,7 @@
 ﻿namespace Resend.Webhooks;
 
 /// <summary />
-public class WebhookValidation
+public class WebhookContext
 {
     /// <summary>
     /// Unique message identifier.
@@ -22,6 +22,9 @@ public class WebhookValidation
     /// Raw JSON payload.
     /// </summary>
     public string Payload { get; set; } = default!;
+
+    /// <summary />
+    public WebhookEvent? Event { get; set; }
 
     /// <summary>
     /// Whether validation passed.

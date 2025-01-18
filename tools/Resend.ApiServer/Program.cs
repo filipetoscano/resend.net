@@ -1,4 +1,4 @@
-using Resend.Webhooks;
+using Resend.ApiServer.WebhookHandlers;
 
 namespace Resend.ApiServer;
 
@@ -15,13 +15,13 @@ public partial class Program
 
         builder.Services.AddControllers();
 
-        builder.Services.AddOptions();
-        builder.Services.AddOptions<WebhookValidatorOptions>();
-        builder.Services.AddTransient<WebhookValidator>();
-        builder.Services.Configure<WebhookValidatorOptions>( c =>
+        builder.Services.AddResendWebhooks( c =>
         {
             c.Secret = Environment.GetEnvironmentVariable( "RESEND_WEBHOOK_SECRET" )!;
         } );
+
+        builder.Services.AddScoped<Handler1>();
+        builder.Services.AddScoped<Handler2>();
 
 
         /*
@@ -30,15 +30,12 @@ public partial class Program
         var app = builder.Build();
 
         app.UseAuthorization();
-
-        app.Use( async ( context, next ) =>
-        {
-            context.Request.EnableBuffering();
-
-            await next();
-        } );
+        app.UseRouting();   // Required before MapResendWebhook
 
         app.MapControllers();
+
+        app.MapResendWebhook<Handler1>( "/webhook/sink1" );
+        app.MapResendWebhook<Handler2>( "/webhook/sink2" );
 
         app.Run();
     }
