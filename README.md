@@ -29,7 +29,7 @@ First, you need to get an API key, which is available in the
 
 In the startup of your application, configure the DI container as follows:
 
-```
+```csharp
 using Resend;
 
 builder.Services.AddOptions();
@@ -49,7 +49,7 @@ Usage
 
 Send your first email:
 
-```
+```csharp
 using Resend;
 
 public class FeatureImplementation
@@ -82,7 +82,7 @@ Send email using HTML
 
 Send an email custom HTML content:
 
-```
+```csharp
 using Resend;
 
 public class FeatureImplementation
