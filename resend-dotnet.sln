@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.Webhooks.Tests", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resend.FluentEmail.Tests", "tests\Resend.FluentEmail.Tests\Resend.FluentEmail.Tests.csproj", "{8404802E-9A45-4F0D-8CB5-02BF05ABFF94}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{121B647E-18F4-41CB-AC00-49D5F06D5320}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleNoDi", "examples\ConsoleNoDi\ConsoleNoDi.csproj", "{8FA908C3-1351-439C-A680-F1E10771D966}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,10 @@ Global
 		{8404802E-9A45-4F0D-8CB5-02BF05ABFF94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8404802E-9A45-4F0D-8CB5-02BF05ABFF94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8404802E-9A45-4F0D-8CB5-02BF05ABFF94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FA908C3-1351-439C-A680-F1E10771D966}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FA908C3-1351-439C-A680-F1E10771D966}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FA908C3-1351-439C-A680-F1E10771D966}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FA908C3-1351-439C-A680-F1E10771D966}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +98,7 @@ Global
 		{D8577065-830F-4E5A-80BD-DCC7E763DF0C} = {926E6B15-2004-46CC-B704-7FDB0E755705}
 		{43848C1B-A991-4EC1-958F-5EB180462A2C} = {5D754FB9-1914-41EC-B468-6946D96C3D81}
 		{8404802E-9A45-4F0D-8CB5-02BF05ABFF94} = {5D754FB9-1914-41EC-B468-6946D96C3D81}
+		{8FA908C3-1351-439C-A680-F1E10771D966} = {121B647E-18F4-41CB-AC00-49D5F06D5320}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15EEB6F3-A067-45F5-987C-824BD8FDEAF9}
