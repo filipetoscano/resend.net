@@ -3,9 +3,10 @@
 
 [![CI](https://github.com/resend/resend-dotnet/workflows/CI/badge.svg)](https://github.com/resend/resend-dotnet/actions)
 [![NuGet](https://img.shields.io/nuget/vpre/resend.fluentemail.svg?label=NuGet)](https://www.nuget.org/packages/Resend.FluentEmail/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Send emails using [FluentEmail](https://github.com/lukencode/FluentEmail) .NET API,
-using [resend](https://resend.com) as the underlying sender.
+using [Resend](https://resend.com) as the underlying sender.
 
 
 Functionality
