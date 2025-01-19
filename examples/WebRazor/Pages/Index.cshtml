@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Resend";
+}
+
+<form method="post" class="">
+    <h1 class="text-4xl dark:text-white">Send email</h1>
+
+    <div class="my-5">
+        <input type="text" asp-for="@Model.From" placeholder="From" class="w-full px-4 py-2 rounded dark:bg-gray-500" required />
+    </div>
+
+    <div class="my-5">
+        <input type="text" asp-for="@Model.To" placeholder="To" class="w-full px-4 py-2 rounded dark:bg-gray-500" required />
+    </div>
+
+    <div class="my-5">
+        <input type="text" asp-for="@Model.Subject" placeholder="Subject" class="w-full px-4 py-2 rounded dark:bg-gray-500" required />
+    </div>
+
+    <div class="my-5">
+        <textarea asp-for="@Model.TextBody" placeholder="Body" class="w-full px-4 py-2 rounded dark:bg-gray-500" required>
+        </textarea>
+    </div>
+    
+    <div class="my-5">
+        <button type="submit" value="Send" class="w-full px-4 py-2 rounded dark:bg-blue-800 dark:text-white">Send email</button>
+    </div>
+</form>

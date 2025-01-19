@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Resend</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WebRazor.styles.css" asp-append-version="true" />
+</head>
+<body class="dark:bg-black m-4">
+    <header>
+        <span class="sr-only">Resend</span>
+        <img class="w-auto h-7 relative object-contain block dark:hidden" src="https://mintlify.s3.us-west-1.amazonaws.com/resend/logo-black.svg" alt="light logo" />
+        <img class="w-auto h-7 relative object-contain hidden dark:block" src="https://mintlify.s3.us-west-1.amazonaws.com/resend/logo-white.svg" alt="dark logo" />
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

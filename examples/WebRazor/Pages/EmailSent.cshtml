@@ -1,0 +1,19 @@
+﻿@page "/email/sent"
+@model WebRazor.Pages.EmailSentModel
+@{
+    ViewData["Title"] = "Email sent";
+}
+
+<div class="">
+    <h1 class="text-4xl dark:text-white">Email sent</h1>
+
+    <div class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 mt-4" role="alert">
+        <div>
+            Email sent to <span>@TempData["SentTo"]</span> successfully.
+        </div>
+
+        <div>
+            Id = <span><@TempData["EmailId"]</span>
+        </div>
+    </div>
+</div>
