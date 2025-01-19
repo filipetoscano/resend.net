@@ -1,0 +1,6 @@
+@WebMinimalApi_HostAddress = http://localhost:5001
+
+POST {{WebMinimalApi_HostAddress}}/email/send
+Accept: application/json
+
+###
